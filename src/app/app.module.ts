@@ -3,14 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
- 
+
+//Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MapLocationComponent } from './components/map-location/map-location.component';
+
 //Services
 import { AuthService } from '../services/auth';
 //Third Party Modules
-import { AngularFireModule } from 'angularfire2';
+// import { AngularFireModule } from 'angularfire2';
 
 //AIzaSyDUYBC1v1l7LgXekjP3PR__PyEFwR2XQzo
 
@@ -25,7 +29,7 @@ const firebaseConfig = {
   };
 
 const appRoutes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent}
 ];
@@ -35,14 +39,16 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    MapLocationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
     AuthService,

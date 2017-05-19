@@ -22,7 +22,7 @@ export class AuthService {
 		firebase.auth().signOut()
 			.then(() => {
 				console.log('logged out');
-				this.router.navigate(['login']);
+				this.router.navigate(['/login']);
 			})
 			.catch((err) => {
 				console.log('error logging out');

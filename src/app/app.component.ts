@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 import * as firebase from 'firebase';
 
@@ -10,18 +11,36 @@ import * as firebase from 'firebase';
     storageBucket: "angularfire-ab896.appspot.com",
     messagingSenderId: "642273660133"
   };
-  firebase.initializeApp(config);
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
- 
+export class AppComponent implements OnInit {
+  isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router) {
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        this.isAuthenticated = true;
+        this.router.navigate(['dashboard']);
+      } else {
+        this.isAuthenticated = false;
+        this.router.navigate(['login']);
+      }
+      console.log('onAuthStateChange', this.isAuthenticated);
+    });
+
   
+  }
+
+  ngOnInit() {
+    
+      
   }
 
   onLogout() {
