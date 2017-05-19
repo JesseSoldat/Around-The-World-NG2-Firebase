@@ -14,9 +14,10 @@ import { MapLocationComponent } from './components/map-location/map-location.com
 //Services
 import { AuthService } from '../services/auth';
 //Third Party Modules
+import { AgmCoreModule } from 'angular2-google-maps/core';
 // import { AngularFireModule } from 'angularfire2';
 
-//AIzaSyDUYBC1v1l7LgXekjP3PR__PyEFwR2XQzo
+
 
 
 const firebaseConfig = {
@@ -31,7 +32,8 @@ const firebaseConfig = {
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'map-location', component: MapLocationComponent}
 ];
  
 
@@ -48,6 +50,9 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDUYBC1v1l7LgXekjP3PR__PyEFwR2XQzo'
+    })
     // AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [

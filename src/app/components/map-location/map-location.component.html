@@ -1,3 +1,12 @@
-<p>
-  map-location works!
-</p>
+<div class="col-md-12">
+	<sebm-google-map
+		[latitude]="location.lat"
+		[longitude]="location.lng"
+		[zoom]="4"
+		(mapClick)="onSetMarker($event)">
+			<sebm-google-map-marker *ngIf="marker"
+				[latitude]="marker.lat"
+				[longitude]="marker.lng">
+			</sebm-google-map-marker>
+	</sebm-google-map>
+</div>
