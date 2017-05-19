@@ -1,3 +1,5 @@
-<p>
-  register works!
-</p>
+<form #f="ngForm" (ngSubmit)="onEmailSignup(f)">
+	<input type="email" name="email" ngModel required>
+	<input type="text" name="password" ngModel required>
+	<button type="submit">Register</button>
+</form>
