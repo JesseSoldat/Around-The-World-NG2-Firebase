@@ -14,8 +14,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onEmailSignup(email: string, password: string) {
-  	this.authService.emailSignup(email, password).
+  onEmailSignup(form: NgForm) {
+  	
+  	this.authService.emailSignup(form.value.email, form.value.password).
   		then((user) => {
   			console.log(user);
   		})
