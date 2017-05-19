@@ -18,14 +18,15 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+ 
 
   constructor(private authService: AuthService) {
-  	this.logger();
+  
   }
 
-  logger() {
-  	console.log('logger');
-  	this.authService.authLog();
+  onLogout() {
+    this.authService.logOut();
   }
+
+ 
 }

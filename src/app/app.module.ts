@@ -25,7 +25,9 @@ const firebaseConfig = {
   };
 
 const appRoutes: Routes = [
-  {path: '', component: RegisterComponent},
+  {path: '', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent}
 ];
  
 

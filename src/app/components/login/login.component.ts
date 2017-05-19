@@ -14,6 +14,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+  onEmailSignin(form: NgForm) {
+  	this.authService.emailSignin(form.value.email, form.value.password).
+  		then((user) => {
+  			console.log(user);
+  		})
+  		.catch((err) => {
+  			console.log(err);
+  		});
+  }
 
 }
