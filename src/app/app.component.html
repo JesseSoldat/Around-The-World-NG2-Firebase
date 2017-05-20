@@ -48,11 +48,11 @@
           <!-- Dropdown <span class="caret"></span> -->
           </a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['dashboard']">Dashboard</a></li>
-            <li><a [routerLink]="['register']">Register</a></li>
-            <li><a [routerLink]="['login']">Login</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#" (click)="onLogout()">Logout</a></li>
+            <li *ngIf="isAuthenticated"><a [routerLink]="['dashboard']">Dashboard</a></li>
+            <li *ngIf="!isAuthenticated"><a [routerLink]="['register']">Register</a></li>
+            <li *ngIf="!isAuthenticated"><a [routerLink]="['login']">Login</a></li>
+            <li *ngIf="isAuthenticated" role="separator" class="divider"></li>
+            <li *ngIf="isAuthenticated"><a href="#" (click)="onLogout()">Logout</a></li>
           </ul>
         </li>
       </ul>

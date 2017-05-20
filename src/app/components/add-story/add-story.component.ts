@@ -17,11 +17,11 @@ export class AddStoryComponent implements OnInit {
 	storyForm: FormGroup;
 	location: Location;
 	marker: Location;
-  title: null;
-  description: null;
-  user;
-  uid;
-  token;
+  title = null;
+  description = null;
+  user = null;
+  uid = null;
+  token = null;
 
   constructor(private routeParams: ActivatedRoute,
   						private http: Http,
@@ -30,6 +30,8 @@ export class AddStoryComponent implements OnInit {
               private storyService: StoryService) {
 
       this.user = firebase.auth().currentUser;
+      this.uid = this.user.uid;
+
 	  	let location = this.routeParams.params.subscribe((data) => {
 			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));
 			
@@ -49,9 +51,9 @@ export class AddStoryComponent implements OnInit {
   }
 
   onAddStory() {
-    this.storyService.addStory(this.storyForm)
+    this.storyService.addStory(this.storyForm, this.uid)
      .then((res) => {
-       console.log('onAddStory', res);
+       // console.log('onAddStory', res);
      })
      .catch(err => console.log(err));
   }
@@ -65,17 +67,19 @@ export class AddStoryComponent implements OnInit {
   	let description = this.description;
     let lat = this.marker.lat;
     let lng = this.marker.lng;
+    let uid = this.uid;
 
      this.storyForm = this.fb.group({
        title: [title, Validators.required],
        description: [description],
        lat: [lat],
-       lng: [lng]
+       lng: [lng],
+       uid: [uid]
      
     });
 
     this.storyForm.valueChanges.subscribe(data => {
-      console.log('Form changes', data)
+      // console.log('Form changes', data)
       this.title = data.title;
       this.description = data.description;
       

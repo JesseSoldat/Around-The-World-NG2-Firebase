@@ -13,8 +13,10 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class StoryService {
-	user;
-	stories: FirebaseListObservable<any[]>;
+	user = '';
+	uid = '';
+	stories: FirebaseListObservable<Story[]>;
+	locations: FirebaseListObservable<Location[]>;
 	// story: FirebaseObjectObservable<any>;
 
 
@@ -23,23 +25,36 @@ export class StoryService {
 							private http: Http,
 							private authService: AuthService) {
 
-		this.user = authService.getActiveUser();
-		this.stories = afDb.list('users/stories') as FirebaseListObservable<Story[]>;
+		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Story[]>;
 	}
 
-	getUser() {
-		return this.user;
+	getStories(uid) {
+		this.uid = uid ? uid : '';
+
+		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<Story[]>;
 	}
 
-	getStories() {
-		return this.stories;
-	}
-
-	addStory(newStory) {
-		console.log(newStory.value);
-		this.stories = this.afDb.list(`users/stories`);
+	addStory(newStory, uid) {
 		let { value } = newStory;
+
+		this.addLocation(value, uid);
+
 		return this.stories.push(value);
+	}
+
+	addLocation(value, uid) {
+		console.log(value, uid);
+		let location = {
+			uid: uid,
+			lat: value.lat,
+			lng: value.lng,
+			title: value.title
+		}
+		return this.locations.push(location);
+	}
+
+	getLocations(lat, lng) {
+		return this.locations;
 	}
 }
 
@@ -47,5 +62,16 @@ interface Story {
 	$key?:string;
   title?:string;
   description?:string;
+  lat?:string;
+  lng?:string;
+  uid?:string;
   
+}
+
+interface Location {
+	$key?:string;
+	uid:string;
+	title: string;
+	lat:string;
+	lng:string;
 }
