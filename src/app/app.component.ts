@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth';
-import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
 
-  var config = {
-    apiKey: "AIzaSyBcDhfji5499fBObaKQtVj2fygUdaE0xiI",
-    authDomain: "angularfire-ab896.firebaseapp.com",
-    databaseURL: "https://angularfire-ab896.firebaseio.com",
-    projectId: "angularfire-ab896",
-    storageBucket: "angularfire-ab896.appspot.com",
-    messagingSenderId: "642273660133"
-  };
+import { AuthService } from '../services/auth';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +14,13 @@ import * as firebase from 'firebase';
 })
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
+  user: Observable<firebase.User>;
 
   constructor(private authService: AuthService,
-              private router: Router) {
-    firebase.initializeApp(config);
+              private router: Router,
+              private afAuth: AngularFireAuth) {
+
+    this.user = afAuth.authState;
 
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
@@ -33,19 +31,13 @@ export class AppComponent implements OnInit {
         this.router.navigate(['login']);
       }
       console.log('onAuthStateChange', this.isAuthenticated);
-    });
-
-  
+    }); 
   }
 
-  ngOnInit() {
-    
-      
-  }
+  ngOnInit() {}
 
   onLogout() {
     this.authService.logOut();
   }
-
  
 }

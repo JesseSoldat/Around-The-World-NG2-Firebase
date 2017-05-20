@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '../../../models/location';
 
 @Component({
@@ -14,7 +15,8 @@ export class MapLocationComponent implements OnInit {
 	marker: Location;
 	locationIsSet = false;
 
-  constructor() { }
+  constructor(private router: Router) { 
+  }
 
 
   ngOnInit() {
@@ -23,6 +25,15 @@ export class MapLocationComponent implements OnInit {
   onSetMarker(event) {
   	let { lat, lng } = event.coords;
   	this.marker = new Location(lat, lng);
+  }
+
+  onSetLocation() {
+  	this.router.navigate(['add-story', this.marker]);
+
+  }
+
+  onCancel() {
+
   }
 
 }

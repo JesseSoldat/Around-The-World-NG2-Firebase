@@ -10,6 +10,10 @@ export class AuthService {
 	constructor(private router: Router) {
 	}
 
+	getActiveUser() {
+		return firebase.auth().currentUser;
+	}
+
 	emailSignup(email: string, password: string) {
 		return firebase.auth().createUserWithEmailAndPassword(email, password);
 	}
