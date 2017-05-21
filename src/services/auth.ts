@@ -11,7 +11,7 @@ export class AuthService {
 	}
 
 	getActiveUser() {
-		return firebase.auth().currentUser.uid;
+		return firebase.auth().currentUser;
 	}
 
 	emailSignup(email: string, password: string) {

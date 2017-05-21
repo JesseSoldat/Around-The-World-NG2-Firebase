@@ -1,8 +1,25 @@
 #storyContainer {
 	background: white;
 }
+
+#selectDistance {
+	padding: 2% 0 0 0;
+}
+
+#label, #select {
+	margin-right: 5px;
+}
+
+#button {
+	margin-left: 5px;
+}
+
 sebm-google-map {
 	height: 200px;
 	width: 200px;
 	/*float: right;*/
+}
+
+#storyDescription {
+	margin-top: 2%;
 }

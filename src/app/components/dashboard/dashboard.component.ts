@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { StoryService } from '../../../services/story';
 import { AuthService } from '../../../services/auth';
+
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
 
@@ -11,27 +13,33 @@ import 'rxjs/Rx';
 })
 export class DashboardComponent implements OnInit {
 	stories;
-  user;
-  uid;
+  user: any;
+  uid = 'HBTaJt057Bf63oS771gah1allYe2';
   locations;
   closeFriends = [];
+  distanceForm: FormGroup;
+  lat: number = null;
+  lng: number = null;
+  measurement: string = 'miles';
+  distance: number = 5;
 
   constructor(private storyService: StoryService,
-              private authService: AuthService) { 
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if(user) {
-    //     this.uid = user.uid;
-    //   } else {
-    //     console.log('no user');
-    //   }
-    // }); 
-    // this.user = firebase.auth().currentUser;
-    this.uid = authService.getActiveUser();
+              private authService: AuthService,
+              private fb: FormBuilder) { 
+  
+   // this.initializeForm();
+    this.user = authService.getActiveUser();
+    if(this.user) {
+      this.uid = this.user.uid;
+    }
     
   }
 
   ngOnInit() {
-    this.uid = this.authService.getActiveUser();
+    this.user = this.authService.getActiveUser();
+    if(this.user) {
+      this.uid = this.user.uid;
+    }
 
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;
@@ -40,10 +48,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  findFriends(lat, lng) {
+  findFriends(form, lat, lng) {
+    console.log(form);
     this.storyService.getLocations(lat, lng).subscribe(locations => {
-      console.log(locations);
-
+     
       this.locations = locations.map((location) => {
         let friendLat = location.lat;
         let friendLng = location.lng;
@@ -56,9 +64,14 @@ export class DashboardComponent implements OnInit {
         // console.log('-------------------------------------------------');
         
         let totalDiff = this.getDistanceFromLatLonInKm(friendLat, friendLng, lat, lng)
-        console.log(totalDiff);
-        if(totalDiff <= 55) {
-          this.closeFriends.push(location);
+        if(totalDiff <= 40) {
+
+          if(this.uid === location.uid) {
+            return;
+          } else {
+            console.log(totalDiff);
+            this.closeFriends.push(location);
+          }
         }
       })//map
       console.log(this.closeFriends);
@@ -87,6 +100,24 @@ export class DashboardComponent implements OnInit {
   deg2rad(deg) {
     return deg * (Math.PI/180)
   }
+
+   // initializeForm() {
+   //   let distance = this.distance;
+   //   let measurement = this.measurement;
+   //   let lat = this.lat;
+   //   let lng = this.lng;
+
+   //   this.distanceForm = this.fb.group({
+   //     distance: [distance, Validators.required],
+   //     measurement: [measurement, Validators.required],
+   //     lat: [lat],
+   //     lng: [lng]
+   //   });
+
+   //   this.distanceForm.valueChanges.subscribe(data => {
+   //     console.log(data);
+   //   })
+   // }
 
 
 }

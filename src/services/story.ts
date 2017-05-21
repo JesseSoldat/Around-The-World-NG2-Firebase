@@ -17,6 +17,7 @@ export class StoryService {
 	uid = '';
 	stories: FirebaseListObservable<Story[]>;
 	locations: FirebaseListObservable<Location[]>;
+	
 	// story: FirebaseObjectObservable<any>;
 
 
@@ -75,3 +76,4 @@ interface Location {
 	lat:string;
 	lng:string;
 }
+

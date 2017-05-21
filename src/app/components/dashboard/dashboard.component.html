@@ -4,10 +4,48 @@
 		<li class="list-group-item" *ngFor="let story of stories" 
 		class="well col-md-12" id="storyContainer">
 			<div class="col-md-9">
-				<h2>{{story.title}}</h2><button (click)="findFriends(story.lat, story.lng)">Find Friends</button>
+				<div class="col-md-5">
+					<h2>{{story.title}}</h2>
+					
+				</div>
+				<div class="col-md-7" id="selectDistance">
+					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline">
+						<div class="form-group">
+							<label id="label">Select Distance</label>
+							<select class="form-control" id="select"
+								name="select" ngModel value="5" required>
+								<option value="5">5</option>
+							  <option value="10">10</option>
+							  <option value="20">20</option>
+							  <option value="30">30</option>
+							  <option value="100">100</option>
+							  <option value="200">200</option>
+							  <option value="500">500</option>
+							  <option value="1000">1000</option>
+							  <option value="none">No Limit</option>
+							</select>
+							<label class="radio-inline" id="radio">
+							  <input type="radio" name="miles" id="mile" value="miles" ngModel name="miles"> Miles
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="km" id="km" value="km2"
+							  ngModel name="km"> KM
+							</label>
+						</div>
+					<!-- 		<input type="hidden" [(ngModel)]="story.lat" 
+							name="lat">
+							<input type="hidden"  [(ngModel)]="story.lng"
+							name="lng"> -->
+						<button id="submit" class="btn btn-primary">Find Friends</button>
+					</form>
+
+				</div>
 				<hr>
-				<p>{{story.description}}</p>
+				<div class="col-md-9" id="storyDescription">
+					<p>{{story.description}}</p>
+				</div>
 			</div>
+			
 			<div class="col-md-3">
 				<sebm-google-map class="pull-right"
 					[latitude]="story.lat"
@@ -22,3 +60,4 @@
 		</li>
 	</ul>
 </div>
+
