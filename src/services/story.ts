@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 //Services
 import { AuthService } from './auth';
-
+//Models
+import { Story } from '../models/story';
 //Firebase
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -26,7 +27,7 @@ export class StoryService {
 							private http: Http,
 							private authService: AuthService) {
 
-		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Story[]>;
+		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
 	}
 
 	getStories(uid) {
@@ -59,15 +60,7 @@ export class StoryService {
 	}
 }
 
-interface Story {
-	$key?:string;
-  title?:string;
-  description?:string;
-  lat?:string;
-  lng?:string;
-  uid?:string;
-  
-}
+
 
 interface Location {
 	$key?:string;

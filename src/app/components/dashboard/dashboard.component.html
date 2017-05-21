@@ -1,7 +1,20 @@
 <div class="well col-md-10 col-md-offset-1">
-	<h1>Dashboard</h1>
+	<div class="col-md-12">
+		<div class="col-md-7">
+			<h1>Dashboard</h1>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label>Filter Places</label>
+				<input type="text" class="form-control"
+					[(ngModel)]="fTitle">
+			</div>
+		</div>
+	</div>
+	
 	<ul class="list-group">
-		<li class="list-group-item" *ngFor="let story of stories" 
+		<li class="list-group-item" *ngFor="let story of (stories | filterTitle:fTitle)" 
+		
 		class="well col-md-12" id="storyContainer">
 			<div class="col-md-9">
 				<div class="col-md-5">
@@ -16,16 +29,12 @@
 						    <option *ngFor="let d of distances" [value]="d">{{d}}</option>
 						  </select>
 							<label class="radio-inline">
-							  <input type="radio" name="measurment" value="miles" ngModel required> Miles
+							  <input type="radio" name="measurement" value="miles" ngModel required> Miles
 							</label>
 							<label class="radio-inline">
-							  <input type="radio" name="measurment" value="km" ngModel required> KM
+							  <input type="radio" name="measurement" value="km" ngModel required> KM
 							</label>
 						</div>
-					<!-- 		<input type="hidden" [(ngModel)]="story.lat" 
-							name="lat">
-							<input type="hidden"  [(ngModel)]="story.lng"
-							name="lng"> -->
 						<button id="submit" class="btn btn-primary"
 							[disabled]="!f.valid">Find Friends</button>
 					</form>

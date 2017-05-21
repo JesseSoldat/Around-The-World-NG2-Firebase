@@ -12,7 +12,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MapLocationComponent } from './components/map-location/map-location.component';
 import { AddStoryComponent } from './components/add-story/add-story.component';
-
+//Pipes
+import { FilterTitlePipe } from '../pipes/filterTitle';
 //Services
 import { AuthService } from '../services/auth';
 import { StoryService } from '../services/story';
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     DashboardComponent,
     MapLocationComponent,
-    AddStoryComponent
+    AddStoryComponent,
+    FilterTitlePipe
   ],
   imports: [
     BrowserModule,

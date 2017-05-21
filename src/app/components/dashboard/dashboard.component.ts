@@ -3,9 +3,12 @@ import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from '@angula
 import { StoryService } from '../../../services/story';
 import { AuthService } from '../../../services/auth';
 import { Distance } from '../../../models/distance';
+import { Place } from '../../../models/place';
+import { Story } from '../../../models/story';
 
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +16,14 @@ import 'rxjs/Rx';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-	stories;
+	stories: Story[];
   user: any;
   uid = 'HBTaJt057Bf63oS771gah1allYe2';
   locations;
   closeFriends = [];
-  distanceForm: FormGroup;
-  lat: number = null;
-  lng: number = null;
-  // miles: true;
-  // km: false;
-  measurement: string = 'miles';
-  distance: number = 5;
+  fTitle;
+  
+
   distances = [5,10,15,20,50,100,500,1000,5000,10000];
 
 
@@ -32,13 +31,10 @@ export class DashboardComponent implements OnInit {
               private authService: AuthService,
               private fb: FormBuilder) { 
   
-   // this.initializeForm();
     this.user = authService.getActiveUser();
     if(this.user) {
       this.uid = this.user.uid;
     }
-
-    
   }
 
   ngOnInit() {
@@ -54,26 +50,23 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
   findFriends(form, lat, lng) {
-    console.log(form);
     let distance = form.value.distance;
-    console.log(distance);
-    let measurement = form.measurement;
+    let measurement = form.value.measurement;
 
     this.storyService.getLocations(lat, lng).subscribe(locations => {
      
       this.locations = locations.map((location) => {
         let friendLat = location.lat;
         let friendLng = location.lng;
-
-        // console.log('friendLat',friendLat);
-        // console.log(lat);
-        // console.log('-------------------------------------------------');
-        // console.log('friendLng',friendLng);
-        // console.log(lng);
-        // console.log('-------------------------------------------------');
         
         let totalDiff = this.getDistanceFromLatLonInKm(friendLat, friendLng, lat, lng)
+        if(measurement === 'miles') {
+          // console.log('Km', totalDiff);
+          totalDiff = totalDiff *0.62137
+          // console.log('Miles', totalDiff);
+        }
         if(totalDiff <= distance) {
 
           if(this.uid === location.uid) {
@@ -91,7 +84,6 @@ export class DashboardComponent implements OnInit {
     
   }
   //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
-  
   //COPIED from a website it is used for the straight distance between two points
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
@@ -110,24 +102,4 @@ export class DashboardComponent implements OnInit {
   deg2rad(deg) {
     return deg * (Math.PI/180)
   }
-
-   // initializeForm() {
-   //   let distance = this.distance;
-   //   let measurement = this.measurement;
-   //   let lat = this.lat;
-   //   let lng = this.lng;
-
-   //   this.distanceForm = this.fb.group({
-   //     distance: [distance, Validators.required],
-   //     measurement: [measurement, Validators.required],
-   //     lat: [lat],
-   //     lng: [lng]
-   //   });
-
-   //   this.distanceForm.valueChanges.subscribe(data => {
-   //     console.log(data);
-   //   })
-   // }
-
-
 }
