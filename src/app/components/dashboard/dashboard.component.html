@@ -12,31 +12,22 @@
 					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline">
 						<div class="form-group">
 							<label id="label">Select Distance</label>
-							<select class="form-control" id="select"
-								name="select" ngModel value="5" required>
-								<option value="5">5</option>
-							  <option value="10">10</option>
-							  <option value="20">20</option>
-							  <option value="30">30</option>
-							  <option value="100">100</option>
-							  <option value="200">200</option>
-							  <option value="500">500</option>
-							  <option value="1000">1000</option>
-							  <option value="none">No Limit</option>
-							</select>
-							<label class="radio-inline" id="radio">
-							  <input type="radio" name="miles" id="mile" value="miles" ngModel name="miles"> Miles
+							 <select class="form-control" name="distance" ngModel  required>
+						    <option *ngFor="let d of distances" [value]="d">{{d}}</option>
+						  </select>
+							<label class="radio-inline">
+							  <input type="radio" name="measurment" value="miles" ngModel required> Miles
 							</label>
 							<label class="radio-inline">
-							  <input type="radio" name="km" id="km" value="km2"
-							  ngModel name="km"> KM
+							  <input type="radio" name="measurment" value="km" ngModel required> KM
 							</label>
 						</div>
 					<!-- 		<input type="hidden" [(ngModel)]="story.lat" 
 							name="lat">
 							<input type="hidden"  [(ngModel)]="story.lng"
 							name="lng"> -->
-						<button id="submit" class="btn btn-primary">Find Friends</button>
+						<button id="submit" class="btn btn-primary"
+							[disabled]="!f.valid">Find Friends</button>
 					</form>
 
 				</div>

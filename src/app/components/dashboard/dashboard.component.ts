@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { StoryService } from '../../../services/story';
 import { AuthService } from '../../../services/auth';
+import { Distance } from '../../../models/distance';
 
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
@@ -20,8 +21,12 @@ export class DashboardComponent implements OnInit {
   distanceForm: FormGroup;
   lat: number = null;
   lng: number = null;
+  // miles: true;
+  // km: false;
   measurement: string = 'miles';
   distance: number = 5;
+  distances = [5,10,15,20,50,100,500,1000,5000,10000];
+
 
   constructor(private storyService: StoryService,
               private authService: AuthService,
@@ -32,6 +37,7 @@ export class DashboardComponent implements OnInit {
     if(this.user) {
       this.uid = this.user.uid;
     }
+
     
   }
 
@@ -50,6 +56,10 @@ export class DashboardComponent implements OnInit {
 
   findFriends(form, lat, lng) {
     console.log(form);
+    let distance = form.value.distance;
+    console.log(distance);
+    let measurement = form.measurement;
+
     this.storyService.getLocations(lat, lng).subscribe(locations => {
      
       this.locations = locations.map((location) => {
@@ -64,7 +74,7 @@ export class DashboardComponent implements OnInit {
         // console.log('-------------------------------------------------');
         
         let totalDiff = this.getDistanceFromLatLonInKm(friendLat, friendLng, lat, lng)
-        if(totalDiff <= 40) {
+        if(totalDiff <= distance) {
 
           if(this.uid === location.uid) {
             return;
