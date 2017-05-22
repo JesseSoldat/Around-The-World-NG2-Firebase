@@ -77,8 +77,16 @@
         <ul class="list-group">
         	<li class="list-group-item"
         	*ngFor="let friend of closeFriends">
-        		<a [routerLink]="['/add-friend', {id: friend.uid}]"
-        		data-dismiss="modal">{{friend.title}}</a>
+        		<h5>{{friend.uid}}</h5>
+        		<ul class="list-group">	
+        		
+	        		<li *ngFor="let f of friend.friends">
+	      				<a [routerLink]="['/add-friend', {id: f.uid}]"
+	      				data-dismiss="modal">{{f.title}}
+	      				</a>
+	        		</li>
+        		</ul>
+        	
         	</li>
         </ul>
       </div>

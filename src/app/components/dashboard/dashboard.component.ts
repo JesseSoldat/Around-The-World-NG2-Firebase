@@ -4,7 +4,7 @@ import { StoryService } from '../../../services/story';
 import { AuthService } from '../../../services/auth';
 import { Distance } from '../../../models/distance';
 import { Place } from '../../../models/place';
-
+import * as _ from 'lodash';
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
 
@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   locations;
   closeFriends = [];
   fTitle;
+  currentUid;
   
 
   distances = [5,10,15,20,50,100,500,1000,5000,10000];
@@ -30,7 +31,6 @@ export class DashboardComponent implements OnInit {
               private authService: AuthService,
               private fb: FormBuilder) { 
  
-  
     this.user = authService.getActiveUser();
     if(this.user) {
       this.uid = this.user.uid;
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   findFriends(form, lat, lng) {
     let distance = form.value.distance;
     let measurement = form.value.measurement;
-    let closeFriends = [];
+   
 
     this.storyService.getLocations(lat, lng).subscribe(locations => {
      
@@ -76,18 +76,50 @@ export class DashboardComponent implements OnInit {
           if(this.uid === location.uid) {
             return;
           } else {
-            console.log(totalDiff);
+         
             this.closeFriends.push(location);
-            closeFriends.push(location);
           }
         }
       })//map
-      console.log(closeFriends);
+      console.log(this.closeFriends);
+       this.sortById();
+
     }, err => {
       console.log(err);
-    })
-    
+    })   
   }
+
+  sortById() {
+    // var data = [{
+    //   "name": "jim",
+    //       "color": "blue",
+    //         "age": "22"
+    //     }, {
+    //         "name": "Sam",
+    //             "color": "blue",
+    //             "age": "33"
+    //     }, {
+    //         "name": "eddie",
+    //             "color": "green",
+    //             "age": "77"
+    //     }];
+
+    // var result = _(data)
+    //             .groupBy(x => x.color)
+    //             .map((value, key) => ({color: key, users: value}))
+    //             .value();
+
+    let friends = _(this.closeFriends)
+      .groupBy(friend => friend.uid)
+      .map((value, key) => ({uid: key, friends: value}))
+      .value();
+
+    this.closeFriends = friends;
+
+   console.log(friends);
+}
+
+ 
   //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
   //COPIED from a website it is used for the straight distance between two points
   getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
