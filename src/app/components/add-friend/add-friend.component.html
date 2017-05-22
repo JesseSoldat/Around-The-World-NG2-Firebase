@@ -1,8 +1,26 @@
-<div class="container">
-	<ul class="list-group">
-		<li class="list-group-item"
-		*ngFor="let story of stories">
-			{{story.title}}
-		</li>
-	</ul>
+<div class="contianer-fluid">
+	<div id="friendRequestContainer">
+		<div class="alert alert-success clearfix" role="alert">
+			<h5 class="pull-left">Send a friends request to be able to follow this read this user's stories</h5>
+			<button class="btn btn-primary pull-right">Send Friend Request</button>
+		</div>
+	</div>
+	<div class="clearfix panel panel-default" *ngFor="let story of stories"
+		class="col-xs-4">
+	  <div class="panel-body storyPanel">
+	  <sebm-google-map
+				[latitude]="story.lat"
+				[longitude]="story.lng"
+				[zoom]="8">
+				<sebm-google-map-marker
+					[latitude]="story.lat"
+					[longitude]="story.lng">
+				</sebm-google-map-marker>
+			</sebm-google-map>
+	    <h2>{{story.title}}</h2>
+	    <h5>{{story.description | filterText}}</h5>
+	  </div>
+	  
+	</div>
+
 </div>

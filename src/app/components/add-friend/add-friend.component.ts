@@ -9,7 +9,7 @@ import { StoryService } from '../../../services/story';
 })
 export class AddFriendComponent implements OnInit {
 	stories: object[];
-
+  fText = 450;
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 

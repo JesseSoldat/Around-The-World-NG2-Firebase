@@ -42,8 +42,8 @@
 
 				</div>
 				<hr>
-				<div class="col-md-9" id="storyDescription">
-					<p>{{story.description}}</p>
+				<div class="col-md-12" id="storyDescription">
+					<p>{{story.description | filterText:fText}}</p>
 				</div>
 			</div>
 			
@@ -74,6 +74,11 @@
         <h4 class="modal-title" id="myModalLabel">Find Friend</h4>
       </div>
       <div class="modal-body">
+      	<div *ngIf="closeFriends.length === 0">
+      		<div class="alert alert-info" role="alert">
+      			Sorry no one has mapped a location that close. Try to increase the distance of your search!
+      		</div>
+      	</div>
         <ul class="list-group">
         	<li class="list-group-item"
         	*ngFor="let friend of closeFriends">

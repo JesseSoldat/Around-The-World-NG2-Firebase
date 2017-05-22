@@ -16,6 +16,7 @@ import { AddFriendComponent } from './components/add-friend/add-friend.component
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
+import { FilterTextPipe } from '../pipes/filterText';
 //Services
 import { AuthService } from '../services/auth';
 import { StoryService } from '../services/story';
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     MapLocationComponent,
     AddStoryComponent,
     FilterTitlePipe,
+    FilterTextPipe,
     AddFriendComponent
   ],
   imports: [

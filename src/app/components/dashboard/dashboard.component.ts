@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   closeFriends = [];
   fTitle;
   currentUid;
+  fText = 600;
   
 
   distances = [5,10,15,20,50,100,500,1000,5000,10000];
@@ -81,7 +82,6 @@ export class DashboardComponent implements OnInit {
           }
         }
       })//map
-      console.log(this.closeFriends);
        this.sortById();
 
     }, err => {
@@ -116,7 +116,7 @@ export class DashboardComponent implements OnInit {
 
     this.closeFriends = friends;
 
-   console.log(friends);
+   // console.log(friends);
 }
 
  
