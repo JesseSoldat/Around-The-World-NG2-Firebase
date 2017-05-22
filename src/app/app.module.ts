@@ -12,6 +12,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MapLocationComponent } from './components/map-location/map-location.component';
 import { AddStoryComponent } from './components/add-story/add-story.component';
+import { AddFriendComponent } from './components/add-friend/add-friend.component';
+
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
 //Services
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'map-location', component: MapLocationComponent},
-  {path: 'add-story', component: AddStoryComponent}
+  {path: 'add-story', component: AddStoryComponent},
+  {path: 'add-friend', component: AddFriendComponent}
 ];
  
 @NgModule({
@@ -39,7 +42,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     MapLocationComponent,
     AddStoryComponent,
-    FilterTitlePipe
+    FilterTitlePipe,
+    AddFriendComponent
   ],
   imports: [
     BrowserModule,

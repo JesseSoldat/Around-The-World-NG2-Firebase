@@ -4,7 +4,6 @@ import { StoryService } from '../../../services/story';
 import { AuthService } from '../../../services/auth';
 import { Distance } from '../../../models/distance';
 import { Place } from '../../../models/place';
-import { Story } from '../../../models/story';
 
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
@@ -16,7 +15,7 @@ import 'rxjs/Rx';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-	stories: Story[];
+	stories;
   user: any;
   uid = 'HBTaJt057Bf63oS771gah1allYe2';
   locations;
@@ -30,6 +29,7 @@ export class DashboardComponent implements OnInit {
   constructor(private storyService: StoryService,
               private authService: AuthService,
               private fb: FormBuilder) { 
+ 
   
     this.user = authService.getActiveUser();
     if(this.user) {
@@ -50,10 +50,14 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  removeFriends() {
+    this.closeFriends = [];
+  }
 
   findFriends(form, lat, lng) {
     let distance = form.value.distance;
     let measurement = form.value.measurement;
+    let closeFriends = [];
 
     this.storyService.getLocations(lat, lng).subscribe(locations => {
      
@@ -74,10 +78,11 @@ export class DashboardComponent implements OnInit {
           } else {
             console.log(totalDiff);
             this.closeFriends.push(location);
+            closeFriends.push(location);
           }
         }
       })//map
-      console.log(this.closeFriends);
+      console.log(closeFriends);
     }, err => {
       console.log(err);
     })
