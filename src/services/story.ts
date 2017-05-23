@@ -17,6 +17,8 @@ export class StoryService {
 	uid = '';
 	stories: FirebaseListObservable<Story[]>;
 	locations: FirebaseListObservable<Location[]>;
+	imageRef: FirebaseListObservable<Image[]>;
+
 	
 	// story: FirebaseObjectObservable<any>;
 
@@ -27,6 +29,7 @@ export class StoryService {
 							private authService: AuthService) {
 
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
+
 	}
 
 	getStories(uid) {
@@ -43,6 +46,13 @@ export class StoryService {
 		this.addLocation(value, uid);
 
 		return this.stories.push(value);
+	}
+
+	addImageRef(url) {
+		this.imageRef = this.afDb.list(`images`) as FirebaseListObservable<Image[]>;
+		return this.imageRef.push(url);
+
+
 	}
 
 	addLocation(value, uid) {
@@ -77,5 +87,9 @@ interface Location {
 	title: string;
 	lat:string;
 	lng:string;
+}
+
+interface Image {
+	src: string
 }
 

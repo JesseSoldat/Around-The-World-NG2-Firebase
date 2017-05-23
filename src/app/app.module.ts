@@ -21,6 +21,7 @@ import { FilterTextPipe } from '../pipes/filterText';
 import { AuthService } from '../services/auth';
 import { StoryService } from '../services/story';
 //Third Party Modules
+import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -45,7 +46,9 @@ const appRoutes: Routes = [
     AddStoryComponent,
     FilterTitlePipe,
     FilterTextPipe,
-    AddFriendComponent
+    AddFriendComponent,
+    FileDropDirective, 
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,11 @@ import { Place } from '../../../models/place';
 
 import { StoryService } from '../../../services/story';
 import * as firebase from 'firebase';
+import { FileUploader } from 'ng2-file-upload';
+
+//temp
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+
 
 @Component({
   selector: 'app-add-story',
@@ -22,12 +27,23 @@ export class AddStoryComponent implements OnInit {
   user = null;
   uid = null;
   token = null;
+  //uploader
+  imageUrlList = [];
+  storageRef: any;
+  databaseRef: any;
+  uploader: FileUploader = new FileUploader({ url: '' });
 
   constructor(private routeParams: ActivatedRoute,
   						private http: Http,
               private fb: FormBuilder,
               private router: Router,
-              private storyService: StoryService) {
+              private storyService: StoryService,
+              private db: AngularFireDatabase) {
+
+      //storage
+      // this.storageRef = firebase.storage().ref();
+      this.databaseRef = this.db.list('pictures');
+
 
       this.user = firebase.auth().currentUser;
       this.uid = this.user.uid;
@@ -56,6 +72,42 @@ export class AddStoryComponent implements OnInit {
        // console.log('onAddStory', res);
      })
      .catch(err => console.log(err));
+  }
+
+  onUploadPhoto() {
+    console.log(this.uploader);
+    console.log(this.uploader.queue);
+    let amount = this.uploader.queue.length;
+    for(let i = 0; i < amount; i++) {
+      const fileName: string = 'user'+i+': ' + new Date().getTime() + '.png';
+
+      this.storageRef = firebase.storage().ref(`images/${fileName}`);
+      const fileRef: any = this.storageRef;
+           const uploadTask: any = fileRef.put(this.uploader.queue[i]['_file']);
+
+          uploadTask.on('state_changed',
+              (snapshot) => {},
+              (error) => console.log(error),
+              () => {
+                  const data = {
+                      src: uploadTask.snapshot.downloadURL,
+                      // raw: fileName,
+                      // createdAt: new Date().getTime(),
+                      // createdBy: this.uid,
+                      // updatedBy: this.uid
+                  };
+                  // this.imageUrlList.push(uploadTask.snapshot.downloadURL)
+                  this.storyService.addImageRef(data)
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => console.log(err));
+                  // this.databaseRef.update(data);
+              }
+          );
+    }//for
+    console.log(this.imageUrlList);
+
   }
 
   onCancel() {
