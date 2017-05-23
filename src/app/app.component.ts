@@ -14,17 +14,20 @@ import * as firebase from 'firebase';
 })
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
-  user: Observable<firebase.User>;
+  uid: string;
 
   constructor(private authService: AuthService,
               private router: Router,
               private afAuth: AngularFireAuth) {
 
-    this.user = afAuth.authState;
 
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log(user);
+        //Set the user's id up in local storage to use later
+        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, email: user.email }));
+        //Retrieve the users's id
+        this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+  
         this.isAuthenticated = true;
         this.router.navigate(['dashboard']);
       } else {

@@ -14,7 +14,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class StoryService {
 	user = '';
-	uid = '';
+	uid: string;
 	stories: FirebaseListObservable<Story[]>;
 	locations: FirebaseListObservable<Location[]>;
 	imageRef: FirebaseListObservable<Image[]>;
@@ -28,12 +28,13 @@ export class StoryService {
 							private http: Http,
 							private authService: AuthService) {
 
+		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
 
 	}
 
 	getStories(uid) {
-		this.uid = uid ? uid : '';
+		// this.uid = uid;
 
 		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<Story[]>;
 	}
@@ -43,7 +44,7 @@ export class StoryService {
 	addStory(newStory, uid) {
 		let { value } = newStory;
 
-		this.addLocation(value, uid);
+		this.addLocation(value, this.uid);
 
 		return this.stories.push(value);
 	}

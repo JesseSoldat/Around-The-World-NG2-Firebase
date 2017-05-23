@@ -10,9 +10,12 @@ import { StoryService } from '../../../services/story';
 export class AddFriendComponent implements OnInit {
 	stories: object[];
   fText = 450;
+  uid: string;
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
+
+    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
   }
 
   ngOnInit() {
@@ -21,7 +24,12 @@ export class AddFriendComponent implements OnInit {
       .subscribe((id) => {
         	this.storyService.getStories(id)
           .subscribe(stories => {
-          	this.stories = stories;
+          	this.stories = stories.filter((story) => {
+              if(story.uid === this.uid) {
+                return;
+              } else;
+              return story;
+            });
           	console.log(this.stories);
           	});
       });

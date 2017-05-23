@@ -25,7 +25,7 @@ export class AddStoryComponent implements OnInit {
   title = null;
   description = null;
   user = null;
-  uid = null;
+  uid: string;
   token = null;
   //uploader
   imageUrlList = [];
@@ -46,7 +46,8 @@ export class AddStoryComponent implements OnInit {
 
 
       this.user = firebase.auth().currentUser;
-      this.uid = this.user.uid;
+      this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
+
 
 	  	let location = this.routeParams.params.subscribe((data) => {
 			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));
