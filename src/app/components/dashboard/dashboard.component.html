@@ -22,7 +22,7 @@
 					
 				</div>
 				<div class="col-md-7" id="selectDistance">
-					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline">
+					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline pull-right">
 						<div class="form-group">
 							<label id="label">Select Distance</label>
 							 <select class="form-control" name="distance" ngModel  required>
@@ -34,16 +34,18 @@
 							<label class="radio-inline">
 							  <input type="radio" name="measurement" value="km" ngModel required> KM
 							</label>
-						</div>
-						<button id="submit" class="btn btn-primary"
-						data-toggle="modal" data-target="#myModal"
+							<button id="submit" class="btn btn-primary"
+							data-toggle="modal" data-target="#myModal"
 							[disabled]="!f.valid">Find Friends</button>
+						</div>
+						
 					</form>
 
 				</div>
 				<hr>
-				<div class="col-md-12" id="storyDescription">
+				<div class="col-md-12 clearfix" id="storyDescription">
 					<p>{{story.description | filterText:fText}}</p>
+					
 				</div>
 			</div>
 			
@@ -57,6 +59,9 @@
 						[longitude]="story.lng">
 					</sebm-google-map-marker>
 				</sebm-google-map>
+				<button id="viewStoryBtn" 
+				class="btn-block btn btn-primary pull-right"
+				(click)="viewStory()">View your Story</button>
 			</div>
 		</li>
 	</ul>

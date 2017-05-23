@@ -26,6 +26,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'map-location', component: MapLocationComponent},
   {path: 'add-story', component: AddStoryComponent},
-  {path: 'add-friend', component: AddFriendComponent}
+  {path: 'add-friend', component: AddFriendComponent},
+  {path: 'my-profile', component: MyProfileComponent}
 ];
  
 @NgModule({
@@ -48,7 +50,7 @@ const appRoutes: Routes = [
     FilterTextPipe,
     AddFriendComponent,
     FileDropDirective, 
-    FileSelectDirective
+    FileSelectDirective, MyProfileComponent
   ],
   imports: [
     BrowserModule,

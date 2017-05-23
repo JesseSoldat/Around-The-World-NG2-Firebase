@@ -27,6 +27,8 @@ export class AddStoryComponent implements OnInit {
   user = null;
   uid: string;
   token = null;
+
+  addedStoryKey: string;
   //uploader
   imageUrlList = [];
   storageRef: any;
@@ -43,7 +45,6 @@ export class AddStoryComponent implements OnInit {
       //storage
       // this.storageRef = firebase.storage().ref();
       this.databaseRef = this.db.list('pictures');
-
 
       this.user = firebase.auth().currentUser;
       this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
@@ -70,21 +71,24 @@ export class AddStoryComponent implements OnInit {
   onAddStory() {
     this.storyService.addStory(this.storyForm, this.uid)
      .then((res) => {
-       // console.log('onAddStory', res);
+       console.log(res.key);
+       this.addedStoryKey = res.key;
      })
      .catch(err => console.log(err));
   }
 
   onUploadPhoto() {
+
     console.log(this.uploader);
     console.log(this.uploader.queue);
     let amount = this.uploader.queue.length;
     for(let i = 0; i < amount; i++) {
       const fileName: string = 'user'+i+': ' + new Date().getTime() + '.png';
 
-      this.storageRef = firebase.storage().ref(`images/${fileName}`);
+      this.storageRef = firebase.storage().ref(`images/${this.uid}/${this.addedStoryKey}/${fileName}`);
+
       const fileRef: any = this.storageRef;
-           const uploadTask: any = fileRef.put(this.uploader.queue[i]['_file']);
+      const uploadTask: any = fileRef.put(this.uploader.queue[i]['_file']);
 
           uploadTask.on('state_changed',
               (snapshot) => {},
@@ -98,9 +102,10 @@ export class AddStoryComponent implements OnInit {
                       // updatedBy: this.uid
                   };
                   // this.imageUrlList.push(uploadTask.snapshot.downloadURL)
-                  this.storyService.addImageRef(data)
+                  this.storyService.addImageRef(data, this.addedStoryKey)
                     .then((res) => {
                       console.log(res);
+                      this.router.navigate(['dashboard']);
                     })
                     .catch((err) => console.log(err));
                   // this.databaseRef.update(data);

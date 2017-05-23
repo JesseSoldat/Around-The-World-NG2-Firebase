@@ -2,7 +2,7 @@
 	<div id="friendRequestContainer">
 		<div class="alert alert-success clearfix" role="alert">
 			<h5 class="pull-left">Send a friends request to be able to follow this read this user's stories</h5>
-			<button class="btn btn-primary pull-right">Send Friend Request</button>
+			<button class="btn btn-primary pull-right" (click)="onSendFriendRequest()">Send Friend Request</button>
 		</div>
 	</div>
 	<div class="clearfix panel panel-default" *ngFor="let story of stories"

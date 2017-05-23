@@ -49,11 +49,22 @@ export class StoryService {
 		return this.stories.push(value);
 	}
 
-	addImageRef(url) {
-		this.imageRef = this.afDb.list(`images`) as FirebaseListObservable<Image[]>;
+	sendFriendRequest(friendUid, uid) {
+		console.log(friendUid);
+		console.log(uid);
+
+		// requests { // Requests sent from other users
+  //       otherUserId: "id"
+  //     }
+  //     friends { // Users who have accepted your request or vice versa
+  //       otherUserId: "id"
+  //     }
+
+	}
+
+	addImageRef(url, addedStoryKey) {
+		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
 		return this.imageRef.push(url);
-
-
 	}
 
 	addLocation(value, uid) {

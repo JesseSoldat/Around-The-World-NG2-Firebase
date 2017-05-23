@@ -11,6 +11,7 @@ export class AddFriendComponent implements OnInit {
 	stories: object[];
   fText = 450;
   uid: string;
+  friendUid: string;
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
@@ -22,6 +23,7 @@ export class AddFriendComponent implements OnInit {
   	this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
+          this.friendUid = id;
         	this.storyService.getStories(id)
           .subscribe(stories => {
           	this.stories = stories.filter((story) => {
@@ -33,6 +35,10 @@ export class AddFriendComponent implements OnInit {
           	console.log(this.stories);
           	});
       });
+  }
+
+  onSendFriendRequest() {
+    this.storyService.sendFriendRequest(this.friendUid, this.uid)
   }
 
 }

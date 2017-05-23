@@ -14,13 +14,21 @@ li {
 }
 
 #button {
-	margin-left: 5px;
+	margin-left: 8px;
 }
 
 sebm-google-map {
 	height: 200px;
-	width: 200px;
+	width: 100%;
+	z-index: 1;
+
 	/*float: right;*/
+}
+
+#viewStoryBtn {
+	/*margin-top: 2%;*/
+	margin: 0;
+
 }
 
 #storyDescription {
