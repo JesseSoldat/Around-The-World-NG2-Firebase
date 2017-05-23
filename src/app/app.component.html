@@ -8,12 +8,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Around the World</a>
+      <!-- <a *ngIf="!isAuthenticated"
+      class="navbar-brand" href="#">Around the World</a> -->
+       <a *ngIf="!isAuthenticated"
+      class="navbar-brand">Around the World</a>
+      <a *ngIf="isAuthenticated" 
+      class="navbar-brand" [routerLink]="['dashboard']">Dashboard</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul *ngIf="isAuthenticated" class="nav navbar-nav">
         <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li> -->
         <li class="dropdown">
@@ -38,21 +43,21 @@
       
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a [routerLink]="['map-location']">
+        <li *ngIf="isAuthenticated"><a [routerLink]="['map-location']">
           <span class="glyphicon glyphicon-plus align-left" aria-hidden="true"></span>
           Map It
         </a></li>
-        <li class="dropdown">
+        <li *ngIf="!isAuthenticated"><a [routerLink]="['register']">Register</a></li>
+        <li *ngIf="!isAuthenticated"><a [routerLink]="['login']">Login</a></li>
+        <li class="dropdown" *ngIf="isAuthenticated">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
           <!-- Dropdown <span class="caret"></span> -->
           </a>
-          <ul class="dropdown-menu">
-            <li *ngIf="isAuthenticated"><a [routerLink]="['dashboard']">Dashboard</a></li>
-            <li *ngIf="!isAuthenticated"><a [routerLink]="['register']">Register</a></li>
-            <li *ngIf="!isAuthenticated"><a [routerLink]="['login']">Login</a></li>
-            <li *ngIf="isAuthenticated" role="separator" class="divider"></li>
-            <li *ngIf="isAuthenticated"><a href="#" (click)="onLogout()">Logout</a></li>
+          <ul  class="dropdown-menu">
+            <li><a [routerLink]="['dashboard']">Dashboard</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" (click)="onLogout()">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -62,3 +67,5 @@
 <div>
 	<router-outlet></router-outlet>
 </div>
+
+

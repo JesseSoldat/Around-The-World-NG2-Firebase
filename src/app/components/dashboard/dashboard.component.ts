@@ -116,7 +116,14 @@ export class DashboardComponent implements OnInit {
 
     this.closeFriends = friends;
 
-   // console.log(friends);
+
+    this.closeFriends.sort(function(a, b){
+    // ASC  -> a.length - b.length
+    // DESC -> b.length - a.length
+      return b.friends.length - a.friends.length;
+    });
+    // console.log(this.closeFriends);
+
 }
 
  

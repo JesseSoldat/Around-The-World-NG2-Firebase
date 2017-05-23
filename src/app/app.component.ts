@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
 
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
+        console.log(user);
         this.isAuthenticated = true;
         this.router.navigate(['dashboard']);
       } else {

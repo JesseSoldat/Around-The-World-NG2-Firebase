@@ -12,7 +12,7 @@ export class FilterTextPipe implements PipeTransform {
   
   	// filter items array, items which match and return true will be kept, false will be filtered out
   	applyFilter(item, filter) {
-      console.log(filter);
+      // console.log(filter);
       if(item.length > filter) {
       	let newItem = item.substring(0, filter);
       	return (newItem + '...');
