@@ -19,13 +19,15 @@ export class RegisterComponent {
   		then((res) => {
         let user = firebase.auth().currentUser;
         // console.log(username);
-        username = this.formatName(username);
-
+        let formatedName = this.formatName(username);
+        console.log(formatedName);
           user.updateProfile({
-            displayName: username,
+            displayName: formatedName,
             photoURL: ""
           }).then(function() {
             // Update successful.
+            localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));
+            console.log(user);
           }, function(error) {
             // An error happened.
           });
