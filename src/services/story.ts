@@ -47,18 +47,16 @@ export class StoryService {
 	}
 
 
-	addStory(newStory, uid) {
+	addStory(newStory, uid, name) {
 		let { value } = newStory;
-		console.log('add story');
-		console.log(value);
-		this.addLocation(value, this.uid);
+		value.name = name;
+
+		this.addLocation(value);
 
 		return this.stories.push(value);
 	}
 
 	addImageRef(url, addedStoryKey) {
-		console.log('add img');
-		console.log(url);
 		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
 		return this.imageRef.push(url);
 	}
@@ -76,12 +74,10 @@ export class StoryService {
 
 	}
 
-
-
-	addLocation(value, uid) {
-		console.log(value, uid);
+	addLocation(value) {
 		let location = {
-			uid: uid,
+			uid: value.uid,
+			name: value.name,
 			lat: value.lat,
 			lng: value.lng,
 			title: value.title
@@ -96,11 +92,12 @@ export class StoryService {
 
 interface Story {
 	$key?:string;
-  title?:string;
+  title:string;
   description?:string;
-  lat?:string;
-  lng?:string;
-  uid?:string;
+  lat:string;
+  lng:string;
+  uid:string;
+  name:string;
   images?:Image[];
   
 }
@@ -114,6 +111,7 @@ interface Image {
 interface Location {
 	$key?:string;
 	uid:string;
+	name:string;
 	title: string;
 	lat:string;
 	lng:string;

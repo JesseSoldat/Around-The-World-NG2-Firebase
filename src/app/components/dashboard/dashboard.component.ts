@@ -30,8 +30,6 @@ export class DashboardComponent implements OnInit {
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.name = this.formatName(this.name);
- 
-    // this.onGetStories();
   }
 
   ngOnInit() { 
@@ -41,7 +39,6 @@ export class DashboardComponent implements OnInit {
   formatName(name) {
    let newName = name.toLowerCase();
    newName = newName.charAt(0).toUpperCase() + newName.slice(1);
-   console.log(newName);
    return newName;
   }
 

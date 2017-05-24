@@ -23,12 +23,12 @@ export class LoginComponent {
   		});
   }
 
-  onFaceSignup() {
-    this.authService.faceSignup();
-  }
+  // onFaceSignup() {
+  //   this.authService.faceSignup();
+  // }
 
-  onGoogleSignup() {
-    this.authService.googleSignup();
-  }
+  // onGoogleSignup() {
+  //   this.authService.googleSignup();
+  // }
 
 }

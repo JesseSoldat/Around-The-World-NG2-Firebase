@@ -29,13 +29,12 @@ export class AppComponent implements OnInit {
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log(user);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
         localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
-  
+
         this.router.navigate(['dashboard']);
       } else {
         this.isAuthenticated = false;

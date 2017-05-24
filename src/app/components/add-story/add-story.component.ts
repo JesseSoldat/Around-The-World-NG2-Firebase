@@ -9,8 +9,8 @@ import { StoryService } from '../../../services/story';
 import * as firebase from 'firebase';
 import { FileUploader } from 'ng2-file-upload';
 
-//temp
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+declare let jQuery:any;
 
 @Component({
   selector: 'app-add-story',
@@ -24,7 +24,9 @@ export class AddStoryComponent implements OnInit {
 	marker: Location;
   title = null;
   description = null;
-  uid: string;
+  uid: string; // the user id
+  name: string; // the username from registration
+
 
   addedStoryKey: string; //after saving story to DATABASE this is the ref key used for saving to STORAGE 
   //UPLOADER for saving images to STORAGE
@@ -32,6 +34,11 @@ export class AddStoryComponent implements OnInit {
   storageRef: any;  //ref to the firebase STORAGE
   databaseRef: any; //ref to the firebase DATABASE
   uploader: FileUploader = new FileUploader({ url: '' });
+
+  //button
+  haveFile = this.uploader.queue.length < 1; //check if we have a file before allowing user to click
+  // clickedAlready: boolean = false; //user clicked the button already
+
 
   constructor(private routeParams: ActivatedRoute,
   						private http: Http,
@@ -41,6 +48,7 @@ export class AddStoryComponent implements OnInit {
               private db: AngularFireDatabase) {
 
    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
+   this.name = JSON.parse(localStorage.getItem('currentUser')).name;
 
 	 let location = this.routeParams.params.subscribe((data) => {
 			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));		
@@ -50,6 +58,10 @@ export class AddStoryComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+    
+    jQuery("#myModal").on("hide.bs.modal", () => {
+      this.onCancel();  
+    });
   }
 
   onSetMarker(event) {
@@ -59,11 +71,13 @@ export class AddStoryComponent implements OnInit {
   }
 
   onAddStory() {
-    this.storyService.addStory(this.storyForm, this.uid)
+    this.storyService.addStory(this.storyForm, this.uid, this.name)
      .then((res) => {
-       this.addedStoryKey = res.key;
+       this.addedStoryKey = res.key;       
      })
-     .catch(err => console.log(err));
+     .catch(err => {
+       console.log(err);
+     });
   }
 
   onUploadPhoto() {
@@ -109,6 +123,7 @@ export class AddStoryComponent implements OnInit {
     let lat = this.marker.lat;
     let lng = this.marker.lng;
     let uid = this.uid;
+    let name = this.name;
 
      this.storyForm = this.fb.group({
        title: [title, Validators.required],

@@ -69,7 +69,8 @@
         (click)="onCancel()">No Thanks</button>
         <button type="button" class="btn btn-success" data-dismiss="modal"
         (click)="onUploadPhoto()"
-        [disabled]="uploader.queue.length < 1"
+        [disabled]="!haveFile"
+
         >Upload a Photo?</button>
       <!--   <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
