@@ -88,7 +88,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Find Friend</h4>
+        <h4 class="modal-title" id="myModalLabel">Find Friends</h4>
       </div>
       <div class="modal-body">
       	<div *ngIf="closeFriends.length === 0">
@@ -99,16 +99,17 @@
         <ul class="list-group">
         	<li class="list-group-item"
         	*ngFor="let friend of closeFriends">
-        		<h5>{{friend.uid}}</h5>
-        		<ul class="list-group">	
-        		
+        		<a [routerLink]="['/add-friend', {id: friend.uid}]"
+        			data-dismiss="modal">
+        			<h4>{{friend.friends[0].name}}</h4>
+        		</a>
+        		<hr>
+       	
+        		<ul class="list-group">	 		
 	        		<li *ngFor="let f of friend.friends">
-	      				<a [routerLink]="['/add-friend', {id: f.uid}]"
-	      				data-dismiss="modal">{{f.title}}
-	      				</a>
+	      				{{f.title}}
 	        		</li>
-        		</ul>
-        	
+        		</ul>	
         	</li>
         </ul>
       </div>

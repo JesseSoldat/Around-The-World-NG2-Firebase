@@ -84,7 +84,6 @@ export class DashboardComponent implements OnInit {
           if(this.uid === location.uid) {
             return;
           } else {
-         
             this.closeFriends.push(location);
           }
         }
@@ -115,7 +114,7 @@ export class DashboardComponent implements OnInit {
     // DESC -> b.length - a.length
       return b.friends.length - a.friends.length;
     });
-    // console.log(this.closeFriends);
+    console.log(this.closeFriends);
 }
 //FIND FRIENDS---------------------------------------------------------------------END
 
