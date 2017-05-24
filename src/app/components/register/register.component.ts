@@ -13,11 +13,13 @@ export class RegisterComponent {
   constructor(private authService: AuthService) { }
 
   onEmailSignup(form: NgForm) {
-    let username = form.value.username;
-  	
+  	let username = form.value.username;
+
   	this.authService.emailSignup(form.value.email, form.value.password).
   		then((res) => {
         let user = firebase.auth().currentUser;
+        // console.log(username);
+        username = this.formatName(username);
 
           user.updateProfile({
             displayName: username,
@@ -31,6 +33,12 @@ export class RegisterComponent {
   		.catch((err) => {
   			console.log(err);
   		});
+  }
+
+  formatName(name) {
+   let newName = name.toLowerCase();
+   newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+   return newName;
   }
 
 }

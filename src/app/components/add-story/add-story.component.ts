@@ -35,11 +35,6 @@ export class AddStoryComponent implements OnInit {
   databaseRef: any; //ref to the firebase DATABASE
   uploader: FileUploader = new FileUploader({ url: '' });
 
-  //button
-  haveFile = this.uploader.queue.length < 1; //check if we have a file before allowing user to click
-  // clickedAlready: boolean = false; //user clicked the button already
-
-
   constructor(private routeParams: ActivatedRoute,
   						private http: Http,
               private fb: FormBuilder,
@@ -81,8 +76,7 @@ export class AddStoryComponent implements OnInit {
   }
 
   onUploadPhoto() {
-    console.log(this.uploader);
-    console.log(this.uploader.queue);
+    // console.log(this.uploader);
     let amount = this.uploader.queue.length;
     for(let i = 0; i < amount; i++) { //multiple files can be saved
       const fileName: string = 'story'+i + new Date().getTime() + '.png';
@@ -103,14 +97,12 @@ export class AddStoryComponent implements OnInit {
                   };
                   this.storyService.addImageRef(data, this.addedStoryKey)
                     .then((res) => {
-                      // console.log(res);
                       this.router.navigate(['dashboard']);
                     })
                     .catch((err) => console.log(err));
               }
           );
     }//for
-    console.log(this.imageUrlList);
   }
 
   onCancel() {

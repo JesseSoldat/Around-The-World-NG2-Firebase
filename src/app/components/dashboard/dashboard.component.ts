@@ -29,17 +29,10 @@ export class DashboardComponent implements OnInit {
     this.spinner = true;
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
-    this.name = this.formatName(this.name);
   }
 
   ngOnInit() { 
    this.onGetStories();
-  }
-
-  formatName(name) {
-   let newName = name.toLowerCase();
-   newName = newName.charAt(0).toUpperCase() + newName.slice(1);
-   return newName;
   }
 
   onGetStories() {
@@ -48,9 +41,11 @@ export class DashboardComponent implements OnInit {
       if(this.stories.length > 0) {
         this.spinner = false;
         this.showFilter = true;
+        this.showMsg = false;
       } else {
         this.spinner = false;
         this.showMsg = true;
+        this.showFilter = false;
       }
     }, err => {
       console.log(err);
