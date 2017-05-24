@@ -1,14 +1,22 @@
 <div class="well col-md-10 col-md-offset-1">
-	<div class="col-md-12">
-		<div class="col-md-7">
+	<div class="col-md-12 clearfix">
+		<div class="col-md-7" *ngIf="showFilterOrMsg">
+			<h1>Dashboard</h1>
+		</div>
+		<div class="col-md-4" *ngIf="!showFilterOrMsg">
 			<h1>Dashboard</h1>
 		</div>
 		<div class="col-md-5">
-			<div class="form-group">
+			<div class="form-group" *ngIf="showFilterOrMsg">
 				<label>Filter Places</label>
-				<input type="text" class="form-control"
+				<input  type="text" class="form-control"
 					[(ngModel)]="fTitle">
 			</div>
+		</div>
+		<div class="col-md-8 pull-right" *ngIf="!showFilterOrMsg">
+				<div class="alert alert-info text-center">
+				  <h3><strong>Click the + Icon to start adding some stories!</strong></h3>
+				</div>
 		</div>
 	</div>
 	
@@ -66,9 +74,6 @@
 		</li>
 	</ul>
 </div>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

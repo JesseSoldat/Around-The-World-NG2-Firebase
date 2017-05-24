@@ -12,27 +12,25 @@ import { FileUploader } from 'ng2-file-upload';
 //temp
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
-
 @Component({
   selector: 'app-add-story',
   templateUrl: './add-story.component.html',
   styleUrls: ['./add-story.component.css']
 })
 export class AddStoryComponent implements OnInit {
-	storyForm: FormGroup;
-	location: Location;
+  //FORM 
+	storyForm: FormGroup; //form builder
+	location: Location; 
 	marker: Location;
   title = null;
   description = null;
-  user = null;
   uid: string;
-  token = null;
 
-  addedStoryKey: string;
-  //uploader
+  addedStoryKey: string; //after saving story to DATABASE this is the ref key used for saving to STORAGE 
+  //UPLOADER for saving images to STORAGE
   imageUrlList = [];
-  storageRef: any;
-  databaseRef: any;
+  storageRef: any;  //ref to the firebase STORAGE
+  databaseRef: any; //ref to the firebase DATABASE
   uploader: FileUploader = new FileUploader({ url: '' });
 
   constructor(private routeParams: ActivatedRoute,
@@ -42,19 +40,11 @@ export class AddStoryComponent implements OnInit {
               private storyService: StoryService,
               private db: AngularFireDatabase) {
 
-      //storage
-      // this.storageRef = firebase.storage().ref();
-      this.databaseRef = this.db.list('pictures');
-
-      this.user = firebase.auth().currentUser;
       this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
 
-
 	  	let location = this.routeParams.params.subscribe((data) => {
-			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));
-			
+			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));		
 			this.marker = this.location;
-
   	});
   }
 
@@ -71,18 +61,16 @@ export class AddStoryComponent implements OnInit {
   onAddStory() {
     this.storyService.addStory(this.storyForm, this.uid)
      .then((res) => {
-       console.log(res.key);
        this.addedStoryKey = res.key;
      })
      .catch(err => console.log(err));
   }
 
   onUploadPhoto() {
-
     console.log(this.uploader);
     console.log(this.uploader.queue);
     let amount = this.uploader.queue.length;
-    for(let i = 0; i < amount; i++) {
+    for(let i = 0; i < amount; i++) { //multiple files can be saved
       const fileName: string = 'user'+i+': ' + new Date().getTime() + '.png';
 
       this.storageRef = firebase.storage().ref(`images/${this.uid}/${this.addedStoryKey}/${fileName}`);
@@ -96,24 +84,19 @@ export class AddStoryComponent implements OnInit {
               () => {
                   const data = {
                       src: uploadTask.snapshot.downloadURL,
-                      // raw: fileName,
-                      // createdAt: new Date().getTime(),
-                      // createdBy: this.uid,
-                      // updatedBy: this.uid
+                      raw: fileName,
+                      createdBy: this.uid,      
                   };
-                  // this.imageUrlList.push(uploadTask.snapshot.downloadURL)
                   this.storyService.addImageRef(data, this.addedStoryKey)
                     .then((res) => {
                       console.log(res);
                       this.router.navigate(['dashboard']);
                     })
                     .catch((err) => console.log(err));
-                  // this.databaseRef.update(data);
               }
           );
     }//for
     console.log(this.imageUrlList);
-
   }
 
   onCancel() {
@@ -139,10 +122,7 @@ export class AddStoryComponent implements OnInit {
     this.storyForm.valueChanges.subscribe(data => {
       // console.log('Form changes', data)
       this.title = data.title;
-      this.description = data.description;
-      
-    });
-  	
+      this.description = data.description;     
+    });  	
   }
-
 }

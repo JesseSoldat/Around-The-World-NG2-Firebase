@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StoryService } from '../../../services/story';
-import { AuthService } from '../../../services/auth';
-import { Distance } from '../../../models/distance';
-import { Place } from '../../../models/place';
 import * as _ from 'lodash';
 import * as firebase from 'firebase';
 import 'rxjs/Rx';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -21,20 +18,24 @@ export class DashboardComponent implements OnInit {
   fTitle; //filter pipe to show less results on the dashboard
   fText = 600; //filter pipe to limit amount of text
   locations = []; //onFindFriends holds an array of all of the locations in the database
+  showFilterOrMsg = false; //only show filter if there is one story or more otherwise show msg
 
   distances = [5,10,15,20,50,100,500,1000,5000,10000];
 
 
   constructor(private storyService: StoryService,
-              private authService: AuthService,
-              private fb: FormBuilder) { 
+              private router: Router) { 
  
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+    console.log(this.stories);
   }
 
   ngOnInit() {  
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;
+      if(this.stories.length > 0) {
+        this.showFilterOrMsg = true;
+      }
     }, err => {
       console.log(err);
     });
@@ -47,9 +48,8 @@ export class DashboardComponent implements OnInit {
   }
 
   viewStory() {
-
+    this.router.navigate(['my-profile']);
   }
-
 
 //FIND FRIENDS---------------------------------------------------------------------
   findFriends(form, lat, lng) {

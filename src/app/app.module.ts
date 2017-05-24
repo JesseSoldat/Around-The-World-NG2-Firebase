@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MapLocationComponent } from './components/map-location/map-location.component';
 import { AddStoryComponent } from './components/add-story/add-story.component';
 import { AddFriendComponent } from './components/add-friend/add-friend.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
@@ -26,7 +27,6 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},

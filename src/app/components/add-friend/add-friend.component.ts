@@ -8,10 +8,10 @@ import { StoryService } from '../../../services/story';
   styleUrls: ['./add-friend.component.css']
 })
 export class AddFriendComponent implements OnInit {
-	stories: object[];
-  fText = 450;
-  uid: string;
-  friendUid: string;
+	stories: object[]; 
+  fText = 450; //length of text to truncate in the filterText pipe
+  uid: string; //logged in user's uid from localstorage
+  friendUid: string; //uid of the person they want to add as a friend
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
