@@ -40,9 +40,9 @@ export class AddStoryComponent implements OnInit {
               private storyService: StoryService,
               private db: AngularFireDatabase) {
 
-      this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
+   this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
 
-	  	let location = this.routeParams.params.subscribe((data) => {
+	 let location = this.routeParams.params.subscribe((data) => {
 			this.location = new Location(parseFloat(data.lat), parseFloat(data.lng));		
 			this.marker = this.location;
   	});

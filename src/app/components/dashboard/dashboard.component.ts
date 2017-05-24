@@ -18,23 +18,24 @@ export class DashboardComponent implements OnInit {
   fTitle; //filter pipe to show less results on the dashboard
   fText = 600; //filter pipe to limit amount of text
   locations = []; //onFindFriends holds an array of all of the locations in the database
-  showFilterOrMsg = false; //only show filter if there is one story or more otherwise show msg
-
-  distances = [5,10,15,20,50,100,500,1000,5000,10000];
+  showFilter = false; //only show filter if there is one or more stories
+  showMsg = false; //show message if there are no stories
+  distances = [5,10,15,20,50,100,500,1000,5000,10000]; //populate the select box 
 
 
   constructor(private storyService: StoryService,
               private router: Router) { 
  
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
-    console.log(this.stories);
   }
 
   ngOnInit() {  
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;
       if(this.stories.length > 0) {
-        this.showFilterOrMsg = true;
+        this.showFilter = true;
+      } else {
+        this.showMsg = true;
       }
     }, err => {
       console.log(err);
@@ -47,8 +48,8 @@ export class DashboardComponent implements OnInit {
     this.closeFriends = [];
   }
 
-  viewStory() {
-    this.router.navigate(['my-profile']);
+  viewStory(key) {
+    this.router.navigate(['my-profile', {key: key}]);
   }
 
 //FIND FRIENDS---------------------------------------------------------------------

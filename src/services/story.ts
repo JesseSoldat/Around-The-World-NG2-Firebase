@@ -14,14 +14,11 @@ import * as firebase from 'firebase';
 @Injectable()
 export class StoryService {
 	user = '';
-	uid: string;
-	stories: FirebaseListObservable<Story[]>;
-	locations: FirebaseListObservable<Location[]>;
+	uid: string; //currently logged in user uid
+	stories: FirebaseListObservable<Story[]>; //all stories for a user
+	story: FirebaseObjectObservable<Story>; //all stories for a user
+	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
 	imageRef: FirebaseListObservable<Image[]>;
-
-	
-	// story: FirebaseObjectObservable<any>;
-
 
 	constructor(private afDb: AngularFireDatabase,
 							private afAuth: AngularFireAuth,
@@ -30,20 +27,21 @@ export class StoryService {
 
 		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
-
 	}
 
-	getStories(uid) {
-		// this.uid = uid;
-
+	getStories(friendUid) {
+		//use friendUid if we are getting other's stories
+		//this.uid points to the current user
 		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<Story[]>;
 	}
 
+	getStory(uid, storyKey) {
+		return this.story = this.afDb.object(`users/${this.uid}/stories/${storyKey}`) as FirebaseObjectObservable<Story>;
+	}
 
 
 	addStory(newStory, uid) {
 		let { value } = newStory;
-
 		this.addLocation(value, this.uid);
 
 		return this.stories.push(value);

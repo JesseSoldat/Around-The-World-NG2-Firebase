@@ -15,12 +15,9 @@ export class MapLocationComponent implements OnInit {
 	marker: Location;
 	locationIsSet = false;
 
-  constructor(private router: Router) { 
-  }
+  constructor(private router: Router) {}
 
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSetMarker(event) {
   	let { lat, lng } = event.coords;
@@ -29,11 +26,7 @@ export class MapLocationComponent implements OnInit {
 
   onSetLocation() {
   	this.router.navigate(['add-story', this.marker]);
-
   }
 
-  onCancel() {
-
-  }
 
 }
