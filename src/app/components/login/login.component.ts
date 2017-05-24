@@ -24,11 +24,7 @@ export class LoginComponent {
   }
 
   onFaceSignup() {
-    this.authService.faceSignup().then((user) => {
-    })
-    .catch((err) => {
-        console.log(err);
-      });
+    this.authService.faceSignup();
   }
 
   onGoogleSignup() {

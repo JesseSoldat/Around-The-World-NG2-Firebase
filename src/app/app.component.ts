@@ -15,16 +15,24 @@ import * as firebase from 'firebase';
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   uid: string;
+  name: string;
 
   constructor(private authService: AuthService,
               private router: Router,
               private afAuth: AngularFireAuth) {
+      
+      this.onAuthStateChanged();   
+  }
 
+  ngOnInit() {}
+
+  onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
+        console.log(user);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
-        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, auth: true }));
+        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
   
@@ -33,11 +41,9 @@ export class AppComponent implements OnInit {
         this.isAuthenticated = false;
         this.router.navigate(['login']);
       }
-      console.log('onAuthStateChange', this.isAuthenticated);
+     
     }); 
   }
-
-  ngOnInit() {}
 
   onLogout() {
     this.authService.logOut();

@@ -14,6 +14,7 @@ import 'rxjs/Rx';
 export class DashboardComponent implements OnInit {
 	stories; //holds the logged in users stories
   uid: string; //the logged in uid from localstorage
+  name: string; // the username from registration
   closeFriends= []; //holds people that are have stories close by 
   fTitle; //filter pipe to show less results on the dashboard
   fText = 600; //filter pipe to limit amount of text
@@ -25,25 +26,26 @@ export class DashboardComponent implements OnInit {
 
   constructor(private storyService: StoryService,
               private router: Router) { 
- 
-    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
- 
     this.spinner = true;
-    this.onGetStories();
-    console.log('constructor');
-  
+    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+    this.name = JSON.parse(localStorage.getItem('currentUser')).name;
+    this.name = this.formatName(this.name);
+ 
+    // this.onGetStories();
   }
 
   ngOnInit() { 
-
-   console.log('init');
    this.onGetStories();
   }
 
+  formatName(name) {
+   let newName = name.toLowerCase();
+   newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+   console.log(newName);
+   return newName;
+  }
+
   onGetStories() {
-    console.log('get stories');
-    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
-    
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;
       if(this.stories.length > 0) {
