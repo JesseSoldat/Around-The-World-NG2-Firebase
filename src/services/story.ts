@@ -17,8 +17,11 @@ export class StoryService {
 	uid: string; //currently logged in user uid
 	stories: FirebaseListObservable<Story[]>; //all stories for a user
 	story: FirebaseObjectObservable<Story>; //all stories for a user
+	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
+
+
 	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
-	imageRef: FirebaseListObservable<Image[]>;
+	imageRef: FirebaseListObservable<any>;
 
 	constructor(private afDb: AngularFireDatabase,
 							private afAuth: AngularFireAuth,
@@ -32,19 +35,32 @@ export class StoryService {
 	getStories(friendUid) {
 		//use friendUid if we are getting other's stories
 		//this.uid points to the current user
-		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<Story[]>;
+		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<any>;
 	}
 
 	getStory(uid, storyKey) {
 		return this.story = this.afDb.object(`users/${this.uid}/stories/${storyKey}`) as FirebaseObjectObservable<Story>;
 	}
 
+	getUrl(uid, storyKey) {
+		return this.storyImages = this.afDb.list(`users/${this.uid}/stories/${storyKey}/images`) as FirebaseListObservable<Image[]>;
+	}
+
 
 	addStory(newStory, uid) {
 		let { value } = newStory;
+		console.log('add story');
+		console.log(value);
 		this.addLocation(value, this.uid);
 
 		return this.stories.push(value);
+	}
+
+	addImageRef(url, addedStoryKey) {
+		console.log('add img');
+		console.log(url);
+		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
+		return this.imageRef.push(url);
 	}
 
 	sendFriendRequest(friendUid, uid) {
@@ -60,10 +76,7 @@ export class StoryService {
 
 	}
 
-	addImageRef(url, addedStoryKey) {
-		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
-		return this.imageRef.push(url);
-	}
+
 
 	addLocation(value, uid) {
 		console.log(value, uid);
@@ -88,7 +101,14 @@ interface Story {
   lat?:string;
   lng?:string;
   uid?:string;
+  images?:Image[];
   
+}
+
+interface Image {
+	url: string,
+  raw: string,
+  createdBy: string,  
 }
 
 interface Location {
@@ -99,7 +119,5 @@ interface Location {
 	lng:string;
 }
 
-interface Image {
-	src: string
-}
+
 

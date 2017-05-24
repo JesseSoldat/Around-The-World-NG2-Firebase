@@ -1,1 +1,9 @@
-<div class="container"></div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-4" *ngFor="let img of imgUrl">
+			<img [src]="img.url" class="img-rounded img-responsive" >
+		
+		</div>
+	</div>
+</div>
+

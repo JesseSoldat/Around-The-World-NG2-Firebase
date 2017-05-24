@@ -71,7 +71,7 @@ export class AddStoryComponent implements OnInit {
     console.log(this.uploader.queue);
     let amount = this.uploader.queue.length;
     for(let i = 0; i < amount; i++) { //multiple files can be saved
-      const fileName: string = 'user'+i+': ' + new Date().getTime() + '.png';
+      const fileName: string = 'story'+i + new Date().getTime() + '.png';
 
       this.storageRef = firebase.storage().ref(`images/${this.uid}/${this.addedStoryKey}/${fileName}`);
 
@@ -83,13 +83,13 @@ export class AddStoryComponent implements OnInit {
               (error) => console.log(error),
               () => {
                   const data = {
-                      src: uploadTask.snapshot.downloadURL,
+                      url: uploadTask.snapshot.downloadURL,
                       raw: fileName,
                       createdBy: this.uid,      
                   };
                   this.storyService.addImageRef(data, this.addedStoryKey)
                     .then((res) => {
-                      console.log(res);
+                      // console.log(res);
                       this.router.navigate(['dashboard']);
                     })
                     .catch((err) => console.log(err));
