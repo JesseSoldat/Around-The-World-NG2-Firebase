@@ -28,6 +28,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
+
+
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'register', component: RegisterComponent},
@@ -63,7 +66,9 @@ const appRoutes: Routes = [
     }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    Angular2FontAwesomeModule
+ 
   ],
   providers: [
     AuthService,

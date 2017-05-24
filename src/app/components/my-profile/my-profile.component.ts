@@ -25,10 +25,10 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
   	this.storyService.getStory(this.uid, this.storyKey).subscribe((story) => {
   		this.story = story
-  		console.log(this.story); 		
+  		// console.log(this.story); 		
   	})
   	this.storyService.getUrl(this.uid, this.storyKey).subscribe((storyImages) => {
-  		console.log(storyImages);
+  		// console.log(storyImages);
   		this.imgUrl = storyImages;
   	})
   }

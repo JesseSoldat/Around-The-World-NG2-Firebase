@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,6 +21,18 @@ export class LoginComponent {
   		.catch((err) => {
   			console.log(err);
   		});
+  }
+
+  onFaceSignup() {
+    this.authService.faceSignup().then((user) => {
+    })
+    .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  onGoogleSignup() {
+    this.authService.googleSignup();
   }
 
 }

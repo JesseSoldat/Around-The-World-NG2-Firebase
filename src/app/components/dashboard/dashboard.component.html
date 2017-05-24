@@ -1,5 +1,13 @@
 <div class="well col-md-10 col-md-offset-1">
 	<div class="col-md-12 clearfix">
+		<div *ngIf="spinner">
+			<section>
+				<h1>Dashboard</h1>
+    		<!-- <fa name="cog" animation="spin" size="5x"></fa> -->
+    		<fa name="spinner" animation="pulse" size="3x"></fa>
+
+			</section>
+		</div>
 		<div class="col-md-7" *ngIf="showFilter">
 			<h1>Dashboard</h1>
 		</div>

@@ -21,20 +21,36 @@ export class DashboardComponent implements OnInit {
   showFilter = false; //only show filter if there is one or more stories
   showMsg = false; //show message if there are no stories
   distances = [5,10,15,20,50,100,500,1000,5000,10000]; //populate the select box 
-
+  spinner: boolean; //until firebase can check for user data show spinner
 
   constructor(private storyService: StoryService,
               private router: Router) { 
  
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+ 
+    this.spinner = true;
+    this.onGetStories();
+    console.log('constructor');
+  
   }
 
-  ngOnInit() {  
+  ngOnInit() { 
+
+   console.log('init');
+   this.onGetStories();
+  }
+
+  onGetStories() {
+    console.log('get stories');
+    this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+    
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;
       if(this.stories.length > 0) {
+        this.spinner = false;
         this.showFilter = true;
       } else {
+        this.spinner = false;
         this.showMsg = true;
       }
     }, err => {
