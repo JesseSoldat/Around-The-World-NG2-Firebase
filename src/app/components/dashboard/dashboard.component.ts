@@ -35,6 +35,15 @@ export class DashboardComponent implements OnInit {
    this.onGetStories();
   }
 
+  // ngDoCheck() { 
+  //  something in the template changes / runs on every change detection
+  // if(this.stories) {
+  // this.onGetStories();
+
+  //}
+  // } ngOnChanges
+  // ngAfterContentInit ngAfterContentChecked ngAfterViewInit ngAfterViewChecked ngOnDestroy
+
   onGetStories() {
     this.storyService.getStories(this.uid).subscribe(stories => {
       this.stories = stories;

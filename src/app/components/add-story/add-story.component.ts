@@ -84,6 +84,20 @@ export class AddStoryComponent implements OnInit {
     this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;  
   }
 
+  deleteFromList(name) {
+    console.log(name);
+    console.log(this.uploader.queue);
+    let index;
+    this.uploader.queue.forEach(file => {
+      if(file.file.name === name) {
+        index = this.uploader.queue.indexOf(file);
+      }
+    }) 
+    // let index = this.uploader.queue.indexOf(name);
+    console.log(index);
+    this.uploader.queue.splice(index, 1);
+  }
+
   onUploadPhoto() {
     this.dismissModal = false;
     this.showProgressBar = true;

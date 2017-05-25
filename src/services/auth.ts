@@ -27,37 +27,22 @@ export class AuthService {
 	// faceSignup() {
 	// 	let provider = new firebase.auth.FacebookAuthProvider();
 
-	// 	return firebase.auth().signInWithPopup(provider).then(function(result) {
+	// 	firebase.auth().signInWithPopup(provider).then(function(result) {
 	// 		console.log('faceSignUp');
  //      localStorage.setItem('facebook', JSON.stringify({ face: true }));
-
 	// 	  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
 	// 	  let token = result.credential.accessToken;
 	// 	  // The signed-in user info.
 	// 	  let user = result.user;
-		  	 
+ //      this.router.navigate(['./dashboard']);
+
+
 	// 	}).catch(function(err) {
  //      localStorage.setItem('facebook', JSON.stringify({ face: false }));
+	// 		this.router.navigate(['/login']);
+      
 	// 	 console.log(err);
 	// 	});
-
-		//----new------------------------------------------------------------------
-		// firebase.auth().signInWithRedirect(provider);
-
-		// return firebase.auth().getRedirectResult().then(function(result) {
-		// 	console.log(result);
-		//   if (result.credential) {
-		//     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		//     var token = result.credential.accessToken;
-		//     // ...
-		//   }
-		//   // The signed-in user info.
-		//   var user = result.user;
-		// }).catch(function(err) {
-		//  console.log(err);
-		// });
-		//----new------------------------------------------------------------------
-
 	// }
 
 	// googleSignup() {
@@ -79,7 +64,7 @@ export class AuthService {
 	logOut() {
 		firebase.auth().signOut()
 			.then(() => {
-				console.log('logged out');
+        localStorage.removeItem('currentUser');
 				this.router.navigate(['/login']);
 			})
 			.catch((err) => {

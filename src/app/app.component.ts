@@ -20,22 +20,24 @@ export class AppComponent implements OnInit {
               private router: Router,
               private afAuth: AngularFireAuth,
               ) {
-      this.onAuthStateChanged();   
+      this.onAuthStateChanged();  
+     console.log('app component constructor');
   }
 
   ngOnInit() {
-   
+    this.onAuthStateChanged();  
   }
 
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        // console.log(user.displayName);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
-        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));
+        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+        console.log('onAuthStateChanged');
+        console.log(JSON.parse(localStorage.getItem('currentUser')));
 
         this.router.navigate(['dashboard']);
       } else {

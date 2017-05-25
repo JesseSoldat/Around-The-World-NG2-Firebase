@@ -75,7 +75,7 @@
       	</div>
       	<div>
       		<ul *ngFor="let file of uploader.queue">
-      			<li>{{file.file.name}}</li>
+      			<li>{{file.file.name}}&nbsp;&nbsp;<span (click)="deleteFromList(file.file.name)">X</span></li>
       		</ul>
       	</div>
        
