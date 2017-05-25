@@ -14,6 +14,7 @@ import { MapLocationComponent } from './components/map-location/map-location.com
 import { AddStoryComponent } from './components/add-story/add-story.component';
 import { AddFriendComponent } from './components/add-friend/add-friend.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { MyProfilePicsComponent } from './my-profile-pics/my-profile-pics.component';
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
   {path: 'map-location', component: MapLocationComponent},
   {path: 'add-story', component: AddStoryComponent},
   {path: 'add-friend', component: AddFriendComponent},
-  {path: 'my-profile', component: MyProfileComponent}
+  {path: 'my-profile', component: MyProfileComponent},
+  {path: 'my-profile-pics', component: MyProfilePicsComponent}
 ];
  
 @NgModule({
@@ -53,7 +55,7 @@ const appRoutes: Routes = [
     FilterTextPipe,
     AddFriendComponent,
     FileDropDirective, 
-    FileSelectDirective, MyProfileComponent
+    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent
   ],
   imports: [
     BrowserModule,

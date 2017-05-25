@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { StoryService } from '../../../services/story';
 
 @Component({
@@ -14,7 +14,8 @@ export class MyProfileComponent implements OnInit {
 	imgUrl: object[] = []; //store a list of image urls for this story
 
   constructor(private storyService: StoryService,
-  						private routeParams: ActivatedRoute) { 
+  						private routeParams: ActivatedRoute,
+              private router: Router) { 
   	this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
 
   	let currentStory = this.routeParams.params.subscribe((data) => {
@@ -31,6 +32,20 @@ export class MyProfileComponent implements OnInit {
   		// console.log(storyImages);
   		this.imgUrl = storyImages;
   	})
+  }
+
+  morePhotos() {
+    let urlArray = this.imgUrl.slice(3);
+    let navigationExtras: NavigationExtras = {
+            queryParams: {}
+        };
+
+    urlArray.forEach((url, i) => {
+      navigationExtras.queryParams[i] = url['url'];
+      //console.log(navigationExtras.queryParams[i]);  //URL STRING
+    });
+
+      this.router.navigate(['my-profile-pics'], navigationExtras);
   }
 
 }

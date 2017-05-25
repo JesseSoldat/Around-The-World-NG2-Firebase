@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
               private afAuth: AngularFireAuth,
               ) {
       this.onAuthStateChanged();  
-     console.log('app component constructor');
   }
 
   ngOnInit() {
@@ -36,8 +35,8 @@ export class AppComponent implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
-        console.log('onAuthStateChanged');
-        console.log(JSON.parse(localStorage.getItem('currentUser')));
+        // console.log('onAuthStateChanged');
+        // console.log(JSON.parse(localStorage.getItem('currentUser')));
 
         this.router.navigate(['dashboard']);
       } else {
