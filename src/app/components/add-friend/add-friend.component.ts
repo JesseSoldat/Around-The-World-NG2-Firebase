@@ -38,7 +38,7 @@ export class AddFriendComponent implements OnInit {
   }
 
   onSendFriendRequest() {
-    this.storyService.sendFriendRequest(this.friendUid, this.uid)
+    this.storyService.sendFriendRequest(this.friendUid, this.uid);
   }
 
 }

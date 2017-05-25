@@ -19,6 +19,10 @@ export class StoryService {
 	story: FirebaseObjectObservable<Story>; //all stories for a user
 	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
 
+	friends: FirebaseListObservable<Friend[]>; //all of the user's friends;
+	request: FirebaseListObservable<Request[]>; //all of the user's friend's request;
+
+
 	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
 	imageRef: FirebaseListObservable<any>;
 
@@ -60,9 +64,29 @@ export class StoryService {
 		return this.imageRef.push(url);
 	}
 
+	getFriends(friendUid) {
+		this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
+		return this.friends;
+	}
+
+	getFriendsRequest(){
+		this.request = this.afDb.list(`users/${this.uid}/request`) as FirebaseListObservable<Request[]>;
+		return this.request;
+	}
+
+	acceptFriendsRequest(friendUid, uid) {
+		//uid = the person requesting to be a friend
+		this.request = this.afDb.list(`users/${friendUid}/request`) as FirebaseListObservable<Request[]>;
+		return this.request.push({uid: uid});
+	}
+
 	sendFriendRequest(friendUid, uid) {
-		console.log(friendUid);
-		console.log(uid);
+		// console.log(friendUid);
+		// console.log(uid); 
+		this.acceptFriendsRequest(friendUid, uid);
+		// this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
+		// return this.friends.push(uid);
+		
 
 		// requests { // Requests sent from other users
   //       otherUserId: "id"
@@ -70,7 +94,7 @@ export class StoryService {
   //     friends { // Users who have accepted your request or vice versa
   //       otherUserId: "id"
   //     }
-
+ 
 	}
 
 	addLocation(value) {
@@ -114,6 +138,14 @@ interface Location {
 	title: string;
 	lat:string;
 	lng:string;
+}
+
+interface Friend {
+	uid:string;
+}
+
+interface Request {
+	uid: string;
 }
 
 

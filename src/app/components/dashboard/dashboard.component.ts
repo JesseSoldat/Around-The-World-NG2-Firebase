@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   showMsg = false; //show message if there are no stories
   distances = [5,10,15,20,50,100,500,1000,5000,10000]; //populate the select box 
   spinner: boolean; //until firebase can check for user data show spinner
+  friendsRequest = []; //an array of user's uids that have requested to be friends
+  singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
   constructor(private storyService: StoryService,
               private router: Router) { 
@@ -33,7 +35,22 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() { 
    this.onGetStories();
+   this.storyService.getFriendsRequest().subscribe((data) => {
+     // console.log(data);
+       data.forEach((req) => {
+         this.friendsRequest.push(req.uid)
+       });
+       if(this.friendsRequest.length <= 1) {
+          this.singularOrPlural = 'Friend Request';
+       } else {
+         this.singularOrPlural = 'Friends Request';
+       }
+   });
   }
+
+  // ngAfterContentInit() {
+  //   console.log(this.friendsRequest);
+  // }
 
   // ngDoCheck() { 
   //  something in the template changes / runs on every change detection
@@ -123,7 +140,7 @@ export class DashboardComponent implements OnInit {
     // DESC -> b.length - a.length
       return b.friends.length - a.friends.length;
     });
-    console.log(this.closeFriends);
+    // console.log(this.closeFriends);
 }
 //FIND FRIENDS---------------------------------------------------------------------END
 

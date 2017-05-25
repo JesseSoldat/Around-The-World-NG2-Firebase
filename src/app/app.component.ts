@@ -15,15 +15,17 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   uid: string;
   name: string;
+  // request;
 
   constructor(private authService: AuthService,
               private router: Router,
-              private afAuth: AngularFireAuth,
+              private afAuth: AngularFireAuth
               ) {
       this.onAuthStateChanged();  
   }
 
   ngOnInit() {
+
     this.onAuthStateChanged();  
   }
 
@@ -37,7 +39,6 @@ export class AppComponent implements OnInit {
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
         // console.log('onAuthStateChanged');
         // console.log(JSON.parse(localStorage.getItem('currentUser')));
-
         this.router.navigate(['dashboard']);
       } else {
         this.isAuthenticated = false;
