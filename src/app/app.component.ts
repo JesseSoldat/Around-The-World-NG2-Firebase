@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
 import { AuthService } from '../services/auth';
 
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -19,12 +18,14 @@ export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private afAuth: AngularFireAuth) {
-      
+              private afAuth: AngularFireAuth,
+              ) {
       this.onAuthStateChanged();   
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {

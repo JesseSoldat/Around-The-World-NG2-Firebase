@@ -34,6 +34,9 @@ export class AddStoryComponent implements OnInit {
   storageRef: any;  //ref to the firebase STORAGE
   databaseRef: any; //ref to the firebase DATABASE
   uploader: FileUploader = new FileUploader({ url: '' });
+  progress: number = 0;
+  showProgressBar: boolean = false;  //show progress bar when uploading a file
+  dismissModal: boolean = true; //used to allow a user to cancel by clicking outside of the modal and navigating to the dashboard
 
   constructor(private routeParams: ActivatedRoute,
   						private http: Http,
@@ -55,7 +58,9 @@ export class AddStoryComponent implements OnInit {
     this.initializeForm();
     
     jQuery("#myModal").on("hide.bs.modal", () => {
-      this.onCancel();  
+      if(this.dismissModal) {
+          this.onCancel();  
+      }
     });
   }
 
@@ -75,7 +80,13 @@ export class AddStoryComponent implements OnInit {
      });
   }
 
+  progressBar(snapshot){ 
+    this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;  
+  }
+
   onUploadPhoto() {
+    this.dismissModal = false;
+    this.showProgressBar = true;
     // console.log(this.uploader);
     let amount = this.uploader.queue.length;
     for(let i = 0; i < amount; i++) { //multiple files can be saved
@@ -87,7 +98,9 @@ export class AddStoryComponent implements OnInit {
       const uploadTask: any = fileRef.put(this.uploader.queue[i]['_file']);
 
           uploadTask.on('state_changed',
-              (snapshot) => {},
+              (snapshot) => {
+                this.progressBar(snapshot);
+              },
               (error) => console.log(error),
               () => {
                   const data = {
@@ -97,7 +110,7 @@ export class AddStoryComponent implements OnInit {
                   };
                   this.storyService.addImageRef(data, this.addedStoryKey)
                     .then((res) => {
-                      this.router.navigate(['dashboard']);
+                      // this.router.navigate(['dashboard']);
                     })
                     .catch((err) => console.log(err));
               }

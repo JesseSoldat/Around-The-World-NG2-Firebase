@@ -19,7 +19,6 @@ export class StoryService {
 	story: FirebaseObjectObservable<Story>; //all stories for a user
 	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
 
-
 	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
 	imageRef: FirebaseListObservable<any>;
 
