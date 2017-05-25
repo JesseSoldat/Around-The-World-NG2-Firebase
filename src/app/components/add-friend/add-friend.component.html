@@ -1,8 +1,17 @@
 <div class="contianer-fluid">
-	<div id="friendRequestContainer">
+
+	<div id="friendRequestContainer" *ngIf="!responding">
 		<div class="alert alert-success clearfix" role="alert">
 			<h5 class="pull-left">Send a friends request to be able to follow this read this user's stories</h5>
 			<button class="btn btn-primary pull-right" (click)="onSendFriendRequest()">Send Friend Request</button>
+		</div>
+	</div>
+
+	<div id="friendRequestContainer" *ngIf="responding">
+		<div class="alert alert-success clearfix" role="alert">
+			<h5 class="pull-left">Do you want a new friend?</h5>
+			<button class="btn btn-primary pull-right" (click)="onRespondFriendRequest(true)">Make a new Friend</button>
+			<button class="btn btn-danger pull-right" (click)="onRespondFriendRequest(false)">No, Thanks</button>
 		</div>
 	</div>
 	<div class="clearfix panel panel-default" *ngFor="let story of stories"

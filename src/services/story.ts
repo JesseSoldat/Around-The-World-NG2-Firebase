@@ -11,7 +11,6 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
-
 @Injectable()
 export class StoryService {
 	user = '';
@@ -21,6 +20,8 @@ export class StoryService {
 	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
 
 	friends: FirebaseListObservable<Friend[]>; //all of the user's friends;
+	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
+
 	request: FirebaseListObservable<Request[]>; //all of the user's friend's request;
 
 
@@ -37,6 +38,8 @@ export class StoryService {
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
 	}
 
+	//STORIES--------------------------------------------------------------------------------------------
+	//NEED TO FIX take out friendUID param
 	getStories(friendUid) {
 		//use friendUid if we are getting other's stories
 		//this.uid points to the current user
@@ -66,9 +69,17 @@ export class StoryService {
 		return this.imageRef.push(url);
 	}
 
+
+	//FRIENDS-----------------------------------------------------------------------------------------
+
 	getFriends(friendUid) {
 		this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
 		return this.friends;
+	}
+
+	getFriendsStories(friendUid) {
+		this.friendsStories = this.afDb.list(`users/${friendUid}/stories`) as FirebaseListObservable<FriendStory[]>;
+		return this.friendsStories;
 	}
 
 	getFriendsRequest(){
@@ -76,23 +87,30 @@ export class StoryService {
 		return this.request;
 	}
 
-	acceptFriendsRequest(friendUid, requestingUser) {
-		//uid = the person requesting to be a friend
+	denyFriendsRequest(friendUid) {
+
+	}
+
+	acceptFriendsRequest(friendUid) {
+		this.friends = this.afDb.list(`users/${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
+		this.friends.push({
+			uid: friendUid
+		});
+
+    this.router.navigate(['./dashboard']);
+
+	}
+
+	sendFriendRequest(friendUid, requestingUser) {
 		this.request = this.afDb.list(`users/${friendUid}/request`) as FirebaseListObservable<Request[]>;
-		return this.request.push({
+		this.request.push({
 			uid: requestingUser.uid,
 			name: requestingUser.name,
 			photo: requestingUser.photo
 		});
-	}
 
-	sendFriendRequest(friendUid, requestingUser) {
-		// console.log(friendUid);
-		// console.log(uid); 
-		this.acceptFriendsRequest(friendUid, requestingUser);
-		this.router.navigate(['./dashboard']);
-		// this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
-		// return this.friends.push(uid);
+		
+		
 		
 
 		// requests { // Requests sent from other users
@@ -128,8 +146,18 @@ interface Story {
   lng:string;
   uid:string;
   name:string;
-  images?:Image[];
-  
+  images?:Image[]; 
+}
+
+interface FriendStory {
+	$key?:string;
+  title:string;
+  description?:string;
+  lat:string;
+  lng:string;
+  uid:string;
+  name:string;
+  images?:Image[]; 
 }
 
 interface Image {

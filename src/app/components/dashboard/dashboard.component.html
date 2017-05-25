@@ -147,11 +147,12 @@
         <ul class="list-group">
         	<li class="list-group-item clearfix"
         	*ngFor="let friend of friendsRequest">
-        		<a [routerLink]="['/friend-basic-profile', {id: friend.uid}]"
-        			data-dismiss="modal"
-        			class="pull-left">
-        			<h4>{{friend.name}}</h4>
-        		</a>
+        		<div class="pull-left">
+        			<h4>Check out {{friend.name}}'s stories</h4>
+        			<button data-dismiss="modal" 
+        			(click)="viewFriendsStories(friend.uid)"
+        			>Go!</button>
+        		</div>
         		<img src={{friend.photo}} class="pull-right"
         		id="friendImg">
         	</li>

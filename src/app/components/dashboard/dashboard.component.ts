@@ -87,6 +87,10 @@ export class DashboardComponent implements OnInit {
     this.closeFriends = [];
   }
 
+  viewFriendsStories(friendUid) {
+    this.router.navigate(['add-friend', {id: friendUid, responding: true}]);
+  }
+
   viewStory(key) {
     this.router.navigate(['my-profile', {key: key}]);
   }

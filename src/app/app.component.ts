@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   }
 
   goToProfile() {
-
+    this.router.navigate(['basic-profile']);
   }
 
   onLogout() {

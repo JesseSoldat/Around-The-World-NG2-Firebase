@@ -14,6 +14,7 @@ export class AddFriendComponent implements OnInit {
   name: string; //logged in use's name
   photo: string; //logged in user's photo from user object
   friendUid: string; //uid of the person they want to add as a friend
+  responding: boolean; //if user is responding to a friend request
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
@@ -21,14 +22,21 @@ export class AddFriendComponent implements OnInit {
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
+
   }
 
   ngOnInit() {
   	this.route.params
-      .map(params => params['id'])
-      .subscribe((id) => {
-          this.friendUid = id;
-        	this.storyService.getStories(id)
+      .map(params => {
+         return {
+           id: params['id'],
+           responding: params['responding'] || false
+         }
+      })
+      .subscribe((req) => {
+          this.responding = req.responding
+          this.friendUid = req.id;
+        	this.storyService.getFriendsStories(this.friendUid)
           .subscribe(stories => {
           	this.stories = stories.filter((story) => {
               if(story.uid === this.uid) {
@@ -49,6 +57,15 @@ export class AddFriendComponent implements OnInit {
     }
     this.storyService.sendFriendRequest(this.friendUid, requestingUser);
 
+  }
+
+  onRespondFriendRequest(answer: boolean) {
+    console.log(answer);
+    if(answer) {
+      this.storyService.acceptFriendsRequest(this.friendUid)
+    } else {
+      this.storyService.denyFriendsRequest(this.friendUid);
+    }
   }
 
 }
