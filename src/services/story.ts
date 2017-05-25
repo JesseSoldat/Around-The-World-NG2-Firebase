@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 //Services
@@ -29,6 +30,7 @@ export class StoryService {
 	constructor(private afDb: AngularFireDatabase,
 							private afAuth: AngularFireAuth,
 							private http: Http,
+							private router: Router,
 							private authService: AuthService) {
 
 		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
@@ -74,16 +76,21 @@ export class StoryService {
 		return this.request;
 	}
 
-	acceptFriendsRequest(friendUid, uid) {
+	acceptFriendsRequest(friendUid, requestingUser) {
 		//uid = the person requesting to be a friend
 		this.request = this.afDb.list(`users/${friendUid}/request`) as FirebaseListObservable<Request[]>;
-		return this.request.push({uid: uid});
+		return this.request.push({
+			uid: requestingUser.uid,
+			name: requestingUser.name,
+			photo: requestingUser.photo
+		});
 	}
 
-	sendFriendRequest(friendUid, uid) {
+	sendFriendRequest(friendUid, requestingUser) {
 		// console.log(friendUid);
 		// console.log(uid); 
-		this.acceptFriendsRequest(friendUid, uid);
+		this.acceptFriendsRequest(friendUid, requestingUser);
+		this.router.navigate(['./dashboard']);
 		// this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
 		// return this.friends.push(uid);
 		
@@ -146,6 +153,8 @@ interface Friend {
 
 interface Request {
 	uid: string;
+	name: string;
+	photo: string;
 }
 
 

@@ -13,8 +13,9 @@ import * as firebase from 'firebase';
 })
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
-  uid: string;
-  name: string;
+  uid: string; //user object uid
+  name: string; //user object name
+  photo: string; //user object photo
   // request;
 
   constructor(private authService: AuthService,
@@ -32,11 +33,14 @@ export class AppComponent implements OnInit {
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
+        console.log(user);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
-        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true }));
+        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true, photo: user.photoURL }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+        this.name = JSON.parse(localStorage.getItem('currentUser')).name;
+        this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
         // console.log('onAuthStateChanged');
         // console.log(JSON.parse(localStorage.getItem('currentUser')));
         this.router.navigate(['dashboard']);
@@ -48,8 +52,12 @@ export class AppComponent implements OnInit {
     }); 
   }
 
+  goToProfile() {
+
+  }
+
   onLogout() {
     this.authService.logOut();
   }
- 
+
 }

@@ -20,10 +20,11 @@ export class RegisterComponent {
         let user = firebase.auth().currentUser;
         // console.log(username);
         let formatedName = this.formatName(username);
-        console.log(formatedName);
+
+        // console.log(formatedName);
           user.updateProfile({
             displayName: formatedName,
-            photoURL: ""
+            photoURL: 'https://firebasestorage.googleapis.com/v0/b/angularfire-ab896.appspot.com/o/default%2Fuserdefault.png?alt=media&token=870e2611-1ec9-418a-93f2-0279e15aebdc'
           }).then(function() {
             // Update successful.
             localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));

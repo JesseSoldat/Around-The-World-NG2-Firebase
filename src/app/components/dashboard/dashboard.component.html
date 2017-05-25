@@ -145,19 +145,15 @@
       <div class="modal-body">
       	
         <ul class="list-group">
-        	<li class="list-group-item"
+        	<li class="list-group-item clearfix"
         	*ngFor="let friend of friendsRequest">
         		<a [routerLink]="['/friend-basic-profile', {id: friend.uid}]"
-        			data-dismiss="modal">
-        			<!-- <h4>{{friend.friends[0].name}}</h4> -->
+        			data-dismiss="modal"
+        			class="pull-left">
+        			<h4>{{friend.name}}</h4>
         		</a>
-        		<hr>
-       	
-        		<<!-- ul class="list-group">	 		
-	        		<li *ngFor="let f of friend.friends">
-	      				{{f.title}}
-	        		</li>
-        		</ul>	 -->
+        		<img src={{friend.photo}} class="pull-right"
+        		id="friendImg">
         	</li>
         </ul>
       </div>

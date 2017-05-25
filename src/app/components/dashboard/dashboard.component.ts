@@ -15,13 +15,14 @@ export class DashboardComponent implements OnInit {
 	stories; //holds the logged in users stories
   uid: string; //the logged in uid from localstorage
   name: string; // the username from registration
+  photo: string; //the photo stored on the user object
   closeFriends= []; //holds people that are have stories close by 
   fTitle; //filter pipe to show less results on the dashboard
   fText = 600; //filter pipe to limit amount of text
   locations = []; //onFindFriends holds an array of all of the locations in the database
   showFilter = false; //only show filter if there is one or more stories
   showMsg = false; //show message if there are no stories
-  distances = [5,10,15,20,50,100,500,1000,5000,10000]; //populate the select box 
+  distances = [5,10,15,20,50,100,300,500,1000,3000,5000,10000,100000]; //populate the select box 
   spinner: boolean; //until firebase can check for user data show spinner
   friendsRequest = []; //an array of user's uids that have requested to be friends
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
@@ -31,14 +32,16 @@ export class DashboardComponent implements OnInit {
     this.spinner = true;
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
+    this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
   }
 
   ngOnInit() { 
    this.onGetStories();
    this.storyService.getFriendsRequest().subscribe((data) => {
-     // console.log(data);
+     console.log(data);
+
        data.forEach((req) => {
-         this.friendsRequest.push(req.uid)
+         this.friendsRequest.push(req)
        });
        if(this.friendsRequest.length <= 1) {
           this.singularOrPlural = 'Friend Request';

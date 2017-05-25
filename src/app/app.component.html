@@ -12,6 +12,14 @@
       class="navbar-brand" href="#">Around the World</a> -->
        <a *ngIf="!isAuthenticated"
       class="navbar-brand">Around the World</a>
+
+     
+     
+      <img src={{photo}}  id="profilePic"
+      class="navbar-brand"
+      *ngIf="isAuthenticated"
+      (click)="goToProfile()">
+
       <a *ngIf="isAuthenticated" 
       class="navbar-brand" [routerLink]="['dashboard']">Dashboard</a>
     </div>
