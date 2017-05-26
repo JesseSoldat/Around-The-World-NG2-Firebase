@@ -87,7 +87,10 @@ export class StoryService {
 		return this.request;
 	}
 
-	denyFriendsRequest(friendUid) {
+	denyFriendsRequest(key) {
+		this.request = this.afDb.list(`users/${this.uid}/request`) as FirebaseListObservable<Request[]>;
+		this.request.remove(key);
+    this.router.navigate(['./dashboard']);
 
 	}
 
@@ -103,15 +106,13 @@ export class StoryService {
 
 	sendFriendRequest(friendUid, requestingUser) {
 		this.request = this.afDb.list(`users/${friendUid}/request`) as FirebaseListObservable<Request[]>;
-		this.request.push({
+		let key = this.request.push({
 			uid: requestingUser.uid,
 			name: requestingUser.name,
 			photo: requestingUser.photo
-		});
-
-		
-		
-		
+		}).key;
+	
+    this.router.navigate(['./dashboard']);
 
 		// requests { // Requests sent from other users
   //       otherUserId: "id"
@@ -183,6 +184,8 @@ interface Request {
 	uid: string;
 	name: string;
 	photo: string;
+	$key?:string;
+
 }
 
 

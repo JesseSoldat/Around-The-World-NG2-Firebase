@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   onAuthStateChanged() {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log(user);
+        // console.log(user);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
         localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true, photo: user.photoURL }));

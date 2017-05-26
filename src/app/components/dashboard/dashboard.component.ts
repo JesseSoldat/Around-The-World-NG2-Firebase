@@ -38,9 +38,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() { 
    this.onGetStories();
    this.storyService.getFriendsRequest().subscribe((data) => {
-     console.log(data);
-
+   
        data.forEach((req) => {
+        
          this.friendsRequest.push(req)
        });
        if(this.friendsRequest.length <= 1) {
@@ -50,19 +50,6 @@ export class DashboardComponent implements OnInit {
        }
    });
   }
-
-  // ngAfterContentInit() {
-  //   console.log(this.friendsRequest);
-  // }
-
-  // ngDoCheck() { 
-  //  something in the template changes / runs on every change detection
-  // if(this.stories) {
-  // this.onGetStories();
-
-  //}
-  // } ngOnChanges
-  // ngAfterContentInit ngAfterContentChecked ngAfterViewInit ngAfterViewChecked ngOnDestroy
 
   onGetStories() {
     this.storyService.getStories(this.uid).subscribe(stories => {
@@ -87,8 +74,8 @@ export class DashboardComponent implements OnInit {
     this.closeFriends = [];
   }
 
-  viewFriendsStories(friendUid) {
-    this.router.navigate(['add-friend', {id: friendUid, responding: true}]);
+  viewFriendsStories(friend) {
+    this.router.navigate(['add-friend', {id: friend.uid, responding: true, key: friend.$key}]);
   }
 
   viewStory(key) {
