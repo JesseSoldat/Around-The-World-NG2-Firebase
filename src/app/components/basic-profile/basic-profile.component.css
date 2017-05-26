@@ -1,0 +1,16 @@
+
+
+#profileInfo {
+    position: relative;
+    height: 300px;
+}
+
+#editProfileBtn { 
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+}
+
+#profileStory {
+    min-height: 300px;
+}

@@ -13,9 +13,7 @@
        <a *ngIf="!isAuthenticated"
       class="navbar-brand">Around the World</a>
 
-     
-     
-      <img src={{photo}}  id="profilePic"
+      <img src={{photo}} alt="Profile Page" id="profilePic"
       class="navbar-brand"
       *ngIf="isAuthenticated"
       (click)="goToProfile()">

@@ -39,15 +39,15 @@ export class DashboardComponent implements OnInit {
    this.onGetStories();
    this.storyService.getFriendsRequest().subscribe((data) => {
    
-       data.forEach((req) => {
-        
-         this.friendsRequest.push(req)
-       });
-       if(this.friendsRequest.length <= 1) {
-          this.singularOrPlural = 'Friend Request';
-       } else {
-         this.singularOrPlural = 'Friends Request';
-       }
+     data.forEach((req) => {
+      
+       this.friendsRequest.push(req)
+     });
+     if(this.friendsRequest.length <= 1) {
+        this.singularOrPlural = 'Friend Request';
+     } else {
+       this.singularOrPlural = 'Friends Request';
+     }
    });
   }
 
@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
   }
 
   viewStory(key) {
+    console.log(key);
     this.router.navigate(['my-profile', {key: key}]);
   }
 

@@ -1,8 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-4" *ngFor="let img of imgUrl | slice:0:3">
-			<img [src]="img.url" class="img-rounded img-responsive" >
-		
+			<img [src]="img.url" class="img-rounded img-responsive">
 		</div>
 	</div>
 	<div class="row container-fluid" *ngIf="imgUrl.length > 3">
@@ -10,7 +9,12 @@
 			<label style="margin-right: 2%">This user has {{imgUrl.length - 3}} more photos</label>
 			<button class="btn btn-primary" (click)="morePhotos()">Check it out!</button>
 		</div>
-		
+	</div>
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1>{{story.title}}</h1>
+			<h4>{{story.description}}</h4>
+		</div>
 	</div>
 </div>
 

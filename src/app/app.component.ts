@@ -15,14 +15,15 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   uid: string; //user object uid
   name: string; //user object name
-  photo: string; //user object photo
+  photo: string;  //user object photo
   // request;
 
   constructor(private authService: AuthService,
               private router: Router,
               private afAuth: AngularFireAuth
               ) {
-      this.onAuthStateChanged();  
+    this.photo = 'https://firebasestorage.googleapis.com/v0/b/angularfire-ab896.appspot.com/o/default%2Fuserdefault.png?alt=media&token=870e2611-1ec9-418a-93f2-0279e15aebdc';
+    this.onAuthStateChanged();  
   }
 
   ngOnInit() {
