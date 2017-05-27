@@ -1,18 +1,12 @@
 #profilePic {
+	min-height: 200px;
 	max-height: 200px;
 }
 
 #profileInfo {
-    position: relative;
-    height: 300px;
-}
-
-#editProfileBtn { 
-    position: absolute;
-    bottom: 2%;
-    right: 2%;
+  min-height: 300px;
 }
 
 #profileStory {
-    min-height: 300px;
+  min-height: 300px;
 }
