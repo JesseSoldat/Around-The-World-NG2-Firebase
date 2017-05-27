@@ -1,7 +1,6 @@
 <div class="well col-md-10 col-md-offset-1" *ngIf="showProgressBar">
 		<h2 class="text-center">Depending on the number of images you are uploading this may take a while</h2>
 		<h4 class="text-center">Feel free to head back to the dashboard and check your photos once they are uploaded</h4>
-		<button class="btn btn-default" (click)="onCancel()">Head Home</button>
 		
 		<hr>	
 
@@ -11,6 +10,8 @@
        {{progress}}%
       </div>
     </div>
+		<button class="btn btn-primary" (click)="onCancel()">Head Home</button>
+
 </div>
 <div class="well col-md-10 col-md-offset-1" *ngIf="!showProgressBar">	
 	<div class="col-md-6" id="formMap">
@@ -74,8 +75,17 @@
 					class="form-control" multiple id="inputfile"/>
       	</div>
       	<div>
+
       		<ul *ngFor="let file of uploader.queue">
-      			<li>{{file.file.name}}&nbsp;&nbsp;<span (click)="deleteFromList(file.file.name)">X</span></li>
+      			<li>{{file.file.name}}&nbsp;&nbsp;  
+      			<!-- 	<button type="button" class="close" aria-label="Close"
+      				(click)="deleteFromList(file.file.name)">
+			  				<span aria-hidden="true" style="{color: red}">&times;</span>
+							</button> -->
+							<span (click)="deleteFromList(file.file.name)" style="{color: 'red'}">
+								<strong>X</strong>
+							</span>
+					</li>
       		</ul>
       	</div>
        

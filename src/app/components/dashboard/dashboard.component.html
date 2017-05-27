@@ -15,7 +15,7 @@
 		</div>
 
 		<!-- SHOW STORIES --> 
-		<div class="col-md-7" *ngIf="showFilter">
+		<div class="col-xs-12 col-sm-7" *ngIf="showFilter">
 			<a href="#" 
 			data-toggle="modal" data-target="#friendsRequestModal"
 			*ngIf="friendsRequest.length > 0"
@@ -27,7 +27,7 @@
 
 
 		</div>
-		<div class="col-md-5">
+		<div class="col-xs-12 col-sm-5">
 			<div class="form-group" *ngIf="showFilter">
 				<label>Filter Places</label>
 				<input  type="text" class="form-control"
@@ -40,40 +40,43 @@
 				</div>
 		</div>
 	</div>
+
+	
 	
 	<ul class="list-group">
 		<li class="list-group-item" *ngFor="let story of (stories | filterTitle:fTitle)" 
 		
 		class="well col-md-12" id="storyContainer">
 			<div class="col-md-9">
-				<div class="col-md-5">
+
+				<div class=" col-xs-12 col-lg-4">
 					<h2>{{story.title}}</h2>
 				</div>
-				<div class="col-md-7" id="selectDistance">
-					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline pull-right">
+				<div class="col-xs-12 col-lg-8" id="selectDistance">
+					<form #f="ngForm" (ngSubmit)="findFriends(f, story.lat, story.lng )" class="form-inline ">
 						<div class="form-group">
 							<label id="label">Select Distance</label>
 							 <select class="form-control" name="distance" ngModel  required>
 						    <option *ngFor="let d of distances" [value]="d">{{d}}</option>
 						  </select>
-							<label class="radio-inline">
-							  <input type="radio" name="measurement" value="miles" ngModel required> Miles
-							</label>
-							<label class="radio-inline">
-							  <input type="radio" name="measurement" value="km" ngModel required> KM
-							</label>
+						  <div class="form-group">
+						  	<label class="radio-inline">
+								  <input type="radio" name="measurement" value="miles" ngModel required> Miles
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="measurement" value="km" ngModel required> KM
+								</label>
+						  </div>
+							
 							<button id="submit" class="btn btn-primary"
 							data-toggle="modal" data-target="#myModal"
 							[disabled]="!f.valid">Find Friends</button>
-						</div>
-						
+						</div>			
 					</form>
-
 				</div>
 				<hr>
 				<div class="col-md-12 clearfix" id="storyDescription">
-					<p>{{story.description | filterText:fText}}</p>
-					
+					<p>{{story.description | filterText:fText}}</p>		
 				</div>
 			</div>
 			
