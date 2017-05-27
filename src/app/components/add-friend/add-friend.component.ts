@@ -19,11 +19,9 @@ export class AddFriendComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
-
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
-
   }
 
   ngOnInit() {
@@ -66,7 +64,7 @@ export class AddFriendComponent implements OnInit {
   onRespondFriendRequest(answer: boolean) {
     console.log(answer);
     if(answer) {
-      this.storyService.acceptFriendsRequest(this.friendUid)
+      this.storyService.acceptFriendsRequest(this.friendUid, this.friendRequestKey)
     } else {
       this.storyService.denyFriendsRequest(this.friendRequestKey);
     }

@@ -15,6 +15,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class StoryService {
 	user = '';
+	name: string;  //currently logged in user name
 	uid: string; //currently logged in user uid
 
 	//LOCATIONS
@@ -43,7 +44,9 @@ export class StoryService {
 							private router: Router,
 							private authService: AuthService) {
 
-		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
+		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
+		this.name = JSON.parse(localStorage.getItem('currentUser')).name;
+
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
 	}
 	//LOCATIONS-----------------------------------------------------------------------------
@@ -90,14 +93,10 @@ export class StoryService {
 		return this.imageRef.push(url);
 	}
 
-	addAvatarRef(url) {
-		this.avatarRef = this.afDb.object(`users/${this.uid}/avatar`) as FirebaseObjectObservable<Image>;
-		return this.avatarRef.set(url);
-	}
 
 	//BASIC PROFILE-----------------------------------------------------------------------------------	
-	changeAvatar(file) {
-		console.log(file);
+	//SAVE AVATAR TO STORAGE
+	changeAvatar(file) { 
     const fileName: string = 'avatar.jpg';
     this.storageRef = firebase.storage().ref(`avatar/${this.uid}/${fileName}`);
     const fileRef: any = this.storageRef;
@@ -114,16 +113,32 @@ export class StoryService {
               raw: fileName,
               createdBy: this.uid,      
           };
-          console.log(data);
           this.addAvatarRef(data)
             .then((res) => {
+        			let user = firebase.auth().currentUser;
+        			console.log(user);
+        			
+        			user.updateProfile({
+		            displayName: this.name,
+		            photoURL: data.url
+		          }).then(function() {
+		            // Update successful.
+		            console.log(user);
+		          }, function(error) {
+		            // An error happened.
+		          });
+
               // this.router.navigate(['dashboard']);
             })
             .catch((err) => console.log(err));
       }
   	);
- 
+	}
 
+	//SAVE AVATAR REF TO THE DATABASE
+	addAvatarRef(url) {
+		this.avatarRef = this.afDb.object(`users/${this.uid}/avatar`) as FirebaseObjectObservable<Image>;
+		return this.avatarRef.set(url);
 	}
 
 	getBasicProfile() {
@@ -157,12 +172,13 @@ export class StoryService {
     this.router.navigate(['./dashboard']);
 	}
 
-	acceptFriendsRequest(friendUid) {
+	acceptFriendsRequest(friendUid, key) {
 		this.friends = this.afDb.list(`users/${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
 		this.friends.push({
 			uid: friendUid
 		});
-    this.router.navigate(['./dashboard']);
+		this.denyFriendsRequest(key);
+    // this.router.navigate(['./dashboard']);
 	}
 
 	sendFriendRequest(friendUid, requestingUser) {
