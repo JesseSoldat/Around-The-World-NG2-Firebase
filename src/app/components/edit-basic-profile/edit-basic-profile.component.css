@@ -2,6 +2,9 @@
 #profilePic {
 	max-height: 200px;
 }
+#avatarImg {
+	padding-right: 2%;
+}
 
 /*UPLOADER*/
 #uploadContainer {
@@ -34,6 +37,12 @@
 /*STORY ROW-----------------------------------*/
 #storyText {
 	min-height: 400px;
+}
+form {
+	padding: 2%;
+}
+textarea {
+	padding: 2%;
 }
 
 

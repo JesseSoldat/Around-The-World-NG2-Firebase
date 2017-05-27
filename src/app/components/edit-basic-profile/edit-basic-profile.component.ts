@@ -13,12 +13,14 @@ export class EditBasicProfileComponent implements OnInit {
 	name: string //the users name from the user object
 	photo: string; //this is the photoURL from the user object
   uploader: FileUploader = new FileUploader({ url: '' });
+  socialOptions: string[]; //list of the form controls you can add
+  showProgressBar: boolean = false; //show the progress bar when uploading an avatar
 
   constructor(private storyService: StoryService) {
   	this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
    	this.name = JSON.parse(localStorage.getItem('currentUser')).name;
    	this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
-
+   	this.socialOptions = ['Facebook','Email','Phone Number'];
    	this.profile = this.storyService.getBasicProfile();
   }
 
@@ -35,17 +37,19 @@ export class EditBasicProfileComponent implements OnInit {
     this.uploader.queue.splice(index, 1);
   }
 
-  changeAvatar() {
-  	this.storyService.changeAvatar()
+  changeAvatar(file) {
+  	this.showProgressBar = true;
+  	this.storyService.changeAvatar(file);
   }
 
-  changeBasicProfile(data, type) {
-  	console.log(this.uploader.queue);
+  changeBasicProfile(type) {
   	if(this.uploader.queue.length >= 1) {
-  		this.changeAvatar();
+  		let file = this.uploader.queue[0];
+  		this.changeAvatar(file);
   	}
 
-  	this.storyService.changeBasicProfile(data, type);
+  	// this.storyService.changeBasicProfile(data, type);
   }
 
 }
+

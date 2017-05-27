@@ -2,8 +2,10 @@
 
 	<div class="row">
 		<div class="col-xs-12 clearfix">
-			<button *ngIf="!profile" class="btn btn-primary pull-right">Save Form</button>
-			<button *ngIf="profile" class="btn btn-primary pull-right">Edit Form</button>
+			<button *ngIf="!profile" class="btn btn-primary pull-right"
+			(click)="changeBasicProfile('save')">Save Form</button>
+			<button *ngIf="profile" class="btn btn-primary pull-right"
+			(click)="changeBasicProfile('edit')">Edit Form</button>
 		</div>
 	</div>
 	<br><br>
@@ -17,11 +19,12 @@
 			<br><br>
 			<div class="panel-body">
 
-				<div class="col-xs-12 col-md-4 thumbnail">
+				<div class="col-xs-12 col-md-4 thumbnail" id="avatarImg">
 					<img src={{photo}} id="profilePic">
 				</div>
 
 				<div class="col-xs-12 col-md-8" id="uploadContainer">
+					<br><br>
 					<div class="form-group">
 						<label>Change you Avatar</label>
 						<input type="file" ng2FileSelect [uploader]="uploader" 
@@ -49,7 +52,29 @@
 			</div>
 			<div class="panel-body">
 				<form>
-				
+					<br><br>
+
+					<div class="form-group">
+						<label>Decide what you want to share</label>
+						<select class="form-control">
+							<option *ngFor="let option of socialOptions"
+							[value]="'opition'"
+							>
+								{{option}}
+							</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label>Facebook</label>
+						<input type="text" name="facebook"
+						class="form-control">
+					</div>
+				  <div class="form-group">
+						<label>Github</label>
+						<input type="text" name="github"
+						class="form-control">
+					</div>
 				</form>
 			</div>		
 		</div>
@@ -60,18 +85,26 @@
 	    <div class="col-xs-12 panel-heading">
 	      <h1 class="text-center panel-title">My Story</h1>
 	    </div>
-	    <div class="form-group">
-	    	<label>Tell us about yourself</label>
-	    	<textarea class="form-control" id="storyText"></textarea>
-	    </div>
+	    <div class="panel-body">
+	    	<br><br>
+	    	<form>
+		    	<div class="form-group">
+			    	<label>Tell us about yourself</label>
+			    	<textarea class="form-control" id="storyText"
+			    	class="form-control"></textarea>
+			    </div>
+	    	</form> 
+	  	</div>
   	</div>
 	</div> <!-- story row -->
 	<br>
 
 	<div class="row">
 		<div class="col-xs-12 clearfix">
-			<button *ngIf="!profile" class="btn btn-primary pull-right">Save Form</button>
-			<button *ngIf="profile" class="btn btn-primary pull-right">Edit Form</button>
+			<button *ngIf="!profile" class="btn btn-primary pull-right"
+			(click)="changeBasicProfile('save')">Save Form</button>
+			<button *ngIf="profile" class="btn btn-primary pull-right"
+			(click)="changeBasicProfile('edit')">Edit Form</button>
 		</div>
 	</div>
 	<br><br> 

@@ -11,6 +11,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
+
 @Injectable()
 export class StoryService {
 	user = '';
@@ -23,9 +24,11 @@ export class StoryService {
 	stories: FirebaseListObservable<Story[]>; //all stories for a user
 	story: FirebaseObjectObservable<Story>; //all stories for a user
 	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
-	imageRef: FirebaseListObservable<any>; //images for the stories
+	imageRef: FirebaseListObservable<any>; //ref in the database for images for the stories
 
 	//PROFILE
+	storageRef; //will be a location in storage to avatar
+	avatarRef: FirebaseObjectObservable<Image>; // ref in the database to the avatar
 	
 
 	//FRIENDS
@@ -42,6 +45,21 @@ export class StoryService {
 
 		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
+	}
+	//LOCATIONS-----------------------------------------------------------------------------
+	addLocation(value) {
+		let location = {
+			uid: value.uid,
+			name: value.name,
+			lat: value.lat,
+			lng: value.lng,
+			title: value.title
+		}
+		return this.locations.push(location);
+	}
+
+	getLocations(lat, lng) {
+		return this.locations;
 	}
 
 	//STORIES--------------------------------------------------------------------------------------------
@@ -72,9 +90,39 @@ export class StoryService {
 		return this.imageRef.push(url);
 	}
 
-	//BASIC PROFILE-----------------------------------------------------------------------------------
-	
-	changeAvatar() {
+	addAvatarRef(url) {
+		this.avatarRef = this.afDb.object(`users/${this.uid}/avatar`) as FirebaseObjectObservable<Image>;
+		return this.avatarRef.set(url);
+	}
+
+	//BASIC PROFILE-----------------------------------------------------------------------------------	
+	changeAvatar(file) {
+		console.log(file);
+    const fileName: string = 'avatar.jpg';
+    this.storageRef = firebase.storage().ref(`avatar/${this.uid}/${fileName}`);
+    const fileRef: any = this.storageRef;
+
+    const uploadTask: any = fileRef.put(file['_file']);
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // this.progressBar(snapshot);
+      },
+      (error) => console.log(error),
+      () => {
+          const data = {
+              url: uploadTask.snapshot.downloadURL,
+              raw: fileName,
+              createdBy: this.uid,      
+          };
+          console.log(data);
+          this.addAvatarRef(data)
+            .then((res) => {
+              // this.router.navigate(['dashboard']);
+            })
+            .catch((err) => console.log(err));
+      }
+  	);
+ 
 
 	}
 
@@ -88,7 +136,6 @@ export class StoryService {
 
 
 	//FRIENDS-----------------------------------------------------------------------------------------
-
 	getFriends(friendUid) {
 		this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
 		return this.friends;
@@ -108,7 +155,6 @@ export class StoryService {
 		this.request = this.afDb.list(`users/${this.uid}/request`) as FirebaseListObservable<Request[]>;
 		this.request.remove(key);
     this.router.navigate(['./dashboard']);
-
 	}
 
 	acceptFriendsRequest(friendUid) {
@@ -116,9 +162,7 @@ export class StoryService {
 		this.friends.push({
 			uid: friendUid
 		});
-
     this.router.navigate(['./dashboard']);
-
 	}
 
 	sendFriendRequest(friendUid, requestingUser) {
@@ -127,33 +171,10 @@ export class StoryService {
 			uid: requestingUser.uid,
 			name: requestingUser.name,
 			photo: requestingUser.photo
-		}).key;
-	
+		}).key;	
     this.router.navigate(['./dashboard']);
-
-		// requests { // Requests sent from other users
-  //       otherUserId: "id"
-  //     }
-  //     friends { // Users who have accepted your request or vice versa
-  //       otherUserId: "id"
-  //     }
- 
 	}
 
-	addLocation(value) {
-		let location = {
-			uid: value.uid,
-			name: value.name,
-			lat: value.lat,
-			lng: value.lng,
-			title: value.title
-		}
-		return this.locations.push(location);
-	}
-
-	getLocations(lat, lng) {
-		return this.locations;
-	}
 }
 
 interface Story {
