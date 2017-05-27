@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="row col-xs-12">
+		<button *ngIf="!profile" class="btn btn-primary pull-right">Save Form</button>
+		<button *ngIf="profile" class="btn btn-primary pull-right">Edit Form</button>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-4 thumbnail">
+			<img src={{photo}} id="profilePic">
+		</div>
+		<div class="col-xs-12 col-md-8" id="uploadContainer">
+			<div class="form-group">
+				<label>Change you Avatar</label>
+				<input type="file" ng2FileSelect [uploader]="uploader" 
+					class="form-control" id="inputfile"/>
+			</div>
+			<div>
+				<ul *ngFor="let file of uploader.queue" id="fileList">
+    			<li>{{file.file.name}}&nbsp;&nbsp;  
+						<span (click)="deleteFromList(file.file.name)">
+							<strong id="x">X</strong>
+						</span>
+					</li>
+    		</ul>
+			</div>
+			<!-- <button type="button" class="btn btn-primary"
+			id="uploadBtn"
+			(click)="changeAvatar()"
+			[disabled]="uploader.queue <= 0"
+			>
+				Upload
+			</button> -->
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="panel panel-primary" id="profileInfo">
+			<div class="col-xs-12  panel-heading">
+				<h3 class="text-center panel-title">Basic Information</h3>	
+			</div>
+			<div class="panel-body">
+				<form>
+				
+				</form>
+			</div>		
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-primary">
+	    <div class="col-xs-12 panel-heading">
+	      <h1 class="text-center panel-title">My Story</h1>
+	    </div>
+	    <textarea></textarea>
+  	</div>
+	</div>
+
+</div><!--  container -->
+
+
+
+
+ 
+
+  
+
+

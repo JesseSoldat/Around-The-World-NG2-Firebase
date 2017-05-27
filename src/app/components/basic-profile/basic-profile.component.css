@@ -1,4 +1,6 @@
-
+#profilePic {
+	max-height: 200px;
+}
 
 #profileInfo {
     position: relative;

@@ -15,18 +15,24 @@ import * as firebase from 'firebase';
 export class StoryService {
 	user = '';
 	uid: string; //currently logged in user uid
+
+	//LOCATIONS
+	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
+
+	//STORIES
 	stories: FirebaseListObservable<Story[]>; //all stories for a user
 	story: FirebaseObjectObservable<Story>; //all stories for a user
 	storyImages: FirebaseListObservable<Image[]>; //all pictures for one story
+	imageRef: FirebaseListObservable<any>; //images for the stories
 
+	//PROFILE
+	
+
+	//FRIENDS
 	friends: FirebaseListObservable<Friend[]>; //all of the user's friends;
 	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
-
 	request: FirebaseListObservable<Request[]>; //all of the user's friend's request;
 
-
-	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
-	imageRef: FirebaseListObservable<any>;
 
 	constructor(private afDb: AngularFireDatabase,
 							private afAuth: AngularFireAuth,
@@ -39,10 +45,8 @@ export class StoryService {
 	}
 
 	//STORIES--------------------------------------------------------------------------------------------
-	//NEED TO FIX take out friendUID param
-	getStories(friendUid) {
-		//use friendUid if we are getting other's stories
-		//this.uid points to the current user
+	//get all the stories of the USER | CALLS -dashboard
+	getStories() { 
 		return this.stories = this.afDb.list(`users/${this.uid}/stories`) as FirebaseListObservable<any>;
 	}
 
@@ -53,7 +57,6 @@ export class StoryService {
 	getUrl(uid, storyKey) {
 		return this.storyImages = this.afDb.list(`users/${this.uid}/stories/${storyKey}/images`) as FirebaseListObservable<Image[]>;
 	}
-
 
 	addStory(newStory, uid, name) {
 		let { value } = newStory;
@@ -67,6 +70,20 @@ export class StoryService {
 	addImageRef(url, addedStoryKey) {
 		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
 		return this.imageRef.push(url);
+	}
+
+	//BASIC PROFILE-----------------------------------------------------------------------------------
+	
+	changeAvatar() {
+
+	}
+
+	getBasicProfile() {
+
+	}
+
+	changeBasicProfile(data, type) {
+		//type save / edit 
 	}
 
 

@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() { 
    this.onGetStories();
-   this.storyService.getFriendsRequest().subscribe((data) => {
-   
+
+   this.storyService.getFriendsRequest().subscribe((data) => {  
      data.forEach((req) => {
       
        this.friendsRequest.push(req)
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetStories() {
-    this.storyService.getStories(this.uid).subscribe(stories => {
+    this.storyService.getStories().subscribe(stories => {
       this.stories = stories;
       if(this.stories.length > 0) {
         this.spinner = false;
@@ -116,13 +116,6 @@ export class DashboardComponent implements OnInit {
   }
 
   sortById() {
-    // var data = [{"name": "jim","color": "blue","age": "22"}, {"name": "Sam","color": "blue","age": "33"}];
-
-    // var result = _(data)
-    //             .groupBy(x => x.color)
-    //             .map((value, key) => ({color: key, users: value}))
-    //             .value();
-
     let friends = _(this.closeFriends)
       .groupBy(friend => friend.uid)
       .map((value, key) => ({uid: key, friends: value}))
@@ -131,8 +124,7 @@ export class DashboardComponent implements OnInit {
     this.closeFriends = friends;
 
     this.closeFriends.sort(function(a, b){
-    // ASC  -> a.length - b.length
-    // DESC -> b.length - a.length
+    // ASC  -> a.length - b.length DESC -> b.length - a.length
       return b.friends.length - a.friends.length;
     });
     // console.log(this.closeFriends);

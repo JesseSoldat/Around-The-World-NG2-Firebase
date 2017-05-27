@@ -1,0 +1,27 @@
+#profilePic {
+	max-height: 200px;
+}
+
+/*UPLOADER*/
+#uploadContainer {
+    position: relative;
+    min-height: 300px; 
+}
+
+#x {
+	color: red;
+}
+
+#inputfile {
+	color:transparent;
+	border: 0;	
+	/*display: inline-block;*/
+}
+
+#uploadBtn { 
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+}
+/*UPLOADER*/
+

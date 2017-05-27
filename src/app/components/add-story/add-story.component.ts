@@ -85,8 +85,7 @@ export class AddStoryComponent implements OnInit {
   }
 
   deleteFromList(name) {
-    console.log(name);
-    console.log(this.uploader.queue);
+    // console.log(this.uploader.queue);
     let index;
     this.uploader.queue.forEach(file => {
       if(file.file.name === name) {

@@ -16,7 +16,7 @@ import { AddFriendComponent } from './components/add-friend/add-friend.component
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { MyProfilePicsComponent } from './components/my-profile-pics/my-profile-pics.component';
 import { BasicProfileComponent } from './components/basic-profile/basic-profile.component';
-
+import { EditBasicProfileComponent } from './components/edit-basic-profile/edit-basic-profile.component';
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
@@ -43,7 +43,8 @@ const appRoutes: Routes = [
   {path: 'add-friend', component: AddFriendComponent},
   {path: 'my-profile', component: MyProfileComponent},
   {path: 'my-profile-pics', component: MyProfilePicsComponent},
-  {path: 'basic-profile', component: BasicProfileComponent }
+  {path: 'basic-profile', component: BasicProfileComponent },
+  {path: 'edit-basic-profile', component: EditBasicProfileComponent}
 ];
  
 @NgModule({
@@ -58,7 +59,7 @@ const appRoutes: Routes = [
     FilterTextPipe,
     AddFriendComponent,
     FileDropDirective, 
-    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent
+    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent
   ],
   imports: [
     BrowserModule,
