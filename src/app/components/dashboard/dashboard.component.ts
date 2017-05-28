@@ -27,7 +27,8 @@ export class DashboardComponent implements OnInit {
 
   friends: string[] = []; //an array of friends uid
   sentReq = []; //the people we have already sent request too
-  recievedReq = []; //an array of user's uids that have requested to be friends
+  recievedReq = []; //an array of OBJECTS with the user name, avatar, and uid
+  recievedReqArray = []; //an array of user's uids that have requested to be friends
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
   constructor(private storyService: StoryService,
@@ -39,51 +40,52 @@ export class DashboardComponent implements OnInit {
 
     //---------------------------------------
     this.storyService.getUser().subscribe((user) => {
-     
+   
       user.forEach((obj) => {
         // console.log(obj.$key);
         if(obj.$key === 'friends') {
           for(let prop in obj) {
-            // console.log('friends');
-            // console.log(this.friends);
-            this.friends.push(obj[prop].uid);
-           
-          }
+            console.log('friends');
+            console.log(this.friends);
+            this.friends.push(obj[prop].uid);    
+          }//for
         }
         if(obj.$key === 'recievedReq') {
-          for(let prop in obj) {
-            // console.log('recievedReq');
-            // console.log(obj[prop].uid);
-            this.recievedReq.push(obj[prop]);
+          // for(let prop in obj) {
+           
+          //   this.recievedReq.push(obj[prop]);
+          //   this.recievedReqArray.push(obj[prop].uid);
 
-            if(this.recievedReq.length <= 1) {
-                this.singularOrPlural = 'Friend Request';
-             } else {
-               this.singularOrPlural = 'Friends Request';
-             }
-          } //for
+          //   if(this.recievedReq.length <= 1) {
+          //       this.singularOrPlural = 'Friend Request';
+          //    } else {
+          //      this.singularOrPlural = 'Friends Request';
+          //    }
+          // } //for
         }
         if(obj.$key === 'sentReq'){
           for(let prop in obj) {
-            // console.log('sentRequest');
-            // console.log(obj[prop].uid);
+            console.log('sentRequest');
+            console.log(obj[prop].uid);
             this.sentReq.push(obj[prop].uid);
           }
         }
       })
     });
     //---------------------------------------
-    //RecievedReq
-     // this.storyService.getFriendsRequest().subscribe((data) => {  
-     //   data.forEach((req) => {    
-     //     this.recievedReq.push(req)
-     //   });
-     //   if(this.recievedReq.length <= 1) {
-     //      this.singularOrPlural = 'Friend Request';
-     //   } else {
-     //     this.singularOrPlural = 'Friends Request';
-     //   }
-     // });
+   // RecievedReq
+     this.storyService.getFriendsRequest().subscribe((data) => {  
+       data.forEach((req) => {    
+         this.recievedReq.push(req);
+         this.recievedReqArray.push(req.uid);
+
+       });
+       if(this.recievedReq.length <= 1) {
+          this.singularOrPlural = 'Friend Request';
+       } else {
+         this.singularOrPlural = 'Friends Request';
+       }
+     });
     
     //---------------------------------------
     //FRIENDS
@@ -100,9 +102,7 @@ export class DashboardComponent implements OnInit {
   }//constructor
 
   ngOnInit() {
-
    this.onGetStories();
-
   }
 
   onGetStories() {
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
 
   removeFriends() {
     //User clicks close on modal to opt out of the search
-    //clear the this array so it is ready for the next search
+    //clear the this.closeFriends array so it is ready for the next search
     this.closeFriends = [];
   }
 
@@ -160,12 +160,11 @@ export class DashboardComponent implements OnInit {
           } else {
             let alreadyFriend = _.includes(this.friends, location.uid);
             let alreadySentReq = _.includes(this.sentReq, location.uid); 
-            let alreadyRecievedReq = _.includes(this.recievedReq, location.uid);
-         
+            let alreadyRecievedReq = _.includes(this.recievedReqArray, location.uid); 
+            
             if(!alreadyFriend && !alreadySentReq && !alreadyRecievedReq) {
               this.closeFriends.push(location);
             }
-
           }
         }
       })//map

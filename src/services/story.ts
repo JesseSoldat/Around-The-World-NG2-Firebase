@@ -182,6 +182,7 @@ export class StoryService {
 	}
 
 	denyFriendsRequest(key) {
+		console.log(key);
 		this.recievedReq = this.afDb.list(`users/${this.uid}/recievedReq`) as FirebaseListObservable<Requested[]>;
 		this.recievedReq.remove(key);
     this.router.navigate(['./dashboard']);

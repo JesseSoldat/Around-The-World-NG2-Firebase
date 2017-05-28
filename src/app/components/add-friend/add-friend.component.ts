@@ -15,7 +15,7 @@ export class AddFriendComponent implements OnInit {
   photo: string; //logged in user's photo from user object
   friendUid: string; //uid of the person they want to add as a friend
   responding: boolean; //if user is responding to a friend request
-  friendRequestKey //the key to delete the friend request
+  friendRequestKey; //the key to delete the friend request
 
   constructor(private route: ActivatedRoute,
   						private storyService: StoryService) { 
@@ -34,7 +34,6 @@ export class AddFriendComponent implements OnInit {
          }
       })
       .subscribe((req) => {
-          console.log(req);
           this.responding = req.responding
           this.friendUid = req.id;
           this.friendRequestKey = req.key;
@@ -46,7 +45,6 @@ export class AddFriendComponent implements OnInit {
               } else;
               return story;
             });
-          	console.log(this.stories);
           	});
       });
   }
@@ -62,7 +60,6 @@ export class AddFriendComponent implements OnInit {
   }
 
   onRespondFriendRequest(answer: boolean) {
-    console.log(answer);
     if(answer) {
       this.storyService.acceptFriendsRequest(this.friendUid, this.friendRequestKey)
     } else {
