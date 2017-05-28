@@ -14,9 +14,13 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class StoryService {
-	user = '';
+	//Firebase USER OBJECT (stored these values in local storage)
 	name: string;  //currently logged in user name
 	uid: string; //currently logged in user uid
+	photo: string; //currentyl logged in user photo
+
+	//USER 
+	user: FirebaseListObservable<any>; //all user data
 
 	//LOCATIONS
 	locations: FirebaseListObservable<Location[]>; //all of the locations for all of the users
@@ -35,8 +39,8 @@ export class StoryService {
 	//FRIENDS
 	friends: FirebaseListObservable<Friend[]>; //all of the user's friends;
 	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
-	request: FirebaseListObservable<Request[]>; //all of the user's friend's request;
-
+	recievedReq: FirebaseListObservable<Requested[]>; //all of the user's recived friend's request;
+	sentReq: FirebaseListObservable<Request[]>; //all of the user's sent friend's request;
 
 	constructor(private afDb: AngularFireDatabase,
 							private afAuth: AngularFireAuth,
@@ -46,8 +50,20 @@ export class StoryService {
 
 		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
 		this.name = JSON.parse(localStorage.getItem('currentUser')).name;
+		this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
 
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
+	}
+	//USER-----------------------------------------------------------------
+	//user has stories / profile / avatar / friends / recieved request / sent request
+	getUser() {
+		this.user = this.afDb.list(`users/${this.uid}`, {
+			query: {
+		    limitToFirst: 10,
+		    orderByKey: true
+		  }
+		});
+		return this.user;
 	}
 	//LOCATIONS-----------------------------------------------------------------------------
 	addLocation(value) {
@@ -150,11 +166,6 @@ export class StoryService {
 	}
 
 	//FRIENDS-----------------------------------------------------------------------------------------
-	// getFriends(friendUid) {
-	// 	this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
-	// 	return this.friends;
-	// }
-
 	getMyFriends() {
 		this.friends = this.afDb.list(`users//${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
 		return this.friends;
@@ -166,36 +177,50 @@ export class StoryService {
 	}
 
 	getFriendsRequest(){
-		this.request = this.afDb.list(`users/${this.uid}/request`) as FirebaseListObservable<Request[]>;
-		return this.request;
+		this.recievedReq = this.afDb.list(`users/${this.uid}/recievedReq`) as FirebaseListObservable<Requested[]>;
+		return this.recievedReq;
 	}
 
 	denyFriendsRequest(key) {
-		this.request = this.afDb.list(`users/${this.uid}/request`) as FirebaseListObservable<Request[]>;
-		this.request.remove(key);
+		this.recievedReq = this.afDb.list(`users/${this.uid}/recievedReq`) as FirebaseListObservable<Requested[]>;
+		this.recievedReq.remove(key);
     this.router.navigate(['./dashboard']);
 	}
 
 	acceptFriendsRequest(friendUid, key) {
+		//save the requested friend to your list of friends
 		this.friends = this.afDb.list(`users/${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
 		this.friends.push({
 			uid: friendUid
 		});
+		//save your uid to the accept friend's list
+		this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
+		this.friends.push({
+			uid: this.uid
+		});
 		this.denyFriendsRequest(key);
-    // this.router.navigate(['./dashboard']);
+	}
+
+	trackSentFriendRequest(friendUid) {
+		this.sentReq = this.afDb.list(`users/${this.uid}/sentReq`) as FirebaseListObservable<Request[]>;
+		this.sentReq.push({
+			uid: friendUid,
+		})
+    this.router.navigate(['./dashboard']);
 	}
 
 	sendFriendRequest(friendUid, requestingUser) {
-		this.request = this.afDb.list(`users/${friendUid}/request`) as FirebaseListObservable<Request[]>;
-		let key = this.request.push({
+		this.recievedReq = this.afDb.list(`users/${friendUid}/recievedReq`) as FirebaseListObservable<Requested[]>;
+		let key = this.recievedReq.push({
 			uid: requestingUser.uid,
 			name: requestingUser.name,
 			photo: requestingUser.photo
 		}).key;	
-    this.router.navigate(['./dashboard']);
+		this.trackSentFriendRequest(friendUid);
 	}
 
 }
+
 
 interface Story {
 	$key?:string;
@@ -240,10 +265,13 @@ interface Friend {
 
 interface Request {
 	uid: string;
+}
+
+interface Requested {
+	uid: string;
 	name: string;
 	photo: string;
 	$key?:string;
-
 }
 
 

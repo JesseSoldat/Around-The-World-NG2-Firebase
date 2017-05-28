@@ -1,0 +1,41 @@
+{
+  "rules": {
+    "temp": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "auth != null",
+      }  
+    },
+      "locations": {
+        ".write": "auth != null",
+        ".read": "auth != null"
+        
+    }, "users": {
+      	"$uid": {
+          "request": {
+            ".write": "auth != null",
+        		".read": "auth != null"
+          },
+          "profile": {
+            ".write": "$uid === auth.uid",
+            ".read": "auth != null"
+          },
+          "avatar": {
+            ".write": "$uid === auth.uid",
+            ".read": "auth != null"
+          },
+        	"friends": {
+            ".write": "auth != null",
+        		".read": "auth != null"
+          },
+          "stories": {
+            ".write": "$uid === auth.uid",
+            ".read": "auth != null",   
+          }
+      	}
+    }
+      
+  }
+}
+    
+

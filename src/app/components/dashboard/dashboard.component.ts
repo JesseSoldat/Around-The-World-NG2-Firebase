@@ -26,7 +26,8 @@ export class DashboardComponent implements OnInit {
   spinner: boolean; //until firebase can check for user data show spinner
 
   friends: string[] = []; //an array of friends uid
-  friendsRequest = []; //an array of user's uids that have requested to be friends
+  sentReq = []; //the people we have already sent request too
+  recievedReq = []; //an array of user's uids that have requested to be friends
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
   constructor(private storyService: StoryService,
@@ -36,30 +37,72 @@ export class DashboardComponent implements OnInit {
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
 
-    this.storyService.getMyFriends().subscribe((friends) => {    
-      for(let i = 0; i < friends.length; i++) {
-       for (var property in friends[i]) {
-          if (friends[i].hasOwnProperty(property)) {
-           this.friends.push(friends[i].uid)
+    //---------------------------------------
+    this.storyService.getUser().subscribe((user) => {
+     
+      user.forEach((obj) => {
+        // console.log(obj.$key);
+        if(obj.$key === 'friends') {
+          for(let prop in obj) {
+            // console.log('friends');
+            // console.log(this.friends);
+            this.friends.push(obj[prop].uid);
+           
           }
         }
-      }
+        if(obj.$key === 'recievedReq') {
+          for(let prop in obj) {
+            // console.log('recievedReq');
+            // console.log(obj[prop].uid);
+            this.recievedReq.push(obj[prop]);
+
+            if(this.recievedReq.length <= 1) {
+                this.singularOrPlural = 'Friend Request';
+             } else {
+               this.singularOrPlural = 'Friends Request';
+             }
+          } //for
+        }
+        if(obj.$key === 'sentReq'){
+          for(let prop in obj) {
+            // console.log('sentRequest');
+            // console.log(obj[prop].uid);
+            this.sentReq.push(obj[prop].uid);
+          }
+        }
+      })
     });
+    //---------------------------------------
+    //RecievedReq
+     // this.storyService.getFriendsRequest().subscribe((data) => {  
+     //   data.forEach((req) => {    
+     //     this.recievedReq.push(req)
+     //   });
+     //   if(this.recievedReq.length <= 1) {
+     //      this.singularOrPlural = 'Friend Request';
+     //   } else {
+     //     this.singularOrPlural = 'Friends Request';
+     //   }
+     // });
+    
+    //---------------------------------------
+    //FRIENDS
+      // this.storyService.getMyFriends().subscribe((friends) => {    
+      //   for(let i = 0; i < friends.length; i++) {
+      //    for (var property in friends[i]) {
+      //       if (friends[i].hasOwnProperty(property)) {
+      //        this.friends.push(friends[i].uid)
+      //       }
+      //     }
+      //   }
+      // });
+
   }//constructor
 
-  ngOnInit() { 
-   console.log(this.friends);
+  ngOnInit() {
+
    this.onGetStories();
-   this.storyService.getFriendsRequest().subscribe((data) => {  
-     data.forEach((req) => {    
-       this.friendsRequest.push(req)
-     });
-     if(this.friendsRequest.length <= 1) {
-        this.singularOrPlural = 'Friend Request';
-     } else {
-       this.singularOrPlural = 'Friends Request';
-     }
-   });
+
   }
 
   onGetStories() {
@@ -90,7 +133,6 @@ export class DashboardComponent implements OnInit {
   }
 
   viewStory(key) {
-    console.log(key);
     this.router.navigate(['my-profile', {key: key}]);
   }
 
@@ -116,7 +158,14 @@ export class DashboardComponent implements OnInit {
           if(this.uid === location.uid) {
             return;
           } else {
-            this.closeFriends.push(location);
+            let alreadyFriend = _.includes(this.friends, location.uid);
+            let alreadySentReq = _.includes(this.sentReq, location.uid); 
+            let alreadyRecievedReq = _.includes(this.recievedReq, location.uid);
+         
+            if(!alreadyFriend && !alreadySentReq && !alreadyRecievedReq) {
+              this.closeFriends.push(location);
+            }
+
           }
         }
       })//map
