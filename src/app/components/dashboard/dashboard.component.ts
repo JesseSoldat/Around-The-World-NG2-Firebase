@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   showMsg = false; //show message if there are no stories
   distances = [5,10,15,20,50,100,300,500,1000,3000,5000,10000,100000]; //populate the select box 
   spinner: boolean; //until firebase can check for user data show spinner
+
+  friends: string[] = []; //an array of friends uid
   friendsRequest = []; //an array of user's uids that have requested to be friends
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
@@ -33,14 +35,23 @@ export class DashboardComponent implements OnInit {
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
-  }
+
+    this.storyService.getMyFriends().subscribe((friends) => {    
+      for(let i = 0; i < friends.length; i++) {
+       for (var property in friends[i]) {
+          if (friends[i].hasOwnProperty(property)) {
+           this.friends.push(friends[i].uid)
+          }
+        }
+      }
+    });
+  }//constructor
 
   ngOnInit() { 
+   console.log(this.friends);
    this.onGetStories();
-
    this.storyService.getFriendsRequest().subscribe((data) => {  
-     data.forEach((req) => {
-      
+     data.forEach((req) => {    
        this.friendsRequest.push(req)
      });
      if(this.friendsRequest.length <= 1) {

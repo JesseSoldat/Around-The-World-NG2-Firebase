@@ -149,10 +149,14 @@ export class StoryService {
 		//type save / edit 
 	}
 
-
 	//FRIENDS-----------------------------------------------------------------------------------------
-	getFriends(friendUid) {
-		this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
+	// getFriends(friendUid) {
+	// 	this.friends = this.afDb.list(`users/${friendUid}/friends`) as FirebaseListObservable<Friend[]>;
+	// 	return this.friends;
+	// }
+
+	getMyFriends() {
+		this.friends = this.afDb.list(`users//${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
 		return this.friends;
 	}
 
