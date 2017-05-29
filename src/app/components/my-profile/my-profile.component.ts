@@ -19,6 +19,7 @@ export class MyProfileComponent implements OnInit {
   	this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
 
   	let currentStory = this.routeParams.params.subscribe((data) => {
+
 		  this.storyKey = data.key;
   	});
   }
@@ -43,8 +44,20 @@ export class MyProfileComponent implements OnInit {
       navigationExtras.queryParams[i] = url['url'];
       //console.log(navigationExtras.queryParams[i]);  //URL STRING
     });
-
       this.router.navigate(['my-profile-pics'], navigationExtras);
+  }
+
+  viewSingleImage(img) {
+    let navigationExtras: NavigationExtras = {
+            queryParams: {
+              url: img.url,
+              key: img.$key,
+              storyKey: this.storyKey
+            }
+        };
+    // console.log(img.$key);
+    // console.log(img);
+    this.router.navigate(['single-img'], navigationExtras)
   }
 
 }

@@ -29,8 +29,11 @@
 
 	<!-- HAVE PHOTOS -->
 	<div class="row" *ngIf="imgUrl.length > 0">
-		<div class="col-xs-4" *ngFor="let img of imgUrl | slice:0:3">
+		<div class="col-xs-4" *ngFor="let img of imgUrl | slice:0:3"
+		id="imgContainer">
 			<img [src]="img.url" class="img-rounded img-responsive">
+			<button class="btn btn-primary" id="viewImgBtn"
+			(click)="viewSingleImage(img)">View Image</button>
 		</div>
 	</div>
 
@@ -42,7 +45,7 @@
 	</div>
 
 
-	<div class="row col-xs-12 col-sm-10 col-sm-offset-1">
+	<div class="row col-xs-12 col-sm-10 col-sm-offset-1" *ngIf="story">
 		<h1>{{story.title}}</h1>
 		<h4>{{story.description}}</h4>
 	</div>

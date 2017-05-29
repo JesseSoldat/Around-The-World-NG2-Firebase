@@ -2,3 +2,19 @@
 	width: 100%;
 	display: block;
 }
+
+
+#imgContainer {
+	position: relative;
+}
+#viewImgBtn {
+	position: absolute;
+	right: 4%;
+	bottom: 2%;
+	display: none;
+}
+
+#imgContainer:hover #viewImgBtn { 
+	display: block; 
+}
+
