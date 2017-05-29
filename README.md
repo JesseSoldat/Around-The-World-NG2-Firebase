@@ -1,5 +1,32 @@
 # AroundTheWorld
 
+window.location.replace(...)
+window.location.href = 'newPage.html';
+$(location).attr('href', 'http://stackoverflow.com')
+
+
+window.location.replace('http://www.example.com')
+window.location.assign('http://www.example.com')
+window.location.href = 'http://www.example.com'
+document.location.href = '/path'
+
+// window.history
+window.history.back()
+window.history.go(-1)
+
+// window.navigate; ONLY for old versions of Internet Explorer
+window.navigate('top.jsp')
+
+
+// Probably no bueno
+self.location = 'http://www.example.com';
+top.location = 'http://www.example.com';
+
+// jQuery
+$(location).attr('href','http://www.example.com')
+$(window).attr('location','http://www.example.com')
+$(location).prop('href', 'http://www.example.com')
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.4.
 
 ## Development server

@@ -9,7 +9,7 @@
 /*UPLOADER*/
 #uploadContainer {
     position: relative;
-    min-height: 300px; 
+    min-height: 200px; 
 }
 
 #x {
@@ -36,7 +36,7 @@
 
 /*STORY ROW-----------------------------------*/
 #storyText {
-	min-height: 400px;
+	min-height: 300px;
 }
 form {
 	padding: 2%;

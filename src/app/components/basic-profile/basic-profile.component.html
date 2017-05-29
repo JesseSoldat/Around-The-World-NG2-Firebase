@@ -26,10 +26,18 @@
           <div id="profileInfo">
           
               <h3>{{name}}</h3> 
-      
-            
+              
               <h3 *ngIf="!profileStory">Enter you contact information here</h3>
-           
+              
+              <ul class="list-group" *ngIf="profileStory">  
+                <li *ngIf="profileStory"
+                class="list-group-item">
+                Email: {{profileStory.email}}</li>
+                <li *ngIf="profileStory"
+                class="list-group-item">
+                Facebook: {{profileStory.facebook}}</li>
+              </ul>
+
           </div>
         </div>
       </div>    
@@ -59,7 +67,10 @@
       <h1 class="text-center panel-title">My Story</h1>
     </div>
     <div *ngIf="profileStory" class="panel-body" id="profileStory">
-      {{profileStory}}
+      <br><br>  
+      <div class="container"> 
+        <p>{{profileStory.story}}</p>  
+      </div>
     </div>
     <div *ngIf="!profileStory" class="panel-body" id="profileStory">
       <br><br>

@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
         this.name = JSON.parse(localStorage.getItem('currentUser')).name;
-        this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
+        // this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
         // console.log('onAuthStateChanged');
         // console.log(JSON.parse(localStorage.getItem('currentUser')));
         this.router.navigate(['dashboard']);

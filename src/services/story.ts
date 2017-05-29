@@ -34,6 +34,7 @@ export class StoryService {
 	//PROFILE
 	storageRef; //will be a location in storage to avatar
 	avatarRef: FirebaseObjectObservable<Image>; // ref in the database to the avatar
+	profile: FirebaseObjectObservable<Profile>; // the users basic profile
 	
 
 	//FRIENDS
@@ -139,7 +140,8 @@ export class StoryService {
 		            photoURL: data.url
 		          }).then(function() {
 		            // Update successful.
-		            console.log(user);
+        			localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true, photo: user.photoURL }));
+       
 		          }, function(error) {
 		            // An error happened.
 		          });
@@ -158,11 +160,15 @@ export class StoryService {
 	}
 
 	getBasicProfile() {
-
+		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
+		return this.profile;
 	}
 
-	changeBasicProfile(data, type) {
-		//type save / edit 
+	changeBasicProfile(data) {
+		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
+		return this.profile.set(data);
+
+		// window.location.replace('/dashboard');
 	}
 
 	//FRIENDS-----------------------------------------------------------------------------------------
@@ -182,7 +188,6 @@ export class StoryService {
 	}
 
 	denyFriendsRequest(key) {
-		console.log(key);
 		this.recievedReq = this.afDb.list(`users/${this.uid}/recievedReq`) as FirebaseListObservable<Requested[]>;
 		this.recievedReq.remove(key);
     this.router.navigate(['./dashboard']);
@@ -219,7 +224,13 @@ export class StoryService {
 		}).key;	
 		this.trackSentFriendRequest(friendUid);
 	}
+}
 
+interface Profile {
+	name: string;
+	story: string;
+	facebook: string;
+	email: string;
 }
 
 

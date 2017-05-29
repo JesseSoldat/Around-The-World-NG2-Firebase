@@ -17,6 +17,8 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { MyProfilePicsComponent } from './components/my-profile-pics/my-profile-pics.component';
 import { BasicProfileComponent } from './components/basic-profile/basic-profile.component';
 import { EditBasicProfileComponent } from './components/edit-basic-profile/edit-basic-profile.component';
+import { MyFriendsComponent } from './components/my-friends/my-friends.component';
+
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
@@ -30,9 +32,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
-
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -44,7 +44,8 @@ const appRoutes: Routes = [
   {path: 'my-profile', component: MyProfileComponent},
   {path: 'my-profile-pics', component: MyProfilePicsComponent},
   {path: 'basic-profile', component: BasicProfileComponent },
-  {path: 'edit-basic-profile', component: EditBasicProfileComponent}
+  {path: 'edit-basic-profile', component: EditBasicProfileComponent},
+  {path: 'my-friends', component: MyFriendsComponent}
 ];
  
 @NgModule({
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     FilterTextPipe,
     AddFriendComponent,
     FileDropDirective, 
-    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent
+    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent, MyFriendsComponent
   ],
   imports: [
     BrowserModule,

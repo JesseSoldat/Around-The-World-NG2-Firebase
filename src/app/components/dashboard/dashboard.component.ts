@@ -31,12 +31,14 @@ export class DashboardComponent implements OnInit {
   recievedReqArray = []; //an array of user's uids that have requested to be friends
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
+
   constructor(private storyService: StoryService,
               private router: Router) { 
     this.spinner = true;
     this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
     this.name = JSON.parse(localStorage.getItem('currentUser')).name;
     this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
+   
 
     //---------------------------------------
     this.storyService.getUser().subscribe((user) => {
@@ -45,8 +47,8 @@ export class DashboardComponent implements OnInit {
         // console.log(obj.$key);
         if(obj.$key === 'friends') {
           for(let prop in obj) {
-            console.log('friends');
-            console.log(this.friends);
+            // console.log('friends');
+            // console.log(this.friends);
             this.friends.push(obj[prop].uid);    
           }//for
         }
@@ -65,8 +67,8 @@ export class DashboardComponent implements OnInit {
         }
         if(obj.$key === 'sentReq'){
           for(let prop in obj) {
-            console.log('sentRequest');
-            console.log(obj[prop].uid);
+            // console.log('sentRequest');
+            // console.log(obj[prop].uid);
             this.sentReq.push(obj[prop].uid);
           }
         }
