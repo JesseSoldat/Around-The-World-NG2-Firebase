@@ -37,8 +37,9 @@ export class StoryService {
 	profile: FirebaseObjectObservable<Profile>; // the users basic profile
 	
 
-	//FRIENDS
-	friends: FirebaseListObservable<Friend[]>; //all of the user's friends;
+	//FRIENDS 
+	friendsObj: FirebaseListObservable<any>; // list of all friends data
+	friends: FirebaseListObservable<Friend[]>; //all of the user's friends UID;
 	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
 	recievedReq: FirebaseListObservable<Requested[]>; //all of the user's recived friend's request;
 	sentReq: FirebaseListObservable<Request[]>; //all of the user's sent friend's request;
@@ -196,8 +197,8 @@ export class StoryService {
 	//FRIENDS-----------------------------------------------------------------------------------------
 	getFriends(friendUid) {
 		//a list of friends objects /avatar /profile / stories
-		this.friends = this.afDb.list(`users/${friendUid}`) as FirebaseListObservable<Friend[]>;
-		return this.friends;
+		this.friendsObj = this.afDb.list(`users/${friendUid}`) as FirebaseListObservable<any[]>;
+		return this.friendsObj;
 	}
 	getMyFriends() {
 		//a list of uids
