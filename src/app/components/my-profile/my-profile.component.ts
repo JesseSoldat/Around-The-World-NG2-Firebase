@@ -52,11 +52,12 @@ export class MyProfileComponent implements OnInit {
             queryParams: {
               url: img.url,
               key: img.$key,
+              name: img.raw,
               storyKey: this.storyKey
             }
         };
     // console.log(img.$key);
-    // console.log(img);
+   
     this.router.navigate(['single-img'], navigationExtras)
   }
 

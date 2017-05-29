@@ -110,6 +110,25 @@ export class StoryService {
 		return this.imageRef.push(url);
 	}
 
+	deleteImg(img, addedStoryKey) {
+		// console.log(img.key);
+		// console.log(addedStoryKey);
+
+		this.router.navigate(['./dashboard']);
+		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
+		this.imageRef.remove(img.key);
+		this.storageRef = firebase.storage().ref(`images/${this.uid}/${addedStoryKey}/${img.name}`);
+		this.storageRef.delete().then(function() {
+		  // File deleted successfully
+		
+		}).catch(function(error) {
+		  // Uh-oh, an error occurred!
+		  console.log(error);
+		});
+	
+		
+	}
+
 
 	//BASIC PROFILE-----------------------------------------------------------------------------------	
 	progressBar(snapshot) {
