@@ -1,20 +1,52 @@
 <div class="container-fluid">
-	<div class="row">
+
+	<!-- NO USER PHOTOS -->
+	<div class="row" *ngIf="imgUrl.length <= 0">
+		<div class="col-xs-12  
+								col-sm-10 col-sm-offset-1">
+						
+			<div class="col-xs-12 col-sm-9">
+
+				<h2 class="hidden-xs">A Story is not always just words</h2>
+				<h3 class="hidden-sm hidden-md hidden-lg">A Story is not always just words</h3>
+				<p>Edit your story and add some photos?</p>
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				<br>
+				<button class="btn btn-primary">Edit Story</button>
+				<div>
+					<br><br>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 
+								col-sm-10 col-sm-offset-1 
+								col-md-8 col-md-offset-2">
+			<img src="../../../assets/map.png" id="defaultImg">
+		</div>
+	</div>
+
+	<!-- HAVE PHOTOS -->
+	<div class="row" *ngIf="imgUrl.length > 0">
 		<div class="col-xs-4" *ngFor="let img of imgUrl | slice:0:3">
 			<img [src]="img.url" class="img-rounded img-responsive">
 		</div>
 	</div>
+
 	<div class="row container-fluid" *ngIf="imgUrl.length > 3">
 		<div class="col-xs-12 alert alert-info" role="alert">
 			<label style="margin-right: 2%">This user has {{imgUrl.length - 3}} more photos</label>
 			<button class="btn btn-primary" (click)="morePhotos()">Check it out!</button>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row col-xs-12">
-			<h1>{{story.title}}</h1>
-			<h4>{{story.description}}</h4>
-		</div>
+
+
+	<div class="row col-xs-12 col-sm-10 col-sm-offset-1">
+		<h1>{{story.title}}</h1>
+		<h4>{{story.description}}</h4>
 	</div>
-</div>
+
+
+</div> <!-- container-fluid -->
 
