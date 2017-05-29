@@ -57,12 +57,16 @@ export class EditBasicProfileComponent implements OnInit {
   	if(this.uploader.queue.length >= 1) {
   		let file = this.uploader.queue[0];
   		this.changeAvatar(file);
+      
+      this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
+
   	}
     let data = {
       name: this.name,
       email: this.email,
       facebook: this.facebook,
-      story: this.story
+      story: this.story,
+      avatar: this.photo
     }
 
   	this.storyService.changeBasicProfile(data).then((data) => {

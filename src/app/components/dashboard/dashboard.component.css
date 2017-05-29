@@ -1,40 +1,46 @@
 li {
 	list-style: none;
 }
-#storyContainer {
-	background: white;
-}
 
-#selectDistance {
-	padding: 2% 0 0 0;
-}
-
-#label, #select {
-	margin-right: 5px;
-}
-
-#button {
-	margin-left: 8px;
-}
-
-sebm-google-map {
-	height: 200px;
-	width: 100%;
-	z-index: 1;
-
-	/*float: right;*/
-}
-
-#viewStoryBtn {
-	/*margin-top: 2%;*/
-	margin: 0;
-
+.list-group-item {
+   margin-bottom: 5%;
+   padding: 3% 3% 
 }
 
 #storyDescription {
 	margin-top: 2%;
 }
 
+/*FIND FRIEND FORM--------------------------*/
+#selectDistance {
+	padding: 2% 0 0 0;
+}
+
+#label, #select {
+	margin-right: 15px;
+}
+
+#radio {
+	margin-right: 20px;
+}
+
+#findFriendsBtn {
+	/*margin-left: 25px;*/
+}
+
+/*MAP--------------------------------------*/
+sebm-google-map {
+	height: 200px;
+	width: 100%;
+	z-index: 1;
+}
+
+#viewStoryBtn {
+	margin: 0;
+	width: 100%;
+}
+
+/*MODAL-------------------------------------*/
 #friendImg {
 	width: 50px;
 	height: 50px;

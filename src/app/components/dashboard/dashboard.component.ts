@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   singularOrPlural; //you have 1 friend request or you have 2 friends requests
 
 
+
   constructor(private storyService: StoryService,
               private router: Router) { 
     this.spinner = true;

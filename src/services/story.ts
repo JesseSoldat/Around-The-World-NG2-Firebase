@@ -112,6 +112,9 @@ export class StoryService {
 
 
 	//BASIC PROFILE-----------------------------------------------------------------------------------	
+	progressBar(snapshot) {
+
+	}
 	//SAVE AVATAR TO STORAGE
 	changeAvatar(file) { 
     const fileName: string = 'avatar.jpg';
@@ -121,7 +124,7 @@ export class StoryService {
     const uploadTask: any = fileRef.put(file['_file']);
     uploadTask.on('state_changed',
       (snapshot) => {
-        // this.progressBar(snapshot);
+        this.progressBar(snapshot);
       },
       (error) => console.log(error),
       () => {
@@ -133,7 +136,7 @@ export class StoryService {
           this.addAvatarRef(data)
             .then((res) => {
         			let user = firebase.auth().currentUser;
-        			console.log(user);
+        			
         			
         			user.updateProfile({
 		            displayName: this.name,
@@ -172,8 +175,14 @@ export class StoryService {
 	}
 
 	//FRIENDS-----------------------------------------------------------------------------------------
+	getFriends(friendUid) {
+		//a list of friends objects /avatar /profile / stories
+		this.friends = this.afDb.list(`users/${friendUid}`) as FirebaseListObservable<Friend[]>;
+		return this.friends;
+	}
 	getMyFriends() {
-		this.friends = this.afDb.list(`users//${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
+		//a list of uids
+		this.friends = this.afDb.list(`users/${this.uid}/friends`) as FirebaseListObservable<Friend[]>;
 		return this.friends;
 	}
 
@@ -231,6 +240,7 @@ interface Profile {
 	story: string;
 	facebook: string;
 	email: string;
+	avatar: string;
 }
 
 
