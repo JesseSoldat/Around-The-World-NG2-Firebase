@@ -16,6 +16,7 @@ export class EditBasicProfileComponent implements OnInit {
 	uid: string; //the users uid from the user object
 	name: string //the users name from the user object
 	photo: string; //this is the photoURL from the user object
+  avatar: string; //used to replace photo
   uploader: FileUploader = new FileUploader({ url: '' });
   socialOptions: string[]; //list of the form controls you can add
   showProgressBar: boolean = false; //show the progress bar when uploading an avatar
@@ -29,6 +30,7 @@ export class EditBasicProfileComponent implements OnInit {
    	
      this.storyService.getBasicProfile().subscribe((story) => {
         this.profile = story;
+        this.avatar = story.avatar;
         this.email = story.email;
         this.facebook = story.facebook;
         this.story = story.story; 
@@ -66,7 +68,8 @@ export class EditBasicProfileComponent implements OnInit {
       email: this.email,
       facebook: this.facebook,
       story: this.story,
-      avatar: this.photo
+      avatar: this.photo,
+      uid: this.uid
     }
 
   	this.storyService.changeBasicProfile(data).then((data) => {

@@ -261,6 +261,7 @@ interface Profile {
 	facebook: string;
 	email: string;
 	avatar: string;
+	uid: string;
 }
 
 
