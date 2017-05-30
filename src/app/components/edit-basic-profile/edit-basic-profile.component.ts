@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { StoryService } from '../../../services/story';
 import { FileUploader } from 'ng2-file-upload';
 
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'app-edit-basic-profile',
   templateUrl: './edit-basic-profile.component.html',
@@ -16,17 +18,21 @@ export class EditBasicProfileComponent implements OnInit {
 	uid: string; //the users uid from the user object
 	name: string //the users name from the user object
 	photo: string; //this is the photoURL from the user object
-  avatar: string; //used to replace photo
+  avatar; //used to replace photo
+
   uploader: FileUploader = new FileUploader({ url: '' });
-  socialOptions: string[]; //list of the form controls you can add
   showProgressBar: boolean = false; //show the progress bar when uploading an avatar
+  progress: number = 0;
+
+  storageRef; //will be a location in storage to avatar
+
 
   constructor(private storyService: StoryService,
               private router: Router) {
   	this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
    	this.name = JSON.parse(localStorage.getItem('currentUser')).name;
    	this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
-   	this.socialOptions = ['Facebook','Email','Phone Number'];
+
    	
      this.storyService.getBasicProfile().subscribe((story) => {
         this.profile = story;
@@ -37,7 +43,7 @@ export class EditBasicProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
   deleteFromList(file) {
@@ -50,31 +56,61 @@ export class EditBasicProfileComponent implements OnInit {
     this.uploader.queue.splice(index, 1);
   }
 
-  changeAvatar(file) {
-  	this.showProgressBar = true;
-  	this.storyService.changeAvatar(file);
+  editAvatar() {
+    if(this.uploader.queue.length >= 1) {
+      this.showProgressBar = true;
+      let file = this.uploader.queue[0];
+      // this.storyService.changeAvatar(file);     
+      //---------------------------------------------------
+      const fileName: string = 'avatar.jpg';
+      this.storageRef = firebase.storage().ref(`avatar/${this.uid}/${fileName}`);
+      const fileRef: any = this.storageRef;
+
+      const uploadTask: any = fileRef.put(file['_file']);
+
+      uploadTask.on('state_changed',
+            (snapshot) => {
+              this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;               
+            },
+            (error) => console.log(error),
+            () => {
+
+              //------------------------------------------------
+
+              this.avatar = uploadTask.snapshot.downloadURL;
+              let user = firebase.auth().currentUser;
+
+              user.updateProfile({
+                  displayName: this.name,
+                  photoURL: this.avatar
+                }).then(function() {
+                  // Update successful.
+     localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, photo: user.photoURL }));
+                
+                }, function(error) {
+                  // An error happened.
+                });
+              //------------------------------------------------
+               
+         }    
+        ); //uploadTask.on
+   
+    } //if
   }
 
   changeBasicProfile() {
-  	if(this.uploader.queue.length >= 1) {
-  		let file = this.uploader.queue[0];
-  		this.changeAvatar(file);
-      
-      this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
-
-  	}
     let data = {
-      name: this.name,
-      email: this.email,
-      facebook: this.facebook,
-      story: this.story,
-      avatar: this.photo,
-      uid: this.uid
-    }
+        name: this.name,
+        email: this.email,
+        facebook: this.facebook,
+        story: this.story,
+        uid: this.uid,
+        avatar: this.photo 
+      }
 
-  	this.storyService.changeBasicProfile(data).then((data) => {
+    this.storyService.changeBasicProfile(data).then((data) => {
       this.router.navigate(['./dashboard']);
-    });
+    });       
   }
 
 }

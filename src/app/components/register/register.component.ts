@@ -47,7 +47,7 @@ export class RegisterComponent {
             photoURL: photo
           }).then(function() {
             // Update successful.
-            localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName }));
+            localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, photo: photo }));
   
           }, function(error) {
             // An error happened.

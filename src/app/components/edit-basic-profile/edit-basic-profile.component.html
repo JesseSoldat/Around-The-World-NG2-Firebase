@@ -4,6 +4,7 @@
 		<div class="col-xs-12 clearfix">
 			<button class="btn btn-primary pull-right"
 			(click)="changeBasicProfile()">Save Form</button>
+			
 		</div>
 	</div>
 	<br><br>
@@ -17,11 +18,12 @@
 			<br><br>
 			<div class="panel-body">
 
-				<div class="col-xs-12 col-md-4 thumbnail" id="avatarImg">
+				<div class="col-xs-12 col-md-4 thumbnail" id="avatarImg" *ngIf="!showProgressBar">
 					<img src={{avatar}} id="profilePic">
 				</div>
 
-				<div class="col-xs-12 col-md-8" id="uploadContainer">
+				<!-- BEFORE UPLOAD AVATAR -->
+				<div class="col-xs-12 col-md-8" id="uploadContainer" *ngIf="!showProgressBar">
 					<br><br>
 					<div class="form-group">
 						<label>Change you Avatar</label>
@@ -37,7 +39,18 @@
 							</li>
 		    		</ul>
 					</div>
+					<button class="btn btn-primary pull-right" id="editProfileBtn"
+          (click)="editAvatar()">Edit Avatar</button>
 				</div>
+				<!-- DURING UPLOAD AVATAR -->
+				<div class="progress" *ngIf="showProgressBar">
+		      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
+		      style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
+		       {{progress}}%
+		      </div>
+		      <br><br>
+					<button class="btn btn-primary">Head Home</button>
+		    </div>
 		
 			</div>	<!-- panel body	 -->
 		</div>

@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
         // console.log(user);
         this.isAuthenticated = true;
         //Set the user's id up in local storage to use later
-        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true, photo: user.photoURL }));
+        localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, photo: user.photoURL }));
         //Retrieve the users's id
         this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
         this.name = JSON.parse(localStorage.getItem('currentUser')).name;

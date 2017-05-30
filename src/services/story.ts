@@ -17,7 +17,8 @@ export class StoryService {
 	//Firebase USER OBJECT (stored these values in local storage)
 	name: string;  //currently logged in user name
 	uid: string; //currently logged in user uid
-	photo: string; //currentyl logged in user photo
+	photo: string; //currently logged in user photo
+	avatar: string;
 
 	//USER 
 	user: FirebaseListObservable<any>; //all user data
@@ -53,6 +54,7 @@ export class StoryService {
 		this.uid = JSON.parse(localStorage.getItem('currentUser')).uid;
 		this.name = JSON.parse(localStorage.getItem('currentUser')).name;
 		this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
+		this.avatar = this.photo;
 
 		this.locations = this.afDb.list(`locations`) as FirebaseListObservable<Location[]>;
 	}
@@ -125,73 +127,19 @@ export class StoryService {
 		}).catch(function(error) {
 		  // Uh-oh, an error occurred!
 		  console.log(error);
-		});
-	
-		
+		});	
 	}
-
 
 	//BASIC PROFILE-----------------------------------------------------------------------------------	
-	progressBar(snapshot) {
-
-	}
-	//SAVE AVATAR TO STORAGE
-	changeAvatar(file) { 
-    const fileName: string = 'avatar.jpg';
-    this.storageRef = firebase.storage().ref(`avatar/${this.uid}/${fileName}`);
-    const fileRef: any = this.storageRef;
-
-    const uploadTask: any = fileRef.put(file['_file']);
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        this.progressBar(snapshot);
-      },
-      (error) => console.log(error),
-      () => {
-          const data = {
-              url: uploadTask.snapshot.downloadURL,
-              raw: fileName,
-              createdBy: this.uid,      
-          };
-          this.addAvatarRef(data)
-            .then((res) => {
-        			let user = firebase.auth().currentUser;
-        			
-        			
-        			user.updateProfile({
-		            displayName: this.name,
-		            photoURL: data.url
-		          }).then(function() {
-		            // Update successful.
-        			localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, auth: true, photo: user.photoURL }));
-       
-		          }, function(error) {
-		            // An error happened.
-		          });
-
-              // this.router.navigate(['dashboard']);
-            })
-            .catch((err) => console.log(err));
-      }
-  	);
-	}
-
-	//SAVE AVATAR REF TO THE DATABASE
-	addAvatarRef(url) {
-		this.avatarRef = this.afDb.object(`users/${this.uid}/avatar`) as FirebaseObjectObservable<Image>;
-		return this.avatarRef.set(url);
-	}
-
 	getBasicProfile() {
 		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
 		return this.profile;
 	}
 
 	changeBasicProfile(data) {
+		data.avatar = this.avatar;
 		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
 		return this.profile.set(data);
-
-		// window.location.replace('/dashboard');
 	}
 
 	//FRIENDS-----------------------------------------------------------------------------------------
