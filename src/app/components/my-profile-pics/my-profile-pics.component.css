@@ -1,3 +1,13 @@
 #imgContainer {
-	height: 300px;
+	position: relative;
+}
+#viewImgBtn {
+	position: absolute;
+	right: 4%;
+	bottom: 2%;
+	display: none;
+}
+
+#imgContainer:hover #viewImgBtn { 
+	display: block; 
 }

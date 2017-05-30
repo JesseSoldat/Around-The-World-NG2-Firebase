@@ -64,8 +64,9 @@ export class AuthService {
 	logOut() {
 		firebase.auth().signOut()
 			.then(() => {
-        localStorage.removeItem('currentUser');
 				this.router.navigate(['/login']);
+				
+        localStorage.removeItem('currentUser');
 			})
 			.catch((err) => {
 				console.log('error logging out');
