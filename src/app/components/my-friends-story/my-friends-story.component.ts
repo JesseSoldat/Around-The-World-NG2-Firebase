@@ -10,17 +10,14 @@ import { StoryService } from '../../../services/story';
 export class MyFriendsStoryComponent implements OnInit {
 	storyKey: string;
 	friendUid: string;
-	story;
-	imgUrl;
+	story; //object with the story title and description
+	imgUrl; //array of images to loop over
 
   constructor(private router: Router,
   						private route: ActivatedRoute,
   						private storyService: StoryService) {
 
   	this.route.params.subscribe((params) => {
-  		if(!params) {
-  			this.router.navigate(['dashboard']);
-  		}
   		this.storyKey = params['key'];
   		this.friendUid = params['friendUid'];
 
@@ -35,15 +32,14 @@ export class MyFriendsStoryComponent implements OnInit {
   }
 
   ngOnInit() {
-  
   }
 
   viewSingleImage(img) {
-  	this.router.navigate(['single-img-friend', {storyKey: this.storyKey, imgUrl: img.url}])
+  	this.router.navigate(['single-img-friend', {storyKey: this.storyKey, imgUrl: img.url, friendUid: this.friendUid}])
   }
 
   morePhotos(){
-
+    this.router.navigate(['my-friends-story-pics', {storyKey: this.storyKey, friendUid: this.friendUid}])
   }
 
 }

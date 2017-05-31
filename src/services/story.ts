@@ -41,7 +41,7 @@ export class StoryService {
 	friendsObj: FirebaseListObservable<any>; // list of all friends data
 	friends: FirebaseListObservable<Friend[]>; //all of the user's friends UID;
 	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
-	friendStory: FirebaseListObservable<any>; //one story of a friend;
+	friendStory: FirebaseObjectObservable<any>; //one story of a friend;
 
 	recievedReq: FirebaseListObservable<Requested[]>; //all of the user's recived friend's request;
 	sentReq: FirebaseListObservable<Request[]>; //all of the user's sent friend's request;
@@ -165,8 +165,8 @@ export class StoryService {
 	}
 
 	getFriendsStory(friendUid, storyKey) {
-		this.friendStory = this.afDb.list(`users/${friendUid}/stories/${storyKey}`) as FirebaseListObservable<any>;
-		return this.friendsStories;
+		this.friendStory = this.afDb.object(`users/${friendUid}/stories/${storyKey}`) as FirebaseObjectObservable<any>;
+		return this.friendStory;
 	}
 
 	getFriendsRequest(){

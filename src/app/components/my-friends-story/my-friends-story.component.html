@@ -1,13 +1,22 @@
 <div class="container-fluid">
 
-	<div class="row" *ngIf="imgUrl.length > 0">
-		<div class="col-xs-4" *ngFor="let img of imgUrl | slice:0:3"
-		id="imgContainer">
-			<img [src]="img.url" class="img-rounded img-responsive">
+	<!-- md lg screen -->
+	<div class="row" id="imgRow">
+		<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl | slice:0:3" id="imgContainer">
+			<img [src]="img.url"  id="img">			
 			<button class="btn btn-primary" id="viewImgBtn"
 			(click)="viewSingleImage(img)">View Image</button>
 		</div>
 	</div>
+	<!-- xs sm screen -->	
+	<div class="row" id="imgRow">
+		<div class="col-xs-12 hidden-sm hidden-md hidden-lg" *ngFor="let img of imgUrl | slice:0:3" id="imgContainerXs">
+			<img [src]="img.url" id="imgXs" class="img-responsive">			
+			<button class="btn btn-primary" id="viewImgBtnXs"
+			(click)="viewSingleImage(img)">View Image</button>
+		</div>
+	</div>
+
 
 	<div class="row container-fluid" *ngIf="imgUrl.length > 3">
 		<div class="col-xs-12 alert alert-info" role="alert">
@@ -16,11 +25,9 @@
 		</div>
 	</div>
 
-
-	<div class="row col-xs-12 col-sm-10 col-sm-offset-1"
-	*ngFor="let s of story">
-		<h1>{{s.title}}</h1>
-		<h4>{{s.description}}</h4>
+	<div class="row col-xs-12 col-sm-10 col-sm-offset-1">
+		<h1>{{story.title}}</h1>
+		<h4>{{story.description}}</h4>
 	</div>
 
 

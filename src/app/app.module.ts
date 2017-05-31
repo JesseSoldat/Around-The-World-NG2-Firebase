@@ -22,6 +22,7 @@ import { SingleImgComponent } from './components/single-img/single-img.component
 import { MyFriendsStoriesComponent } from './components/my-friends-stories/my-friends-stories.component';
 import { MyFriendsStoryComponent } from './components/my-friends-story/my-friends-story.component';
 import { SingleImgFriendComponent } from './components/single-img-friend/single-img-friend.component';
+import { MyFriendsStoryPicsComponent } from './components/my-friends-story-pics/my-friends-story-pics.component';
 
 //Pipes
 import { FilterTitlePipe } from '../pipes/filterTitle';
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
   {path: 'single-img', component: SingleImgComponent},
   {path: 'my-friends-stories', component: MyFriendsStoriesComponent},
   {path: 'my-friends-story', component: MyFriendsStoryComponent},
-  {path: 'single-img-friend', component: SingleImgFriendComponent}
+  {path: 'single-img-friend', component: SingleImgFriendComponent},
+  {path: 'my-friends-story-pics', component: MyFriendsStoryPicsComponent}
 ];
  
 @NgModule({
@@ -67,7 +69,7 @@ const appRoutes: Routes = [
     FilterTextPipe,
     AddFriendComponent,
     FileDropDirective, 
-    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent, MyFriendsComponent, SingleImgComponent, MyFriendsStoriesComponent, MyFriendsStoryComponent, SingleImgFriendComponent
+    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent, MyFriendsComponent, SingleImgComponent, MyFriendsStoriesComponent, MyFriendsStoryComponent, SingleImgFriendComponent, MyFriendsStoryPicsComponent
   ],
   imports: [
     BrowserModule,

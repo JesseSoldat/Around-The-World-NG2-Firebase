@@ -9,12 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SingleImgFriendComponent implements OnInit {
 	storyKey;
 	imgUrl;
+  friendUid;
 
   constructor(private route: ActivatedRoute,
   						private router: Router) { 
   	this.route.params.subscribe((params) => {
   		this.storyKey = params['storyKey'];
   		this.imgUrl = params['imgUrl'];
+      this.friendUid = params['friendUid'];
   	})
   }
 
@@ -22,9 +24,7 @@ export class SingleImgFriendComponent implements OnInit {
   }
 
   goBack() {
-  	// this.router.navigate(['my-friends-story', {key: this.storyKey}]);
-  	this.router.navigate(['dashboard']);
-
+  	this.router.navigate(['my-friends-story', {key: this.storyKey, friendUid: this.friendUid}]);
   }
 
 }
