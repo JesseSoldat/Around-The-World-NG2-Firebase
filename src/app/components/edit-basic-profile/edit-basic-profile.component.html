@@ -43,13 +43,14 @@
           (click)="editAvatar()">Edit Avatar</button>
 				</div>
 				<!-- DURING UPLOAD AVATAR -->
-				<div class="progress" *ngIf="showProgressBar">
-		      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
-		      style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
-		       {{progress}}%
-		      </div>
-		      <br><br>
-					<button class="btn btn-primary">Head Home</button>
+				<div *ngIf="showProgressBar">
+					<div class="progress">
+			      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
+			      style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
+			       {{progress}}%
+			      </div> 
+			    </div>
+					<button *ngIf="progress === 100" class="btn btn-primary" (click)="changeBasicProfile()">Head Home</button>
 		    </div>
 		
 			</div>	<!-- panel body	 -->

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StoryService } from '../../../services/story';
 
 @Component({
@@ -10,7 +11,8 @@ export class MyFriendsComponent implements OnInit {
   friendsProfile = [];  // a list of all of the friends profiles
   friendsStories = []; // a list of each friends stories
 
-  constructor(private storyService: StoryService) { 
+  constructor(private storyService: StoryService,
+              private router: Router) { 
     let sub;
   	this.storyService.getMyFriends().subscribe((friends) => {
   		friends.forEach((friend) => {
@@ -31,13 +33,14 @@ export class MyFriendsComponent implements OnInit {
   }
 
   ngOnInit() {
-     console.log(this.friendsProfile);
-     console.log(this.friendsStories);  
+     // console.log(this.friendsProfile);
+     // console.log(this.friendsStories);  
   }
 
 
-  viewStories(uid) {
-    console.log(uid);
+  viewStories(friendUid) {
+    this.router.navigate(['my-friends-stories', {friendUid: friendUid}]);
+
   }
 
 }

@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row well"> 
+		<ul class="list-group">
+			<li class="list-group-item col-xs-12" *ngFor="let story of friendStories" 		
+			 id="storyContainer"
+			>	
+				<div class="row">
+					
+					<div class="col-xs-12 col-md-8"> <!-- title description form CONTAINER -->
+						<h2>{{story.title}}</h2>
+						<p>{{story.description | filterText:fText}}</p>										
+					</div> <!-- title description form CONTAINER -->
+
+					<div class="col-xs-12 col-md-4">
+						<sebm-google-map 
+							[latitude]="story.lat"
+							[longitude]="story.lng"
+							[zoom]="4">
+							<sebm-google-map-marker 
+								[latitude]="story.lat"
+								[longitude]="story.lng">
+							</sebm-google-map-marker>
+						</sebm-google-map>
+						<button id="viewStoryBtn" 
+						class="btn btn-primary "
+						(click)="viewStory(story.$key)">View Story</button>
+					</div>
+				</div>  <!-- row -->
+			</li>
+		</ul>
+	</div>
+</div>

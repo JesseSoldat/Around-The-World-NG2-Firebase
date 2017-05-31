@@ -11,7 +11,6 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
-
 @Injectable()
 export class StoryService {
 	//Firebase USER OBJECT (stored these values in local storage)
@@ -42,6 +41,8 @@ export class StoryService {
 	friendsObj: FirebaseListObservable<any>; // list of all friends data
 	friends: FirebaseListObservable<Friend[]>; //all of the user's friends UID;
 	friendsStories: FirebaseListObservable<FriendStory[]>; //all of the stories of a friend;
+	friendStory: FirebaseListObservable<any>; //one story of a friend;
+
 	recievedReq: FirebaseListObservable<Requested[]>; //all of the user's recived friend's request;
 	sentReq: FirebaseListObservable<Request[]>; //all of the user's sent friend's request;
 
@@ -63,7 +64,7 @@ export class StoryService {
 	getUser() {
 		this.user = this.afDb.list(`users/${this.uid}`, {
 			query: {
-		    limitToFirst: 10,
+		    // limitToFirst: 10,
 		    orderByKey: true
 		  }
 		});
@@ -156,6 +157,15 @@ export class StoryService {
 
 	getFriendsStories(friendUid) {
 		this.friendsStories = this.afDb.list(`users/${friendUid}/stories`) as FirebaseListObservable<FriendStory[]>;
+		return this.friendsStories;
+	}
+
+	getFriendsUrl(friendUid, storyKey) {
+		return this.storyImages = this.afDb.list(`users/${friendUid}/stories/${storyKey}/images`) as FirebaseListObservable<Image[]>;
+	}
+
+	getFriendsStory(friendUid, storyKey) {
+		this.friendStory = this.afDb.list(`users/${friendUid}/stories/${storyKey}`) as FirebaseListObservable<any>;
 		return this.friendsStories;
 	}
 

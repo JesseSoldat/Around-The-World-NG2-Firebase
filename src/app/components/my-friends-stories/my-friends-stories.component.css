@@ -1,0 +1,24 @@
+li {
+	list-style: none;
+}
+
+.list-group-item {
+   margin-bottom: 5%;
+   padding: 3% 3% 
+}
+
+#storyDescription {
+	margin-top: 2%;
+}
+
+/*MAP--------------------------------------*/
+sebm-google-map {
+	height: 200px;
+	width: 100%;
+	z-index: 1;
+}
+
+#viewStoryBtn {
+	margin: 0;
+	width: 100%;
+}
