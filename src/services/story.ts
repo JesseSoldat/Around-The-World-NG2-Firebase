@@ -109,6 +109,12 @@ export class StoryService {
 		return this.stories.push(value);
 	}
 
+	editStory(storyKey, title, description) {
+		this.story = this.afDb.object(`users/${this.uid}/stories/${storyKey}`) as FirebaseObjectObservable<Story>;
+		this.story.update({ title: title, description: description });
+		// console.log(storyKey, title);
+	}
+
 	addImageRef(url, addedStoryKey) {
 		this.imageRef = this.afDb.list(`users/${this.uid}/stories/${addedStoryKey}/images`) as FirebaseListObservable<Image[]>;
 		return this.imageRef.push(url);

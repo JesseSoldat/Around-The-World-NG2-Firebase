@@ -26,23 +26,23 @@ export class MyProfilePicsComponent implements OnInit {
        
       });
     });
-
-  	// this.route.queryParams.subscribe(qParams => {      
-			// 	for (let key of Object.keys(qParams)) {
-			// 		 if(typeof(key) === 'string') {
-			// 	   	const val = qParams[key];
-			// 	   	this.imgUrl.push(val);
-			// 		 }
-			// 	} 
-   //  });
   }
 
   ngOnInit() {
-    // console.log(this.imgUrl);
-    // console.log(this.storyKey);
   }
 
-   viewSingleImage(img) {
+  editStory() {
+    this.router.navigate(['my-profile-edit', {storyKey: this.storyKey}]);
+
+  }
+
+  goBack() {
+    this.router.navigate(['my-profile', {key: this.storyKey}]);
+
+  }
+
+
+  viewSingleImage(img) {
     let navigationExtras: NavigationExtras = {
             queryParams: {
               url: img.url,

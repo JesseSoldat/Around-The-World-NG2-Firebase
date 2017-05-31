@@ -6,6 +6,10 @@
 	height: 300px;
 }
 
+#goBackBtn {
+	margin-right: 1%;
+}
+
 #img {
     width:  100%;
     height: 300px;
@@ -29,6 +33,7 @@
 /*xs-small screen*/
 
 #imgXs {
+	margin-top: 1%;
 	margin-bottom: 2%;
 	box-shadow: 10px 10px 10px #888888;
 	border-radius: 1%;

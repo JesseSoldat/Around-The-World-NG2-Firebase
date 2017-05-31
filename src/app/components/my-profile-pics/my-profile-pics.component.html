@@ -1,5 +1,12 @@
 <div class="container-fluid">
 
+	<div class="row" >
+		<div class="col-xs-12">
+			<button id="editStoryBtn" class="btn btn-primary pull-right" (click)="editStory()">Edit Story</button>
+			<button id="goBackBtn" class="btn btn-primary pull-right" (click)="goBack()">Back</button>	
+		</div>
+	</div>
+
 		<!-- md lg screen -->
 		<div class="row" id="imgRow"  *ngIf="imgUrl.length > 0">
 			<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl" id="imgContainer">

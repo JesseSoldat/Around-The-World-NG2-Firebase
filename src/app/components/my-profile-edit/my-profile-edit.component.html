@@ -1,0 +1,88 @@
+<!-- show progress bar -->
+<div class="well col-md-10 col-md-offset-1" *ngIf="showProgressBar">
+		<h2 class="text-center">Depending on the number of images you are uploading this may take a while</h2>
+		<h4 class="text-center">Feel free to head back to the dashboard and check your photos once they are uploaded</h4>
+		
+		<hr>	
+
+		<div class="progress">
+      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
+      style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
+       {{progress}}%
+      </div>
+    </div>
+		<button class="btn btn-primary" (click)="onCancel()">Head Home</button>
+</div>
+
+<!-- no progress bar -->
+<div class="well col-md-10 col-md-offset-1" *ngIf="!showProgressBar">	
+
+	<div class="col-md-10 col-md-offset-1">
+		<h1>Edit Story</h1>
+
+		<form>
+			<div class="form-group">
+				<label>Title</label>
+				<input type="text" class="form-control"
+				[(ngModel)]="title" name="title" maxlength="35" minlength="1">
+			</div>
+			<div class="form-group">
+				<label>Description</label>
+				<textarea class="form-control" 
+				[(ngModel)]="description" name="description" minlength="1"></textarea>
+			</div>
+			<button type="button" class="btn btn-primary"
+			(click)="onEditStory()"
+			data-toggle="modal" data-target="#myModal"
+			>
+				Submit
+			</button>
+			<button type="submit" class="btn btn-danger"
+			 (click)="onCancel()">Cancel</button>
+		</form>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add More Photos to your Story?</h4>
+
+      </div>
+      <div class="modal-body"> 
+
+      	<div class="form-group">
+     			<label for="files" id="fileInputLabel" title=" ">Select files</label>
+					<input type="file" ng2FileSelect [uploader]="uploader" multiple 
+							class="form-control" id="inputfile"/>
+      	</div>
+      	<div>
+
+      		<ul *ngFor="let file of uploader.queue">
+      			<li>{{file.file.name}}&nbsp;&nbsp;  
+      		
+							<span (click)="deleteFromList(file.file.name)" style="{color: 'red'}">
+								<strong>X</strong>
+							</span>
+					</li>
+      		</ul>
+      	</div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"
+        (click)="onCancel()">No Thanks</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal"
+        (click)="onUploadPhoto()"
+        [disabled]="uploader.queue.length < 1"
+        >Upload a Photo?</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

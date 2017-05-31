@@ -13,7 +13,9 @@
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<br>
-				<button class="btn btn-primary">Edit Story</button>
+				<button class="btn btn-primary" (click)="goBack()">Back</button>
+				<button class="btn btn-primary" (click)="editStory()">Edit Story</button>
+
 				<div>
 					<br><br>
 				</div>
@@ -29,6 +31,12 @@
 
 	<!-- HAVE PHOTOS -->
 	<!-- md lg screen -->
+	<div class="row" *ngIf="imgUrl.length > 0">
+		<div class="col-xs-12">
+			<button id="editStoryBtn" class="btn btn-primary pull-right" (click)="editStory()">Edit Story</button>
+			<button id="goBackBtn" class="btn btn-primary pull-right" (click)="goBack()">Back</button>	
+		</div>
+	</div>
 	<div class="row" id="imgRow"  *ngIf="imgUrl.length > 0">
 		<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl | slice:0:3" id="imgContainer">
 			<img [src]="img.url"  id="img">			

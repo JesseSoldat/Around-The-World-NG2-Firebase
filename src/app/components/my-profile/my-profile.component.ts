@@ -37,6 +37,14 @@ export class MyProfileComponent implements OnInit {
   	});
   }
 
+  editStory() {
+    this.router.navigate(['my-profile-edit', {storyKey: this.storyKey}]);
+  }
+
+  goBack() {
+    this.router.navigate(['dashboard']);
+  }
+
   morePhotos() {
     // let urlArray = this.imgUrl.slice(3);
   
