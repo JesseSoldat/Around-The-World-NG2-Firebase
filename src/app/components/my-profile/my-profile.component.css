@@ -14,7 +14,18 @@
 	display: none;
 }
 
+#viewImgBtnXs {
+	position: absolute;
+	right: 6%;
+	bottom: 8%;
+	display: none;
+}
+
 #imgContainer:hover #viewImgBtn { 
+	display: block; 
+}
+
+#imgContainer:hover #viewImgBtnXs  { 
 	display: block; 
 }
 
