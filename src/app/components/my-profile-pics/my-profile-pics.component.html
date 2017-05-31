@@ -1,9 +1,24 @@
 <div class="container-fluid">
-		<div class="row">
-		<div class="col-xs-4 pull-left" *ngFor="let img of imgUrl" id="imgContainer">
-			<img [src]="img.url" class="img-rounded img-responsive">	
-			<button class="btn btn-primary" id="viewImgBtn"
-			(click)="viewSingleImage(img)">View Image</button>
+
+		<!-- md lg screen -->
+		<div class="row" id="imgRow"  *ngIf="imgUrl.length > 0">
+			<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl" id="imgContainer">
+				<img [src]="img.url"  id="img">			
+				<button class="btn btn-primary" id="viewImgBtn"
+				(click)="viewSingleImage(img)">View Image</button>
+			</div>
 		</div>
-	</div>
+
+		<!-- xs-sm screens -->
+		<div class="row" id="imgRow"  *ngIf="imgUrl.length > 0">
+			<div class="col-xs-12 hidden-sm hidden-md hidden-lg" *ngFor="let img of imgUrl" id="imgContainerXs">
+				<img [src]="img.url" id="imgXs" class="img-responsive">			
+				<button class="btn btn-primary" id="viewImgBtnXs"
+				(click)="viewSingleImage(img)">View Image</button>
+			</div>
+		</div>
+
 </div>
+
+<!-- col-md-4 hidden-xs hidden-sm -->
+<!-- col-xs-12 hidden-md hidden-lg -->
