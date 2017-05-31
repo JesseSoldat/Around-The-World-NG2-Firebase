@@ -29,6 +29,7 @@ export class EditBasicProfileComponent implements OnInit {
 
   constructor(private storyService: StoryService,
               private router: Router) {
+    
   	this.uid = JSON.parse(localStorage.getItem('currentUser')).uid
    	this.name = JSON.parse(localStorage.getItem('currentUser')).name;
    	this.photo = JSON.parse(localStorage.getItem('currentUser')).photo;
@@ -78,6 +79,8 @@ export class EditBasicProfileComponent implements OnInit {
               //------------------------------------------------
 
               this.avatar = uploadTask.snapshot.downloadURL;
+              this.storyService.updateAvatar(this.avatar);
+
               let user = firebase.auth().currentUser;
 
               user.updateProfile({
@@ -86,7 +89,10 @@ export class EditBasicProfileComponent implements OnInit {
                 }).then(function() {
                   // Update successful.
      localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, name: user.displayName, photo: user.photoURL }));
+                  
                 
+
+                   
                 }, function(error) {
                   // An error happened.
                 });

@@ -144,9 +144,13 @@ export class StoryService {
 	}
 
 	changeBasicProfile(data) {
-		data.avatar = this.avatar;
 		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
-		return this.profile.set(data);
+		return this.profile.update({email: data.email, facebook: data.facebook, name: data.name, story: data.story, uid: data.uid});
+	}
+
+	updateAvatar(avatar) {
+		this.profile = this.afDb.object(`users/${this.uid}/profile`) as FirebaseObjectObservable<Profile>;
+		return this.profile.update({avatar: avatar});
 	}
 
 	//FRIENDS-----------------------------------------------------------------------------------------
