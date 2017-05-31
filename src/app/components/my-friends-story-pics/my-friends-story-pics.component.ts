@@ -32,4 +32,8 @@ export class MyFriendsStoryPicsComponent implements OnInit {
   	this.router.navigate(['single-img-friend', {imgUrl: img.url, storyKey: this.storyKey, friendUid: this.friendUid}])
   }
 
+  goBack() {
+    this.router.navigate(['my-friends-stories', {friendUid: this.friendUid}])
+  }
+
 }

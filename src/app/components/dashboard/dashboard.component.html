@@ -99,7 +99,7 @@
 						
 					</div> <!-- title description form CONTAINER -->
 
-					<div class="col-xs-12 col-md-4">
+					<div class="col-xs-10 col-md-4">
 						<sebm-google-map 
 							[latitude]="story.lat"
 							[longitude]="story.lng"
@@ -113,6 +113,7 @@
 						class="btn btn-primary "
 						(click)="viewStory(story.$key)">View your Story</button>
 					</div>
+					<div class="col-xs-1 hidden-md hidden-lg"></div>
 				</div>  <!-- row -->
 			</li>
 		</ul>

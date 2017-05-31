@@ -6,8 +6,13 @@
 	height: 250px;
 	padding: 4% 5%;
 	margin-bottom: 4%;
-
 }
+
+#formTitleXs {
+	height: 150px;
+	padding-bottom: 2%;
+}
+
 sebm-google-map {
 	height: 250px;
 }

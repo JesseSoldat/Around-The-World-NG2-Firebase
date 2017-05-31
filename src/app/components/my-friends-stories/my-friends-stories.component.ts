@@ -10,6 +10,8 @@ import { StoryService } from '../../../services/story';
 export class MyFriendsStoriesComponent implements OnInit {
 	friendUid: string; //friend's uid
 	friendStories; //the current friend's stories
+  fText: number = 600; 
+  friendName: string;
 	
 
   constructor(private route: ActivatedRoute,
@@ -24,7 +26,8 @@ export class MyFriendsStoriesComponent implements OnInit {
   ngOnInit() {
   	this.storyService.getFriendsStories(this.friendUid).subscribe((stories) => {
   		this.friendStories = stories;
-  	
+      this.friendName = stories[0].name;
+    	
   	});
   	
   }

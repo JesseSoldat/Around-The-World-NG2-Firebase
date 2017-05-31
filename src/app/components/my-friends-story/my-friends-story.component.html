@@ -1,5 +1,10 @@
 <div class="container-fluid">
-
+	<div class="row">
+		<div class="col-xs-12">
+			<button class="btn btn-primary pull-right" (click)="goBack()">Go Back</button>
+			<br><br>
+		</div>
+	</div>
 	<!-- md lg screen -->
 	<div class="row" id="imgRow">
 		<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl | slice:0:3" id="imgContainer">

@@ -9,21 +9,36 @@
 	<div class="row">
 		<div class="col-xs-12 well" *ngFor="let profile of friendsProfile">
 
-			<div class="col-xs-12 col-sm-4">
-				<img src={{profile.avatar}} min-height="400"
-				class="img-responsive img-thumbnail" >	
-			</div>
-			<div class="col-md-1"></div>
+			
 
-			<div class="col-xs-12 col-sm-7">
-				<h1>{{profile.name}}</h1>
-				<button class="btn btn-primary pull-right"
-				(click)="viewStories(profile.uid)">View Stories</button>
-			</div>
-			<hr>
+			<div class="row">
+
+				<div class="col-xs-12 hidden-sm hidden-md hidden-lg" id="profileContainer">
+					<h1>{{profile.name}}</h1>
+					<button class="btn btn-primary" id="viewStoriesBtn" 
+					(click)="viewStories(profile.uid)">View Stories</button>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<img src={{profile.avatar}} min-height="350"
+					class="img-responsive img-thumbnail" >	
+				</div>
+
+				<div class="col-sm-1 hidden-xs"></div>
+
+				<div class="col-sm-7 hidden-xs" id="profileContainer">
+					<h1>{{profile.name}}</h1>
+					<button class="btn btn-primary" id="viewStoriesBtn" 
+					(click)="viewStories(profile.uid)">View Stories</button>
+				</div>
+
+			</div> <!-- row -->
+		
+
 			<div class="row container">
 				<br><br>
-				<h3>Get in Touch</h3>
+				<h3>Contact</h3>
+
 				<ul class="list-group col-xs-12">
 					<li class="list-group-item">
 						{{profile.email}}

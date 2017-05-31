@@ -1,0 +1,9 @@
+#profileContainer {
+	position: relative;
+}
+
+#viewStoriesBtn {
+	position: absolute;
+	top: 2%;
+	right: 2%;
+}

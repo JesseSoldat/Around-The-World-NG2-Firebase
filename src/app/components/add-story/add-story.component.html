@@ -1,3 +1,4 @@
+<!-- show progress bar -->
 <div class="well col-md-10 col-md-offset-1" *ngIf="showProgressBar">
 		<h2 class="text-center">Depending on the number of images you are uploading this may take a while</h2>
 		<h4 class="text-center">Feel free to head back to the dashboard and check your photos once they are uploaded</h4>
@@ -11,8 +12,9 @@
       </div>
     </div>
 		<button class="btn btn-primary" (click)="onCancel()">Head Home</button>
-
 </div>
+
+<!-- no progress bar -->
 <div class="well col-md-10 col-md-offset-1" *ngIf="!showProgressBar">	
 	<div class="col-md-6" id="formMap">
 		<sebm-google-map
@@ -26,7 +28,12 @@
 			</sebm-google-map-marker>
 		</sebm-google-map>
 	</div>
-	<div class="col-md-5" id="formTitle">
+	<div class="col-md-5 hidden-xs hidden-sm" id="formTitle">
+		<h1>Tell us your Story</h1>
+		<h3>Why is this place special to you?</h3>
+	</div>
+
+	<div class="col-xs-12 hidden-md hidden-lg" id="formTitleXs">
 		<h1>Tell us your Story</h1>
 		<h3>Why is this place special to you?</h3>
 	</div>
