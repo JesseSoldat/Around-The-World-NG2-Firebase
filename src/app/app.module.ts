@@ -32,12 +32,13 @@ import { FilterTextPipe } from '../pipes/filterText';
 import { AuthService } from '../services/auth';
 import { StoryService } from '../services/story';
 //Third Party Modules
-import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
+// import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
+import { FileUploadModule } from 'ng2-file-upload';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -70,8 +71,19 @@ const appRoutes: Routes = [
     FilterTitlePipe,
     FilterTextPipe,
     AddFriendComponent,
-    FileDropDirective, 
-    FileSelectDirective, MyProfileComponent, MyProfilePicsComponent, BasicProfileComponent, EditBasicProfileComponent, MyFriendsComponent, SingleImgComponent, MyFriendsStoriesComponent, MyFriendsStoryComponent, SingleImgFriendComponent, MyFriendsStoryPicsComponent, MyProfileEditComponent
+    // FileDropDirective, 
+    // FileSelectDirective, 
+    MyProfileComponent, 
+    MyProfilePicsComponent, 
+    BasicProfileComponent, 
+    EditBasicProfileComponent, 
+    MyFriendsComponent, 
+    SingleImgComponent, 
+    MyFriendsStoriesComponent, 
+    MyFriendsStoryComponent, 
+    SingleImgFriendComponent, 
+    MyFriendsStoryPicsComponent, 
+    MyProfileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -85,12 +97,14 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    Angular2FontAwesomeModule
+    Angular2FontAwesomeModule,
+    FileUploadModule
  
   ],
   providers: [
     AuthService,
-    StoryService
+    StoryService,
+
   ],
   bootstrap: [AppComponent]
 })

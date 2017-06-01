@@ -28,5 +28,9 @@ export class MapLocationComponent implements OnInit {
   	this.router.navigate(['add-story', this.marker]);
   }
 
+  onCancel() {
+    this.router.navigate(['dashboard']);
+  }
+
 
 }
