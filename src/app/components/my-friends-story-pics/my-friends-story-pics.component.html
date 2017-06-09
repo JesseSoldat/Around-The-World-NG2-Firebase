@@ -1,3 +1,5 @@
+<div id="spacer" class="col-xs-12"></div>
+
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12">
@@ -8,10 +10,13 @@
 
 		<!-- md lg screen -->
 		<div class="row" id="imgRow"  *ngIf="imgUrl.length > 0">
-			<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl" id="imgContainer">
-				<img [src]="img.url"  id="img">			
-				<button class="btn btn-primary" id="viewImgBtn"
-				(click)="viewSingleImage(img)">View Image</button>
+			<div class="col-xs-12 col-lg-10 col-lg-offset-1">
+				<div class="col-sm-4 hidden-xs" *ngFor="let img of imgUrl" 
+					id="imgContainer">
+					<img [src]="img.url"  id="img">			
+					<button class="btn btn-primary" id="viewImgBtn"
+					(click)="viewSingleImage(img)">View Image</button>
+				</div>
 			</div>
 		</div>
 

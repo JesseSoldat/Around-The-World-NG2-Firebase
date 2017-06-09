@@ -1,6 +1,20 @@
+#imgWrapper {
+	 background: url(../../../assets/world-large.svg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	height: 100vh;
+}
+
+#loginWrapper {
+	margin-top: 5%;
+}
+
 h1 {
 	margin: 0;
 	padding: 0;
+	background: transparent;
 }
 
 input.ng-invalid.ng-touched {
@@ -9,4 +23,10 @@ input.ng-invalid.ng-touched {
 
 input.ng-valid.ng-touched {
 	border: 1px solid green;
+}
+
+@media only screen and (max-width: 780px) {
+	#loginWrapper {
+	margin-top: 0;
+	}
 }

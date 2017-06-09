@@ -1,16 +1,6 @@
-/*#imgContainer {
-	position: relative;
+#spacer {
+	margin-top: 30px;
 }
-#viewImgBtn {
-	position: absolute;
-	right: 4%;
-	bottom: 2%;
-	display: none;
-}
-
-#imgContainer:hover #viewImgBtn { 
-	display: block; 
-}*/
 
 /*md-lg screen*/
 #imgContainer {
