@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background: url(./assets/pattern.png) repeat; 
+}
+h1,h2,h3 {
+	font-size: 2.0em !important;
+}
+
+textarea {
+	min-height: 200px !important;
+}
+
+.panel {
+	border: none !important;
+}
+.panel-heading {
+	background: #D7B79C !important; 
+	border: none !important;
+	color: black !important;
+}
+.panel-title {
+	font-size: 1.5em !important;
+}
+
+
+.panel-body {
+	border: none !important;
+}

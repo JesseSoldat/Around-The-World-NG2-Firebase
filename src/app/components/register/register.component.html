@@ -9,12 +9,12 @@
 		</div>
 		<div class="form-group">
 			<label for="email">Email Address</label>
-			<input type="email" name="email" ngModel required
+			<input type="email" name="email" ngModel email required
 			class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="text" name="password" ngModel required
+			<input type="password" name="password" ngModel required
 			class="form-control">
 		</div>
 		<button type="submit" class="btn btn-default" [disabled]="!f.form.valid">Register</button>

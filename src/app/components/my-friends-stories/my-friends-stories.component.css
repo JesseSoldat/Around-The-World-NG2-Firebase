@@ -1,3 +1,7 @@
+#storiesWrapper {
+	background: url(../../../assets/sand.jpg) repeat; 
+	
+}
 li {
 	list-style: none;
 }

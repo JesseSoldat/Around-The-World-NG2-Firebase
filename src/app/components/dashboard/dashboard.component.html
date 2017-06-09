@@ -29,7 +29,7 @@
 </div>
 
 <!-- HAVE STORIES -->
-<div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1" *ngIf="showFilter" >
+<div class="col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1" *ngIf="showFilter">
 	<div class="row">
 		<!-- FRIEND REQUEST -->
 		<div class="col-xs-12">
@@ -57,7 +57,7 @@
 	
 
 	<!-- STORIES -->
-	<div class="row well"> 
+	<div class="row well" id="storiesContainer"> 
 		<ul class="list-group">
 			<li class="list-group-item col-xs-12" *ngFor="let story of (stories | filterTitle:fTitle)" 		
 			 id="storyContainer"

@@ -7,10 +7,8 @@
 <!-- HAVE FRIENDS -->
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 well" *ngFor="let profile of friendsProfile">
-
-			
-
+		<div class="col-xs-12 well" *ngFor="let profile of friendsProfile" id="friendsWrapper">
+		
 			<div class="row">
 
 				<div class="col-xs-12 hidden-sm hidden-md hidden-lg" id="profileContainer">
@@ -34,23 +32,23 @@
 
 			</div> <!-- row -->
 		
+			<div class="row container" id="userInfo">
+				<div>
+					<h3>Contact</h3>
 
-			<div class="row container">
-				<br><br>
-				<h3>Contact</h3>
-
-				<ul class="list-group col-xs-12">
-					<li class="list-group-item">
-						{{profile.email}}
-					</li>
-					<li class="list-group-item">
-						{{profile.facebook}}
-					</li>
-				</ul>
+					<ul class="list-group col-xs-12">
+						<li class="list-group-item">
+							{{profile.email}}
+						</li>
+						<li class="list-group-item">
+							{{profile.facebook}}
+						</li>
+					</ul>
+				</div>
+				<div class="row col-xs-12" id="userStory">
+					<p>{{profile.story}}</p>
+				</div>
 			</div>
-			<div class="row col-xs-12">
-				<p>{{profile.story}}</p>
-			</div>
-		</div>
+		</div>	
 	</div>
 </div>

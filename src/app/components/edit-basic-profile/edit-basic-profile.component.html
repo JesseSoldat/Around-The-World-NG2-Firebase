@@ -16,16 +16,16 @@
 				<h3 class="text-center panel-title">Avatar</h3>	
 			</div>
 			<br><br>
-			<div class="panel-body">
+			<div class="panel-body" id="avatarWrapper">
 
 				<div class="col-xs-12 col-md-4 thumbnail" id="avatarImg" *ngIf="!showProgressBar">
 					<img src={{avatar}} id="profilePic">
 				</div>
-
+				<div class="col-sm-1 hidden-xs"></div>
 				<!-- BEFORE UPLOAD AVATAR -->
-				<div class="col-xs-12 col-md-8" id="uploadContainer" *ngIf="!showProgressBar">
+				<div class="col-xs-12 col-md-7" id="uploadContainer" *ngIf="!showProgressBar">
 					<br><br>
-					<div class="form-group">
+					<div class="form-group" id="changeAvatar">
 						<label>Change you Avatar</label>
 						<input type="file" ng2FileSelect [uploader]="uploader" 
 							class="form-control" id="inputfile"/>
@@ -65,18 +65,6 @@
 			<div class="panel-body">
 				<form>
 					<br><br>
-
-					<!-- <div class="form-group">
-						<label>Decide what you want to share</label>
-						<select class="form-control">
-							<option *ngFor="let option of socialOptions"
-							[value]="'opition'"
-							>
-								{{option}}
-							</option>
-						</select>
-					</div> -->
-				
 				
 				  <div class="form-group">
 						<label>Email</label>
@@ -103,7 +91,7 @@
 	    	<form>
 		    	<div class="form-group">
 			    	<label>Tell us about yourself</label>
-			    	<textarea class="form-control" id="storyText" name="story" 
+			    	<textarea row="8" class="form-control" id="storyText" name="story" 
 			    	class="form-control" [(ngModel)]="story"></textarea>
 			    </div>
 	    	</form> 

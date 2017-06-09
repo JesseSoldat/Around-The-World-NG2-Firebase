@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -8,8 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- <a *ngIf="!isAuthenticated"
-      class="navbar-brand" href="#">Around the World</a> -->
+ 
        <a *ngIf="!isAuthenticated"
       class="navbar-brand">Around the World</a>
 
@@ -26,29 +26,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul *ngIf="isAuthenticated" class="nav navbar-nav">
-
-        <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li> -->
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-          </ul>
-        </li> -->
       </ul>
-   <!--    <form class="navbar-form navbar-left" style="width:400px">
-        <div class="progress">
-          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
-          style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
-           {{progress}}%
-          </div>
-        </div>
-      </form> -->
 
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">

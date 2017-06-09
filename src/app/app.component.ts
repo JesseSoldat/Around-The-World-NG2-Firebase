@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+declare let jQuery: any;
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(() => {
+      window.scrollTo(0, 0);
+    });
 
+    jQuery(function(){ 
+      var navMain = jQuery(".navbar-collapse"); 
+
+      navMain.on("click", "a:not([data-toggle])", null, function () {
+          navMain.collapse('hide');
+      });
+    });
+  
     this.onAuthStateChanged();  
   }
 

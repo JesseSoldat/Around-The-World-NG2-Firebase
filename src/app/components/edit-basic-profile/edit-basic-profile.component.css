@@ -1,15 +1,26 @@
 /*AVATAR ROW----------------------------------*/
 #profilePic {
-	max-height: 200px;
+	width: 100%;
+}
+#avatarWrapper {
+	background: url(../../../assets/sand.jpg) repeat;
 }
 #avatarImg {
-	padding-right: 2%;
+	/*padding-right: 2%;*/
+
 }
 
 /*UPLOADER*/
 #uploadContainer {
     position: relative;
     min-height: 200px; 
+		background: white;
+		border-radius: 2%;
+		box-shadow: 5px 5px 15px;
+
+}
+#changeAvatar {
+	background: white;
 }
 
 #x {
@@ -45,4 +56,10 @@ textarea {
 	padding: 2%;
 }
 
+@media (max-width: 700px) {
+  #profilePic {
+		max-height: 100%;
+		width: 100%;
+	}
+}
 

@@ -55,14 +55,14 @@
 
 
 	<div class="row container-fluid" *ngIf="imgUrl.length > 3">
-		<div class="col-xs-12 alert alert-info" role="alert">
+		<div class="col-xs-12 col-md-10 col-md-offset-1 alert alert-info" role="alert">
 			<label style="margin-right: 2%">You have {{imgUrl.length - 3}} more {{singularPlural}}</label>
 			<button class="btn btn-primary" (click)="morePhotos()">Check it out!</button>
 		</div>
 	</div>
 
 
-	<div class="row col-xs-12 col-sm-10 col-sm-offset-1" *ngIf="story">
+	<div class="row col-xs-12 col-md-10 col-md-offset-1" *ngIf="story" id="story">
 		<h1>{{story.title}}</h1>
 		<h4>{{story.description}}</h4>
 	</div>

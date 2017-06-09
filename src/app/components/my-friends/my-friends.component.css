@@ -1,5 +1,17 @@
 #profileContainer {
 	position: relative;
+	background: url(../../../assets/sand.jpg) repeat; 
+}
+
+#friendsWrapper {
+	background: url(../../../assets/sand.jpg) repeat; 
+}
+
+#userInfo {
+	background: white;
+	display: block;
+	width: 100%;
+	margin: 2% auto;
 }
 
 #viewStoriesBtn {

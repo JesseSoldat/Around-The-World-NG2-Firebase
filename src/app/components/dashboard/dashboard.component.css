@@ -1,6 +1,13 @@
+
 li {
 	list-style: none;
 }
+
+#storiesContainer {
+	background: url(../../../assets/sand.jpg) repeat; 
+}
+
+
 
 .list-group-item {
    margin-bottom: 5%;
@@ -49,9 +56,5 @@ sebm-google-map {
 	height: 50px;
 }
 
-/*@media (max-width: 768px) {
-   #sidebar {
-      display: none;
-  }
-}*/
+
 

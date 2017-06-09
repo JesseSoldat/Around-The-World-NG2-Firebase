@@ -1,4 +1,4 @@
-<div class="contianer-fluid">
+<div class="contianer-fluid" id="imgWrapper">
 
 	<div id="friendRequestContainer" *ngIf="!responding">
 		<div class="alert alert-success clearfix" role="alert">
@@ -14,8 +14,8 @@
 			<button class="btn btn-danger pull-right" (click)="onRespondFriendRequest(false)">No, Thanks</button>
 		</div>
 	</div>
-	<div class="clearfix panel panel-default" *ngFor="let story of stories"
-		class="col-xs-4">
+	<div id="imgWrapper" class="panel panel-default" *ngFor="let story of stories"
+		class="col-xs-12 col-sm-4" id="storyCard">
 	  <div class="panel-body storyPanel">
 	  <sebm-google-map
 				[latitude]="story.lat"

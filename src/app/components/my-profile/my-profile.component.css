@@ -52,5 +52,11 @@
 	display: block; 
 }
 
+#story {
+	background: white;
+	display: block;
+	padding: 1%;
+}
+
 
 
