@@ -1,5 +1,6 @@
 .navbar-default {
 	background: #D7B79C; 
+	z-index: 5000;
 }
 
 a, li, i {

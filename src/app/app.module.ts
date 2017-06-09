@@ -39,8 +39,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome';
 import { FileUploadModule } from 'ng2-file-upload';
-import {NgsRevealModule} from 'ng-scrollreveal';
-
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -98,9 +96,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     Angular2FontAwesomeModule,
-    FileUploadModule,
-    NgsRevealModule.forRoot()
-    
+    FileUploadModule
  
   ],
   providers: [

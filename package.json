@@ -30,11 +30,9 @@
     "install": "^0.10.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "ng-scrollreveal": "^2.0.3",
     "ng2-file-upload": "^1.2.1",
     "npm": "^5.0.3",
     "rxjs": "^5.1.0",
-    "scrollreveal": "^3.3.5",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
